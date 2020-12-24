@@ -1,12 +1,35 @@
 <template>
   <div id="app">
-    <router-view/>
+    <p v-if="!hasRequestSent">loading...</p>
+    <router-view v-else/>
   </div>
 </template>
 
 <script>
+import API from './api'
+
 export default {
   name: 'App',
+  data() {
+    return {
+      hasRequestSent: false
+    }
+  },
+  created() {
+    const token = window.localStorage.getItem('token')
+    if (token) {
+      API.get('user').then(res => {
+        const user = res.data
+        this.$store.commit('setAuthUser', user)
+        this.hasRequestSent = true
+      }).catch(error=>{
+        console.log('err', error.message)
+        this.hasRequestSent = true
+      })
+    } else {
+      this.hasRequestSent = true
+    }
+  }
 }
 </script>
 
