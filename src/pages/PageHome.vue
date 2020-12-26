@@ -1,9 +1,6 @@
 <template>
   <div class="container-home">
-    <nav>
-      <router-link to="/">Home</router-link>
-      <router-link to="/about">About</router-link>
-    </nav>
+    <navMenu />
     <Users />
     <LoginForm />
     <RegisterForm />
@@ -18,6 +15,8 @@
 </template>
 
 <script>
+
+import NavMenu from '../NavMenu'
 import Users from '../Users'
 import LoginForm from '../components/auth/LoginForm'
 import RegisterForm from '../components/auth/RegisterForm'
@@ -26,7 +25,8 @@ export default {
   components: {
     Users,
     LoginForm,
-    RegisterForm
+    RegisterForm,
+    NavMenu
   },
   methods: {
    

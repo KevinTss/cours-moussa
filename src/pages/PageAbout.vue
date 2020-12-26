@@ -1,9 +1,6 @@
 <template>
   <div class="container-about">
-    <nav>
-      <router-link to="/">Home</router-link>
-      <router-link to="/about">About</router-link>
-    </nav>
+    <navMenu />
     about
     {{JSON.stringify($store.state.users)}}
     <button @click="addUser">add user</button>
@@ -11,7 +8,11 @@
 </template>
 
 <script>
+  import NavMenu from '../NavMenu'
 export default {
+    components:{
+      NavMenu
+    },
   methods: {
     addUser() {
       this.$store.commit('addUser')
