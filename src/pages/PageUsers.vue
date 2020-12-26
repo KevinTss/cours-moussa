@@ -41,7 +41,7 @@
 </template>
 
 <script>
-    import NavMenu from '../NavMenu'
+    import NavMenu from '../components/layouts/NavMenu'
     import API from "../api";
     export default {
         components:{

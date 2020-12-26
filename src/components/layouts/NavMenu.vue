@@ -1,4 +1,6 @@
 <template>
+    <div class="nav-bar">
+        <span>Logo</span>
         <b-nav>
             <b-nav-item>
                 <b-link to="/">HOME</b-link>
@@ -10,10 +12,24 @@
                 <b-link to="/members">MEMBERS</b-link>
             </b-nav-item>
         </b-nav>
+    <auth-state/>
+    </div>
 </template>
 
 <script>
   import 'bootstrap/dist/css/bootstrap.css'
   import 'bootstrap-vue/dist/bootstrap-vue.css'
-  export default {}
+  import AuthState from '../auth/AuthState'
+
+  export default {
+      components: {
+          AuthState
+      }
+  }
 </script>
+
+<style>
+.nav-bar {
+    display: flex;
+}
+</style>

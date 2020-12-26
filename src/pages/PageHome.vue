@@ -2,8 +2,6 @@
   <div class="container-home">
     <navMenu />
     <Users />
-    <LoginForm />
-    <RegisterForm />
 
     <div>
       <h2>
@@ -16,20 +14,13 @@
 
 <script>
 
-import NavMenu from '../NavMenu'
+import NavMenu from '../components/layouts/NavMenu'
 import Users from '../Users'
-import LoginForm from '../components/auth/LoginForm'
-import RegisterForm from '../components/auth/RegisterForm'
 
 export default {
   components: {
     Users,
-    LoginForm,
-    RegisterForm,
     NavMenu
-  },
-  methods: {
-   
   },
   created() {
     console.log(this.$store.state.users)
