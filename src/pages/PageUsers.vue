@@ -16,7 +16,6 @@
 
 <script>
     import NavMenu from '../components/layouts/NavMenu'
-    import API from "../api";
 
     export default {
         components:{
@@ -25,14 +24,11 @@
         data(){
             return {
                 fields: ['index','id', 'email', 'country_id','country_name','addresses[0].route'],
-
             }
         },
         mounted() {
             if(this.$store.state.users.length < 1) {
-                API.get('users').then(res => {
-                    this.$store.commit('setUsers', res.data.data.data)
-                })
+                this.$store.dispatch('fetchUsers')
             }
         }
     }
