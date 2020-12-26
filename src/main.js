@@ -1,31 +1,20 @@
 import Vue from 'vue';
-import VueRouter from 'vue-router';
 import Vuex from 'vuex';
 import BootstrapVue from 'bootstrap-vue';
 
 import App from './App.vue';
-import PageHome from './pages/PageHome.vue';
-import PageAbout from './pages/PageAbout.vue';
-//import PageAnnounces from './pages/PageUsers.vue';
-import PageUsers from './pages/PageUsers';
+import router from './router';
 
-Vue.use(VueRouter);
 Vue.use(Vuex);
 Vue.use(BootstrapVue);
 
-const router = new VueRouter({
-  routes: [
-    { path: '/', component: PageHome },
-    { path: '/about', component: PageAbout },
-    { path: '/members', component: PageUsers },
-  ],
-});
+const initialState = {
+  authUser: null,
+  users: [],
+};
 
 const store = new Vuex.Store({
-  state: {
-    authUser: null,
-    users: [],
-  },
+  state: initialState,
   mutations: {
     addUser: (state) => {
       state.users = ['kevin', 'Paul'];
@@ -37,7 +26,7 @@ const store = new Vuex.Store({
 });
 
 new Vue({
-  router: router,
-  store: store,
+  router,
+  store,
   render: (h) => h(App),
 }).$mount('#app');
