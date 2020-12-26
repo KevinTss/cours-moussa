@@ -6,6 +6,7 @@ import PageAbout from '../pages/PageAbout';
 import PageUsers from '../pages/PageUsers';
 import PageLogin from '../pages/PageLogin';
 import PageRegister from '../pages/PageRegister';
+import PageLogout from '../pages/PageLogout';
 
 Vue.use(VueRouter);
 
@@ -13,9 +14,11 @@ const router = new VueRouter({
   routes: [
     { path: '/', component: PageHome },
     { path: '/login', component: PageLogin },
+    { path: '/logout', component: PageLogout },
     { path: '/register', component: PageRegister },
     { path: '/about', component: PageAbout },
     { path: '/members', component: PageUsers },
+    { path: '*', redirect: '/' },
   ],
 });
 

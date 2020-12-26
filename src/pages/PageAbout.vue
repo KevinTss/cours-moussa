@@ -1,23 +1,17 @@
 <template>
   <div class="container-about">
-    <navMenu />
+    <nav-menu />
     about
-    {{JSON.stringify($store.state.users)}}
-    <button @click="addUser">add user</button>
   </div>
 </template>
 
 <script>
-  import NavMenu from '../components/layouts/NavMenu'
+import NavMenu from '../components/layouts/NavMenu'
+
 export default {
-    components:{
-      NavMenu
-    },
-  methods: {
-    addUser() {
-      this.$store.commit('addUser')
-    }
-  }
+  components:{
+    NavMenu
+  },
 }
 </script>
 
@@ -25,8 +19,5 @@ export default {
 .container-about {
   display: flex;
   flex-direction: column;
-}
-nav {
-  display: flex;
 }
 </style>

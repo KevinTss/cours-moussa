@@ -16,11 +16,16 @@ const initialState = {
 const store = new Vuex.Store({
   state: initialState,
   mutations: {
-    addUser: (state) => {
-      state.users = ['kevin', 'Paul'];
+    setUsers: (state, newUsers) => {
+      state.users = newUsers;
     },
     setAuthUser: (state, user) => {
       state.authUser = user;
+    },
+    setInitialState: (state) => {
+      state.authUser = null;
+      state.users = [];
+      window.localStorage.removeItem('token');
     },
   },
 });
