@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="$store.state.authUser">
-      <b-link to="/logout">Logout</b-link>
+      <b-link @click="logout">Logout</b-link>
     </div>
     <div v-else>
       <b-link to="/login">Login</b-link>
@@ -11,6 +11,11 @@
 
 <script>
 export default {
-
+  methods: {
+    logout() {
+      this.$store.commit('setInitialState')
+      this.$router.push({ path: '/' })
+    }
+  }
 }
 </script>
