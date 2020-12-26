@@ -11,4 +11,7 @@ Ex: si le user vas sur une route qui demande une auth,
 s'il ne l'es pas redirect vers login gérer ce cas une fois pour toutes les routes
 , ne pas dupliquer le code. 
 
-## `Utiliser un component`
+## `Login dans modal`
+Garder tout pareil et en plus d'avoir la possibilité de le faire depuis la page
+login, avoir la possibilité de se logger depuis un modal,
+faudrait il tt mettre la logique dans action ?? 

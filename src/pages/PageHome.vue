@@ -5,7 +5,8 @@
       <h2>
         Is connected?
       </h2>
-      <p>{{JSON.stringify(this.$store.state.authUser)}}</p>
+      <label>Name: {{JSON.stringify(this.$store.state.authUser)}}</label>
+
     </div>
   </div>
 </template>

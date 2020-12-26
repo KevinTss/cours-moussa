@@ -30,6 +30,7 @@ export default {
 
         window.localStorage.setItem('token', token)
         this.$store.commit('setAuthUser', user)
+        this.$router.push('/')
       }).catch(error => {
         console.log('err', error.message)
       })

@@ -8,7 +8,7 @@
             <b-nav-item>
                 <b-link to="/about">ABOUT</b-link>
             </b-nav-item>
-            <b-nav-item>
+            <b-nav-item v-if="$store.state.authUser">
                 <b-link to="/members">MEMBERS</b-link>
             </b-nav-item>
         </b-nav>
