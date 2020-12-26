@@ -20,7 +20,7 @@
         data(){
             return {
                 fields: ['id', 'email', 'country_id',
-                    'country_name',{key:'addresses[0].route', label:'Address'}],
+                    'country_name',{key:'addresses[0].route', label:'Address'},'profile_picture_url'],
             }
         },
         mounted() {

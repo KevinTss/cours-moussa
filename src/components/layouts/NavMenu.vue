@@ -11,6 +11,9 @@
             <b-nav-item v-if="$store.state.authUser">
                 <b-link to="/members">MEMBERS</b-link>
             </b-nav-item>
+            <b-nav-item>
+                <b-link to="/announce/create">CREATE ANNOUNCE</b-link>
+            </b-nav-item>
         </b-nav>
     <auth-state/>
     </div>
@@ -20,7 +23,6 @@
   import 'bootstrap/dist/css/bootstrap.css'
   import 'bootstrap-vue/dist/bootstrap-vue.css'
   import AuthState from '../auth/AuthState'
-
   export default {
       components: {
           AuthState

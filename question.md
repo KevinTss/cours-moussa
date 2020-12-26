@@ -15,3 +15,8 @@ s'il ne l'es pas redirect vers login gérer ce cas une fois pour toutes les rout
 Garder tout pareil et en plus d'avoir la possibilité de le faire depuis la page
 login, avoir la possibilité de se logger depuis un modal,
 faudrait il tt mettre la logique dans action ?? 
+
+## `Pagination`
+gérer les paginations
+
+## `Picture GET`
