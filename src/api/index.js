@@ -2,7 +2,6 @@ import axios from 'axios';
 
 class API {
   baseUrl = '';
-  headers = {};
 
   constructor() {
     this.baseUrl = 'http://ctb2.promaniak.com/api';
@@ -11,15 +10,11 @@ class API {
   getHeaders() {
     const token = window.localStorage.getItem('token');
     if (token) {
-      this.setToken(token);
+      return {
+        Authorization: `Bearer ${token}`,
+      };
     }
-    return this.headers;
-  }
-
-  setToken(token) {
-    this.headers = {
-      Authorization: `Bearer ${token}`,
-    };
+    return {};
   }
 
   get(endpoint) {
