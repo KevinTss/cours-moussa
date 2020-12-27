@@ -5,7 +5,7 @@
       <h2>
         Is connected?
       </h2>
-      <label>Welcome {{JSON.stringify(this.$store.state.authUser.name)}}</label>
+      <label>Welcome <span v-if="this.$store.state.authUser">{{JSON.stringify(this.$store.state.authUser.name)}}</span></label>
 
     </div>
   </div>

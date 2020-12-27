@@ -20,3 +20,4 @@ faudrait il tt mettre la logique dans action ??
 gérer les paginations
 
 ## `Picture GET`
+Comment récuperer/ afficher une image depuis url

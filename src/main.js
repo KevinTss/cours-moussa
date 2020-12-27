@@ -13,21 +13,28 @@ const initialState = {
   authUser: null,
   users: [],
 };
+const brands = [];
 
 const store = new Vuex.Store({
-  state: initialState,
+  state: {
+    initialState, brands
+  },
   mutations: {
     setUsers: (state, newUsers) => {
-      state.users = newUsers;
+      state.initialState.users = newUsers;
     },
     setAuthUser: (state, user) => {
-      state.authUser = user;
+      console.log(state.initialState.authUser)
+      state.initialState.authUser = user;
     },
     setInitialState: (state) => {
-      state.authUser = null;
-      state.users = [];
+      state.initialState.authUser = null;
+      state.initialState.users = [];
       window.localStorage.removeItem('token');
     },
+    setBrandCars: (state, brands) => {
+      state.brands = brands
+    }
   },
   actions: {
     fetchUsers: (store) => {
@@ -37,6 +44,13 @@ const store = new Vuex.Store({
         })
         .catch((e) => console.log('Error: ', e.message));
       store.commit('setUsers', []);
+    },
+    fetchBrands: (store) => {
+      API.get('brand_cars')
+          .then((response) => {
+            console.log(response.data.data.brands)
+        store.commit('setBrandCars',response.data.data.brands)
+      })
     },
   },
 });

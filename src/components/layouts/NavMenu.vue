@@ -8,10 +8,10 @@
             <b-nav-item>
                 <b-link to="/about">ABOUT</b-link>
             </b-nav-item>
-            <b-nav-item v-if="$store.state.authUser">
+            <b-nav-item v-if="$store.state.initialState.authUser">
                 <b-link to="/members">MEMBERS</b-link>
             </b-nav-item>
-            <b-nav-item>
+            <b-nav-item v-if="$store.state.initialState.authUser">
                 <b-link to="/announce/create">CREATE ANNOUNCE</b-link>
             </b-nav-item>
         </b-nav>

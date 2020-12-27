@@ -19,7 +19,7 @@ const router = new VueRouter({
     { path: '/members', component: PageUsers },
     { path: '/announce/create', component: PageCreateAnnounce },
     { path: '*', redirect: '/' },
-  ],
+  ]
 });
 
 export default router;

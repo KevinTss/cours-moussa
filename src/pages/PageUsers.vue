@@ -2,7 +2,7 @@
     <div class="container-users-page">
         <nav-menu />
         <div>
-            <b-table striped hover :items="$store.state.users" :fields="fields">
+            <b-table striped hover :items="$store.state.initialState.users" :fields="fields">
                 <template #cell(addresses)="data">
                     <b class="text-info">{{ data.value}}</b>
                 </template>
@@ -24,7 +24,7 @@
             }
         },
         mounted() {
-            if(this.$store.state.users.length < 1) {
+            if(this.$store.state.initialState.users.length < 1) {
                 this.$store.dispatch('fetchUsers')
             }
         }

@@ -5,10 +5,9 @@
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="brand">Brand</label>
-                    <select id="brand" class="form-control">
-                        <option selected>Choose...</option>
-                        <option>...</option>
-                    </select>
+                        <select id="brand" class="form-control">
+                            <option  v-for="brand in $store.state.brands" :key="brand.id" >{{brand.name}}</option>
+                        </select>
                 </div>
                 <div class="form-group col-md-2">
                     <label for="month">Month</label>
@@ -82,10 +81,13 @@
 
 <script>
     import NavMenu from "../components/layouts/NavMenu";
-
     export default {
         components: {NavMenu},
-        data() {
+        mounted() {
+            console.log(this.brands)
+            if(this.$store.state.brands.length < 1) {
+                this.$store.dispatch('fetchBrands')
+            }
         }
     }
 </script>
