@@ -1,12 +1,11 @@
 <template>
   <div>
-    <div v-if="$store.state.initialState.authUser">
+    <div v-if="authUser">
       <b-nav>
-        <img id="avatar" src="$store.state.initialState.authUser.profile_picture_url"
+        <img id="avatar" v-bind:src="authUser.profile_picture_url"
              width="60">
-        <!--<span>{{$store.state.initialState.authUser.profile_picture_url}}</span>-->
         <b-nav-item>
-          <b-link @click="logout">Logout</b-link>
+          <b-link @click="$store.dispatch('logout')">Logout</b-link>
         </b-nav-item>
       </b-nav>
     </div>
@@ -24,22 +23,15 @@
 </template>
 
 <script>
-  //console.log($store.state.initialState.authUser['profile_picture_url'])
+import AuthMixin from '../../mixins/auth'
+
 export default {
-
-  methods: {
-    logout() {
-      this.$store.commit('setInitialState')
-      this.$router.push({ path: '/' })
-    }
-  }
+  mixins: [AuthMixin],
 }
-
-
 </script>
+
 <style>
-  #avatar
-  {
+  #avatar {
     border-radius: 50%;
   }
 </style>

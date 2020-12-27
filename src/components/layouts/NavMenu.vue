@@ -8,12 +8,14 @@
             <b-nav-item>
                 <b-link to="/about">ABOUT</b-link>
             </b-nav-item>
-            <b-nav-item v-if="$store.state.initialState.authUser">
-                <b-link to="/members">MEMBERS</b-link>
-            </b-nav-item>
-            <b-nav-item v-if="$store.state.initialState.authUser">
-                <b-link to="/announce/create">CREATE ANNOUNCE</b-link>
-            </b-nav-item>
+            <template v-if="authUser">
+                <b-nav-item>
+                    <b-link to="/members">MEMBERS</b-link>
+                </b-nav-item>
+                <b-nav-item>
+                    <b-link to="/announces/new">CREATE ANNOUNCE</b-link>
+                </b-nav-item>
+            </template>
         </b-nav>
     <auth-state/>
     </div>
@@ -23,10 +25,13 @@
   import 'bootstrap/dist/css/bootstrap.css'
   import 'bootstrap-vue/dist/bootstrap-vue.css'
   import AuthState from '../auth/AuthState'
+  import AuthMixin from '../../mixins/auth'
+
   export default {
+      mixins: [AuthMixin],
       components: {
           AuthState
-      }
+      },
   }
 </script>
 

@@ -16,11 +16,13 @@ export default {
     }
   },
   created() {
+    // console.log('$store', this.$store.state)
+    console.log('$store', this.$store)
     const token = window.localStorage.getItem('token')
     if (token) {
       API.get('user').then(res => {
         const user = res.data
-        this.$store.commit('setAuthUser', user)
+        this.$store.commit('auth/setAuthUser', user)
         this.hasRequestSent = true
       }).catch(error=>{
         console.log('err', error.message)

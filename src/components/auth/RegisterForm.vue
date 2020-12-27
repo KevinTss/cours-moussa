@@ -7,8 +7,6 @@
 </template>
 
 <script>
-import API from '../../api'
-
 export default {
   data() {
     return {
@@ -20,20 +18,12 @@ export default {
     register(event) {
       event.preventDefault()
 
-      API.post('register', {
+      this.$store.dispatch('register', {
         email: this.email,
         password: this.password,
         user_type: "particular",
         country_name: "BE",
         phone: "470 12 45 78"
-      }).then(res => {
-        // const {token, user} = res.data
-        const token = res.data.data.token
-        // const user = res.data.data.user
-
-        window.localStorage.setItem('token', token)
-      }).catch(error => {
-        console.log('err', error.message)
       })
     },
   }
