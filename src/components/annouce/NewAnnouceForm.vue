@@ -135,7 +135,7 @@ export default {
      */
     getYears() {
       const yearsRange = []
-      for (let number = 2000; number <= 2021; number++) {
+      for (let number = new Date().getFullYear(); number >= 1960; number--) {
         yearsRange.push(number)
       }
       return yearsRange
