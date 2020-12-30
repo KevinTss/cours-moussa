@@ -18,10 +18,10 @@ export default {
     login(event) {
       event.preventDefault()
 
-      this.$store.dispatch('login', {
+      this.$store.dispatch('auth/login', {
         email: this.email,
         password: this.password
-      }, "coucou")
+      })
     },
   }
 }

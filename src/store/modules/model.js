@@ -16,8 +16,10 @@ const storeModel = {
     },
   },
   actions: {
-    fetchModels(store, brandId) {
-      API.get(`brand_cars/${brandId}/model_cars`)
+    fetchModels(store, data) {
+      API.get(
+        `brand_cars/${data.brandId}/model_cars?year=${data.year}&fuel=${data.fuel}`
+      )
         .then((response) => {
           store.commit('setModels', response.data);
         })

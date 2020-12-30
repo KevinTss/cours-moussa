@@ -19,7 +19,8 @@ export default {
     // console.log('$store', this.$store.state)
     console.log('$store', this.$store)
     const token = window.localStorage.getItem('token')
-    if (token) {
+    // eslint-disable-next-line no-constant-condition
+    if (token && false) {
       API.get('user').then(res => {
         const user = res.data
         this.$store.commit('auth/setAuthUser', user)

@@ -11,6 +11,7 @@
     import BrandMixin from '../mixins/brand'
 
     export default {
+        name: "page-create-announce",
         mixins: [BrandMixin],
         components: {NavMenu, NewAnnouceForm},
         mounted() {

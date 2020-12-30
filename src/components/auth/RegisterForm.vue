@@ -18,7 +18,7 @@ export default {
     register(event) {
       event.preventDefault()
 
-      this.$store.dispatch('register', {
+      this.$store.dispatch('auth/register', {
         email: this.email,
         password: this.password,
         user_type: "particular",

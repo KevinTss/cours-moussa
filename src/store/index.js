@@ -5,6 +5,7 @@ import API from '../api';
 import moduleModel from './modules/model';
 import storeBrand from './modules/brand';
 import storeAuth from './modules/auth';
+import storeForm from './modules/form';
 
 Vue.use(Vuex);
 
@@ -13,6 +14,7 @@ const store = new Vuex.Store({
     model: moduleModel,
     brand: storeBrand,
     auth: storeAuth,
+    form: storeForm,
   },
   state: {
     users: [],
