@@ -70,9 +70,9 @@
   <div v-if="formData.transmission" class="form-row">
       <div class="form-group col-md-4">
           <label for="serial">Sérial</label>
-          <select id="serial" class="form-control">
+          <select id="serial" class="form-control" name="serial" @change="(event) => onSelectChange(event, null)">
               <option selected>Choose...</option>
-              <option>...</option>
+              <option  v-for="serial in serials" :key="serial.id" :value="serial.id">{{serial.version_name}}</option>
           </select>
       </div>
       <div class="form-group col-md-4">
@@ -95,9 +95,10 @@
 
 <script>
 import ModelMixin from '../../mixins/model'
+import SerialMixin from '../../mixins/serial'
 
 export default {
-  mixins: [ModelMixin],
+  mixins: [ModelMixin,SerialMixin],
   data() {
     return {
       step: 0,
@@ -118,12 +119,17 @@ export default {
     formDataModelId() {
       return this.formData.modelId
     },
+      formDataSerialId() {
+          return this.formData.serialId
+      },
     kws() {
-      return this.$store.getters["serial/getAllSerials"].map(el => el.power_cv)
+        console.log(this.$store.getters['serial/getAllSerials'])
+      return this.$store.getters['serial/getAllSerials'].map(el => el.power_cv)
     },
     gearboxes() {
-      return this.$store.getters["serial/getAllSerials"].map(el => el.gearbox)
+      return this.$store.getters['serial/getAllSerials'].map(el => el.gearbox)
     }
+
   },
   methods: {
     /**
@@ -164,6 +170,9 @@ export default {
       this.$store.dispatch('model/fetchModels')
     },
     formDataModelId() {
+      this.$store.dispatch('serial/fetchSerials')
+    },
+    formDataSerialId() {
       this.$store.dispatch('serial/fetchSerials')
     },
   },
