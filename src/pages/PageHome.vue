@@ -5,7 +5,7 @@
       <h2>
         Is connected?
       </h2>
-      <label>Welcome <span v-if="this.$store.state.authUser">{{JSON.stringify(this.$store.state.authUser.name)}}</span></label>
+      <label v-if="authUser">Welcome  {{JSON.stringify(authUser.name)}}</label>
 
     </div>
   </div>
@@ -13,8 +13,9 @@
 
 <script>
 import NavMenu from '../components/layouts/NavMenu'
-
+import AuthMixin from "../mixins/auth"
 export default {
+  mixins: [AuthMixin],
   components: {
     NavMenu
   },

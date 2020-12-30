@@ -19,5 +19,10 @@ faudrait il tt mettre la logique dans action ??
 ## `Pagination`
 gérer les paginations
 
-## `Picture GET`
+## `Picture GET => OK`
 Comment récuperer/ afficher une image depuis url
+
+## TESTER MODEL_cars for announce
+#### `GET /api/brand_cars/{id}/model_cars`
+On peut tester avec brandId=27
+
