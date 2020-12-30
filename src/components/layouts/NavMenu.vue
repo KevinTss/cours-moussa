@@ -8,7 +8,7 @@
             <b-nav-item>
                 <b-link to="/about">ABOUT</b-link>
             </b-nav-item>
-            <template v-if="authUser || true">
+            <template v-if="authUser">
                 <b-nav-item>
                     <b-link to="/members">MEMBERS</b-link>
                 </b-nav-item>

@@ -16,12 +16,24 @@ const storeModel = {
     },
   },
   actions: {
-    fetchModels(store, data) {
-      API.get(
-        `brand_cars/${data.brandId}/model_cars?year=${data.year}&fuel=${data.fuel}`
-      )
+    fetchModels(store) {
+      // const brandId = store.rootGetters["form/getCreateAnnounceFromData"].brandId
+      // const year = store.rootGetters["form/getCreateAnnounceFromData"].year
+      // const fuel = store.rootGetters["form/getCreateAnnounceFromData"].fuel
+      const { brandId, year, fuel } = store.rootGetters[
+        'form/getCreateAnnounceFromData'
+      ];
+      let endpoint = `brand_cars/${brandId}/model_cars`;
+      if (year || fuel) {
+        endpoint += '?';
+        year && (endpoint += `year=${year}`);
+        year && fuel && (endpoint = +'&');
+        fuel && (endpoint += `fuel=${fuel}`);
+      }
+
+      API.get(endpoint)
         .then((response) => {
-          store.commit('setModels', response.data);
+          store.commit('setModels', response.data.data.models);
         })
         .catch((e) => console.log('Error: ', e.message));
     },

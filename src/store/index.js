@@ -6,15 +6,17 @@ import moduleModel from './modules/model';
 import storeBrand from './modules/brand';
 import storeAuth from './modules/auth';
 import storeForm from './modules/form';
+import storeSerial from './modules/serial';
 
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
   modules: {
-    model: moduleModel,
-    brand: storeBrand,
     auth: storeAuth,
+    brand: storeBrand,
     form: storeForm,
+    model: moduleModel,
+    serial: storeSerial,
   },
   state: {
     users: [],

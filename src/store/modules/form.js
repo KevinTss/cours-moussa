@@ -9,6 +9,7 @@ const storeModel = {
       modelId: null,
       kw: null,
       transmission: null,
+      serialId: null,
     },
   },
   getters: {

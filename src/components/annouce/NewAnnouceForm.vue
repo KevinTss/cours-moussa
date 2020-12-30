@@ -33,7 +33,7 @@
         </div>
       </template>
 
-      <div v-if="step > 1" class="form-group col-md-4">
+      <div v-if="formData.month && formData.year" class="form-group col-md-4">
           <label for="fuel">Fuel</label>
           <select id="fuel" class="form-control" name="fuel" @change="(event) => onSelectChange(event, null)">
               <option selected>Choose...</option>
@@ -43,7 +43,7 @@
 
   </div>
 
-  <div v-if="step > 1" class="form-row">
+  <div v-if="formData.fuel" class="form-row">
       <div class="form-group col-md-4">
           <label for="model">Model</label>
           <select id="model" class="form-control" name="modelId" @change="(event) => onSelectChange(event, null)">
@@ -51,23 +51,23 @@
               <option  v-for="model in models" :key="model.id" :value="model.id">{{model.model_name}}</option>
           </select>
       </div>
-      <div v-if="step > 1" class="form-group col-md-4" >
+      <div v-if="formData.modelId" class="form-group col-md-4" >
           <label for="kw">Kw</label>
           <select id="kw" class="form-control" name="kw" @change="(event) => onSelectChange(event, null)">
               <option selected>Choose...</option>
-              <option>...</option>
+              <option  v-for="kw in kws" :key="kw" :value="kw">{{kw}}</option>
           </select>
       </div>
-      <div v-if="step > 1" class="form-group col-md-4">
+      <div v-if="formData.kw" class="form-group col-md-4">
           <label for="transmission">Transmission</label>
           <select id="transmission" class="form-control" name="transmission" @change="(event) => onSelectChange(event, null)">
               <option selected>Choose...</option>
-              <option>...</option>
+              <option  v-for="gearbox in gearboxes" :key="gearbox" :value="gearbox">{{gearbox}}</option>
           </select>
       </div>
   </div>
 
-  <div v-if="step > 1" class="form-row">
+  <div v-if="formData.transmission" class="form-row">
       <div class="form-group col-md-4">
           <label for="serial">Sérial</label>
           <select id="serial" class="form-control">
@@ -104,14 +104,25 @@ export default {
       years: [],
       months: [],
       fuels: ["Diesel", "Gasoline", "Electric"],
-      // formData: {
-      //  brandId: null
-      // },
     }
   },
   computed: {
     formData() {
       return this.$store.getters['form/getCreateAnnounceFromData']
+    },
+    formDataBrandId() {
+      // return this.$store.getters['form/getCreateAnnounceFromData'].formData.brandId
+      // Equivalent à ce que fait la computed précédente
+      return this.formData.brandId
+    },
+    formDataModelId() {
+      return this.formData.modelId
+    },
+    kws() {
+      return this.$store.getters["serial/getAllSerials"].map(el => el.power_cv)
+    },
+    gearboxes() {
+      return this.$store.getters["serial/getAllSerials"].map(el => el.gearbox)
     }
   },
   methods: {
@@ -149,11 +160,12 @@ export default {
     }
   },
   watch: {
-    "$store.state.form.createAnnounce.brandId"(newValue, oldValue) {
-      console.log('newValue', newValue)
-      console.log('oldValue', oldValue)
-      // reset: fuel, kw
-    }
+    formDataBrandId() {
+      this.$store.dispatch('model/fetchModels')
+    },
+    formDataModelId() {
+      this.$store.dispatch('serial/fetchSerials')
+    },
   },
   created() {
     this.years = this.getYears()
