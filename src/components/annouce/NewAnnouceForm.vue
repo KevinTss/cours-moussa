@@ -1,5 +1,6 @@
 <template>
   <form @submit="onFormSubmit">
+    <span style="color: red; font-weight: bold;">isModelsFetching: {{ isModelsFetching }}</span>
     <div class="form-row">
       <div class="form-group col-md-4">
           <label for="brand">Brand</label>
@@ -10,8 +11,17 @@
             name="brandId"
             @change="onSelectChange"
           >
-            <option selected>Choose...</option>
-            <option  v-for="brand in $store.getters['brand/getAllBrands']" :key="brand.id" :value="brand.id">{{brand.name}}</option>
+            <option :selected="formData.brandId === null" :value="null">
+              Choose...
+            </option>
+            <option  
+              v-for="brand in $store.getters['brand/getAllBrands']" 
+              :key="brand.id" 
+              :value="brand.id" 
+              :selected="formData.brandId === brand.id"
+            >
+              {{brand.name}}
+            </option>
           </select>
       </div>
 
@@ -19,16 +29,20 @@
         <div class="form-group col-md-2">
             <label for="month">Month</label>
             <select id="month" name="month" class="form-control" @change="(event) => onSelectChange(event, null)">
-                <option selected>Choose...</option>
-                <option v-for="month in months" :key="month" :value="month">{{ month }}</option>
+                <option :selected="formData.month === null" :value="null">Choose...</option>
+                <option v-for="month in months" 
+                :key="month" 
+                :value="month"
+                :selected="formData.month === month"
+                >{{ month }}</option>
             </select>
         </div>
 
         <div class="form-group col-md-2">
             <label for="year">Year</label>
             <select id="year" class="form-control" name="year" @change="(event) => onSelectChange(event, null)">
-              <option selected>Choose...</option>
-              <option v-for="year in years" :key="year" :value="year">{{ year }}</option>
+                <option :selected="formData.year === null" :value="null">Choose...</option>
+              <option v-for="year in years" :key="year" :value="year" :selected="formData.year === year">{{ year }}</option>
             </select>
         </div>
       </template>
@@ -70,13 +84,13 @@
   <div v-if="formData.transmission" class="form-row">
       <div class="form-group col-md-4">
           <label for="serial">Sérial</label>
-          <select id="serial" class="form-control" name="serial" @change="(event) => onSelectChange(event, null)">
+          <select id="serial" class="form-control" name="serialId" @change="(event) => onSelectChange(event, null)">
               <option selected>Choose...</option>
               <option  v-for="serial in serials" :key="serial.id" :value="serial.id">{{serial.version_name}}</option>
-              <option id="10000" value="10000">other</option>
+              <option value="other">other</option>
           </select>
       </div>
-      <div v-if="selectSerial" class="form-group col-md-4">
+      <div v-if="isOtherInputVisble" class="form-group col-md-4">
           <label for="other">Other</label>
           <input type="text" class="form-control" id="other" placeholder="Other" >
       </div>
@@ -90,6 +104,7 @@
   </div>
 
   <button v-if="formData.body" type="submit" class="btn btn-primary">Next Step</button>
+  <button type="button" class="btn btn-primary" @click="reset">Reset</button>
   
   </form>
 </template>
@@ -114,10 +129,10 @@ export default {
     formData() {
       return this.$store.getters['form/getCreateAnnounceFromData']
     },
-    formDataBrandId() {
-      // return this.$store.getters['form/getCreateAnnounceFromData'].formData.brandId
+    formDataFuel() {
+      // return this.$store.getters['form/getCreateAnnounceFromData'].formData.fuel
       // Equivalent à ce que fait la computed précédente
-      return this.formData.brandId
+      return this.formData.fuel
     },
     formDataModelId() {
       return this.formData.modelId
@@ -126,13 +141,22 @@ export default {
           return this.formData.serialId
       },
     kws() {
-        console.log(this.$store.getters['serial/getAllSerials'])
-      return this.$store.getters['serial/getAllSerials'].map(el => el.power_cv)
+      const arr = this.$store.getters['serial/getAllSerials'].map(el => el.power_cv)
+      const uniqArr = []
+      arr.forEach(el => {
+        if (!uniqArr.includes(el)) {
+          uniqArr.push(el)
+        }
+      })
+
+      return uniqArr
     },
     gearboxes() {
       return this.$store.getters['serial/getAllSerials'].map(el => el.gearbox)
+    },
+    isOtherInputVisble() {
+      return this.formData.serialId === 'other'
     }
-
   },
   methods: {
     /**
@@ -167,20 +191,17 @@ export default {
 
       console.log('SUBMIT', this.formData)
     },
-      //TODO: 1
-    selectedOtherSerial(event){
-        console.log('value',event.target.value)
-       let e = document.getElementById("serial").value;
-       let option = e.options[e.selectedIndex].text;
-       console.log('option', option)
-        if (event.target.value === 10000) {
-            return true
-        }
+    reset(e) {
+      e.preventDefault()
+      this.$store.dispatch('form/reset')
     }
   },
   watch: {
-    formDataBrandId() {
-      this.$store.dispatch('model/fetchModels')
+    formDataFuel(newValue) {
+      console.log('watcher', newValue)
+      if (newValue) {
+        this.$store.dispatch('model/fetchModels')
+      }
     },
     formDataModelId() {
       this.$store.dispatch('serial/fetchSerials')
@@ -188,6 +209,26 @@ export default {
     formDataSerialId() {
       this.$store.dispatch('serial/fetchSerials')
     },
+    "formData.brandId"() {
+      this.$store.dispatch('form/reset', [
+        "year",
+        "month",
+        "fuel",
+        "modelId",
+        "kw",
+        "transmission",
+        "serialId",
+        "body",
+      ])
+    },
+    isModelsFetching(newValue, oldValue) {
+      console.log('new', newValue)
+      console.log('old', oldValue)
+      // reset quand fini the fetcher
+      if (newValue === false && oldValue === true) {
+        this.$store.dispatch('form/reset',"ddd")
+      }
+    }
   },
   created() {
     this.years = this.getYears()

@@ -4,6 +4,7 @@ const storeBrand = {
   namespaced: true,
   state: {
     list: [],
+    isFetching: false,
     // todos: [
     //   { id: 1, text: '...', status: "pending" },
     //   { id: 2, text: '...', status: "done" }
@@ -12,6 +13,9 @@ const storeBrand = {
   getters: {
     getAllBrands(state) {
       return state.list;
+    },
+    getIsAllBrandsFetching(state) {
+      return state.isFetching;
     },
     // getDoneTodos: ({todos}) => todos.filter(({status}) => status === "done")
     // getDoneTodos: function(state) {
@@ -24,8 +28,8 @@ const storeBrand = {
     setBrandCars: (state, brands) => {
       state.list = brands;
     },
-    reset(state) {
-      console.log('reset brand', state);
+    setIsFetching(state, newValue) {
+      state.isFetching = newValue;
     },
   },
   actions: {
@@ -36,11 +40,16 @@ const storeBrand = {
       //   { id: 3, name: 'ccc' },
       //   { id: 4, name: 'ddd' },
       // ]);
+      store.commit('setIsFetching', true);
       API.get('brand_cars')
         .then((response) => {
           store.commit('setBrandCars', response.data.data.items);
+          store.commit('setIsFetching', false);
         })
-        .catch((e) => console.log('Error: ', e.message));
+        .catch((e) => {
+          console.log('Error: ', e.message);
+          store.commit('setIsFetching', false);
+        });
     },
   },
 };
