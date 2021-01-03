@@ -26,3 +26,8 @@ Comment récuperer/ afficher une image depuis url
 #### `GET /api/brand_cars/{id}/model_cars`
 On peut tester avec brandId=27
 
+*selectionner l'élement option pour utiliser la valeur => TODO: 1
+
+## EDIT Announce 
+Comment faire? peut on garder le meme component que new announce et selected la data reçu? 
+En metttant un if? ou il faut recommencer (dupliquer le html)

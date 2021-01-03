@@ -73,22 +73,23 @@
           <select id="serial" class="form-control" name="serial" @change="(event) => onSelectChange(event, null)">
               <option selected>Choose...</option>
               <option  v-for="serial in serials" :key="serial.id" :value="serial.id">{{serial.version_name}}</option>
+              <option id="10000" value="10000">other</option>
           </select>
       </div>
-      <div class="form-group col-md-4">
+      <div v-if="selectSerial" class="form-group col-md-4">
           <label for="other">Other</label>
           <input type="text" class="form-control" id="other" placeholder="Other" >
       </div>
       <div class="form-group col-md-4">
           <label for="body">Body</label>
-          <select id="body" class="form-control">
+          <select id="body" class="form-control" name="body" @change="(event) => onSelectChange(event, null)">
               <option selected>Choose...</option>
-              <option>...</option>
+              <option v-for="body in bodies" :key="body" :value="body">{{body}}</option>
           </select>
       </div>
   </div>
 
-  <button type="submit" class="btn btn-primary">Next Step</button>
+  <button v-if="formData.body" type="submit" class="btn btn-primary">Next Step</button>
   
   </form>
 </template>
@@ -105,6 +106,8 @@ export default {
       years: [],
       months: [],
       fuels: ["Diesel", "Gasoline", "Electric"],
+      bodies: ["compact","convertible","coupe","off-road","sedan"],
+      selectSerial: false,
     }
   },
   computed: {
@@ -163,6 +166,16 @@ export default {
       event.preventDefault()
 
       console.log('SUBMIT', this.formData)
+    },
+      //TODO: 1
+    selectedOtherSerial(event){
+        console.log('value',event.target.value)
+       let e = document.getElementById("serial").value;
+       let option = e.options[e.selectedIndex].text;
+       console.log('option', option)
+        if (event.target.value === 10000) {
+            return true
+        }
     }
   },
   watch: {

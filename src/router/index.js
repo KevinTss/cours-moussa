@@ -7,6 +7,7 @@ import PageUsers from '../pages/PageUsers';
 import PageLogin from '../pages/PageLogin';
 import PageRegister from '../pages/PageRegister';
 import PageCreateAnnounce from '../pages/PageCreateAnnounce';
+import PageCreateAnnounceStep2 from "../pages/PageCreateAnnounceStep2";
 
 Vue.use(VueRouter);
 
@@ -18,6 +19,7 @@ const router = new VueRouter({
     { path: '/about', component: PageAbout },
     { path: '/members', component: PageUsers },
     { path: '/announces/new', component: PageCreateAnnounce },
+    { path: '/announces/new/step2', component: PageCreateAnnounceStep2 },
     { path: '*', redirect: '/' },
   ],
 });

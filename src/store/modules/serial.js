@@ -13,6 +13,7 @@ const storeModel = {
   },
   mutations: {
     setSerials(state, newSerials) {
+      newSerials.push({id:10000 ,version_name:'other'}) //TODO: cmt refactorer
       state.list = newSerials;
     },
   },
