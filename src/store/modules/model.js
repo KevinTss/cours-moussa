@@ -42,10 +42,12 @@ const storeModel = {
 
       API.get(endpoint)
         .then((response) => {
-          setTimeout(() => {
-            store.commit('setModels', response.data.data.models);
-            store.commit('setIsGetAllFetching', false);
-          }, 1000);
+          let data = response.data.data.models;
+          if (!Array.isArray(data)) {
+            data = Object.values(data);
+          }
+          store.commit('setModels', data);
+          store.commit('setIsGetAllFetching', false);
         })
         .catch((e) => {
           store.commit('setIsGetAllFetching', false);
