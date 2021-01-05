@@ -50,7 +50,6 @@ const storeModel = {
           { name: 'serialId', value: null },
           { name: 'body', value: null },
           { name: 'other', value: null },
-
         ]);
       }
     },

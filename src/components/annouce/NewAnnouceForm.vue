@@ -75,7 +75,7 @@
       <div v-if="formData.kw" class="form-group col-md-4">
           <label for="transmission">Transmission</label>
           <select id="transmission" class="form-control" name="transmission" @change="(event) => onSelectChange(event, null)">
-              <option selected>Choose...</option>
+              <option :selected="formData.transmission === null" :value="null">Choose...</option>
               <option  v-for="gearbox in gearboxes" :key="gearbox" :value="gearbox">{{gearbox}}</option>
           </select>
       </div>
@@ -85,7 +85,7 @@
       <div class="form-group col-md-4">
           <label for="serial">Sérial</label>
           <select id="serial" class="form-control" name="serialId" @change="(event) => onSelectChange(event, null)">
-              <option selected>Choose...</option>
+              <option :selected="formData.serialId === null" :value="null">Choose...</option>
               <option  v-for="serial in serials" :key="serial.id" :value="serial.id">{{serial.version_name}}</option>
               <option value="other">other</option>
           </select>
@@ -97,7 +97,7 @@
       <div class="form-group col-md-4">
           <label for="body">Body</label>
           <select id="body" class="form-control" name="body" @change="(event) => onSelectChange(event, null)">
-              <option selected>Choose...</option>
+              <option :selected="formData.body === null" :value="null">Choose...</option>
               <option v-for="body in bodies" :key="body" :value="body">{{body}}</option>
           </select>
       </div>
@@ -228,9 +228,8 @@ export default {
     }
   },
   watch: {
-    "formData.year"(nV){ this.dispatchFetchModels(nV) },
+
     "formData.month"(nV){ this.dispatchFetchModels(nV) },
-    "formData.fuel"(nV){ this.dispatchFetchModels(nV) },
     formDataModelId() {
       console.log('formDataModelId')
       this.$store.dispatch('serial/fetchSerials')
@@ -238,6 +237,20 @@ export default {
     formDataSerialId() {
       this.$store.dispatch('serial/fetchSerials')
     },
+      "formData.kw"(){
+          this.$store.dispatch('form/reset', [
+              "transmission",
+              "serialId",
+              "body",
+          ])
+      },
+      "formData.transmission"(){
+          this.$store.dispatch('form/reset', [
+              "serialId",
+              "body",
+          ])
+      },
+
     "formData.brandId"(nV) {
       console.log('oo')
       this.dispatchFetchModels(nV)
@@ -252,14 +265,37 @@ export default {
         "body",
       ])
     },
+      "formData.year"(nV){
+        this.dispatchFetchModels(nV)
+          this.$store.dispatch('form/reset', [
+              "fuel",
+              "modelId",
+              "kw",
+              "transmission",
+              "serialId",
+              "body",
+          ])
+      },
     "formData.modelId"() {
       this.$store.dispatch('form/reset', [
         "kw",
         "transmission",
         "serialId",
+          "other",
         "body",
       ])
     },
+      "formData.fuel"(nV){
+        this.dispatchFetchModels(nV) ,
+        this.$store.dispatch('form/reset', [
+            "modelId",
+            "kw",
+            "transmission",
+            "serialId",
+            "body",
+        ])
+      }
+      ,
     "formData.SerialId"() {
         this.$store.dispatch('form/reset', [
             "other",
