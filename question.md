@@ -31,3 +31,15 @@ On peut tester avec brandId=27
 ## EDIT Announce 
 Comment faire? peut on garder le meme component que new announce et selected la data reçu? 
 En metttant un if? ou il faut recommencer (dupliquer le html)
+
+
+Pk entre quote le nom function ?
+
+ "formData.modelId"() {
+        this.$store.dispatch('form/reset', [
+            "kw",
+            "transmission",
+            "serialId",
+            "body",
+        ])
+    },

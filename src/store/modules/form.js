@@ -10,6 +10,7 @@ const storeModel = {
       kw: null,
       transmission: null,
       serialId: null,
+      other:null,
       body: null,
     },
   },
@@ -48,6 +49,8 @@ const storeModel = {
           { name: 'transmission', value: null },
           { name: 'serialId', value: null },
           { name: 'body', value: null },
+          { name: 'other', value: null },
+
         ]);
       }
     },

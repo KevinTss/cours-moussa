@@ -15,7 +15,7 @@
               Choose...
             </option>
             <option  
-              v-for="brand in $store.getters['brand/getAllBrands']" 
+              v-for="brand in brands"
               :key="brand.id" 
               :value="brand.id" 
               :selected="formData.brandId === brand.id"
@@ -50,8 +50,8 @@
       <div v-if="formData.month && formData.year" class="form-group col-md-4">
           <label for="fuel">Fuel</label>
           <select id="fuel" class="form-control" name="fuel" @change="(event) => onSelectChange(event, null)">
-              <option selected>Choose...</option>
-              <option v-for="fuel in fuels" :key="fuel" :value="fuel">{{ fuel }}</option>
+              <option :selected="formData.fuel === null" :value="null">Choose...</option>
+              <option v-for="fuel in fuels" :key="fuel" :value="fuel" :selected="formData.fuel === fuel">{{ fuel }}</option>
           </select>
       </div>
 
@@ -61,15 +61,15 @@
       <div class="form-group col-md-4">
           <label for="model">Model</label>
           <select id="model" class="form-control" name="modelId" @change="(event) => onSelectChange(event, null)">
-              <option selected>Choose...</option>
-              <option  v-for="model in models" :key="model.id" :value="model.id">{{model.model_name}}</option>
+              <option :selected="formData.model === null" :value="null">Choose...</option>
+              <option  v-for="model in models" :key="model.id" :value="model.id" :selected="formData.model === model">{{model.model_name}}</option>
           </select>
       </div>
       <div v-if="formData.modelId" class="form-group col-md-4" >
           <label for="kw">Kw</label>
           <select id="kw" class="form-control" name="kw" @change="(event) => onSelectChange(event, null)">
-              <option selected>Choose...</option>
-              <option  v-for="kw in kws" :key="kw" :value="kw">{{kw}}</option>
+              <option :selected="formData.kw === null" :value="null">Choose...</option>
+              <option  v-for="kw in kws" :key="kw" :value="kw" :selected="formData.kw === kw">{{kw}}</option>
           </select>
       </div>
       <div v-if="formData.kw" class="form-group col-md-4">
@@ -110,11 +110,12 @@
 </template>
 
 <script>
+import BrandMixin from '../../mixins/brand'
 import ModelMixin from '../../mixins/model'
 import SerialMixin from '../../mixins/serial'
 
 export default {
-  mixins: [ModelMixin,SerialMixin],
+  mixins: [ModelMixin,SerialMixin,BrandMixin],
   data() {
     return {
       step: 0,
@@ -140,6 +141,7 @@ export default {
       formDataSerialId() {
           return this.formData.serialId
       },
+
     kws() {
       const arr = this.$store.getters['serial/getAllSerials'].map(el => el.power_cv)
       const uniqArr = []
@@ -148,11 +150,23 @@ export default {
           uniqArr.push(el)
         }
       })
-
       return uniqArr
     },
+
+      //TODO: refactorer function map unique
     gearboxes() {
-      return this.$store.getters['serial/getAllSerials'].map(el => el.gearbox)
+        console.log('gearboxes',this.formData.kw)
+        const arr = this.$store.getters['serial/getAllSerials'].map(el => el.gearbox)
+        console.log('arr',arr)
+        const uniqArr = []
+        arr.forEach(el => {
+            console.log('gearboxes2',this.formData.kw)
+            if (!uniqArr.includes(el)) {
+                uniqArr.push(el)
+            }
+        })
+console.log('uniqArr', uniqArr)
+        return uniqArr
     },
     isOtherInputVisble() {
       return this.formData.serialId === 'other'
@@ -166,6 +180,7 @@ export default {
      * 
      * @return {Array} Array of years
      */
+
     getYears() {
       const yearsRange = []
       for (let number = new Date().getFullYear(); number >= 1960; number--) {
@@ -197,13 +212,20 @@ export default {
     }
   },
   watch: {
+    formDataYear (newValue) {
+        console.log('watcher year', newValue)
+      if (newValue) {
+          this.$store.dispatch('model/fetchModels')
+      }
+    },
     formDataFuel(newValue) {
-      console.log('watcher', newValue)
+      console.log('watcher fuel', newValue)
       if (newValue) {
         this.$store.dispatch('model/fetchModels')
       }
     },
     formDataModelId() {
+        console.log('formDataModelId')
       this.$store.dispatch('serial/fetchSerials')
     },
     formDataSerialId() {
@@ -221,12 +243,28 @@ export default {
         "body",
       ])
     },
+    "formData.modelId"() {
+        this.$store.dispatch('form/reset', [
+            "kw",
+            "transmission",
+            "serialId",
+            "body",
+        ])
+    },
+      "formData.SerialId"() {
+          this.$store.dispatch('form/reset', [
+             "other",
+              "body",
+          ])
+      },
+
+
     isModelsFetching(newValue, oldValue) {
-      console.log('new', newValue)
-      console.log('old', oldValue)
+      console.log('isModelsFetching new', newValue)
+      console.log('isModelsFetching old', oldValue)
       // reset quand fini the fetcher
       if (newValue === false && oldValue === true) {
-        this.$store.dispatch('form/reset',"ddd")
+        //this.$store.dispatch('form/reset',"ddd")
       }
     }
   },
