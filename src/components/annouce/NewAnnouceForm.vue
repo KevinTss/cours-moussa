@@ -155,18 +155,13 @@ export default {
 
       //TODO: refactorer function map unique
     gearboxes() {
-        console.log('gearboxes',this.formData.kw)
-        const arr = this.$store.getters['serial/getAllSerials'].map(el => el.gearbox)
-        console.log('arr',arr)
-        const uniqArr = []
-        arr.forEach(el => {
-            console.log('gearboxes2',this.formData.kw)
-            if (!uniqArr.includes(el)) {
-                uniqArr.push(el)
-            }
-        })
-console.log('uniqArr', uniqArr)
-        return uniqArr
+      const kw = Number(this.formData.kw)
+      const serials = this.$store.getters['serial/getAllSerials']
+      const concernedSerials = serials.filter(el => el.power_cv === kw)
+      const formatted = concernedSerials.map(el => el.gearbox)
+      const uniq = formatted.reduce((acc, curr) => acc.includes(curr) ? acc : [...acc, curr], [])
+      
+      return uniq
     },
     isOtherInputVisble() {
       return this.formData.serialId === 'other'
@@ -225,7 +220,7 @@ console.log('uniqArr', uniqArr)
       }
     },
     formDataModelId() {
-        console.log('formDataModelId')
+      console.log('formDataModelId')
       this.$store.dispatch('serial/fetchSerials')
     },
     formDataSerialId() {
@@ -244,21 +239,19 @@ console.log('uniqArr', uniqArr)
       ])
     },
     "formData.modelId"() {
+      this.$store.dispatch('form/reset', [
+        "kw",
+        "transmission",
+        "serialId",
+        "body",
+      ])
+    },
+    "formData.SerialId"() {
         this.$store.dispatch('form/reset', [
-            "kw",
-            "transmission",
-            "serialId",
+            "other",
             "body",
         ])
     },
-      "formData.SerialId"() {
-          this.$store.dispatch('form/reset', [
-             "other",
-              "body",
-          ])
-      },
-
-
     isModelsFetching(newValue, oldValue) {
       console.log('isModelsFetching new', newValue)
       console.log('isModelsFetching old', oldValue)
