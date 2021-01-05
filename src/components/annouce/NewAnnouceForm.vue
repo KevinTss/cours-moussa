@@ -121,27 +121,39 @@ export default {
       step: 0,
       years: [],
       months: [],
-      fuels: ["Diesel", "Gasoline", "Electric"],
       bodies: ["compact","convertible","coupe","off-road","sedan"],
       selectSerial: false,
     }
   },
   computed: {
+    fuels() {
+      const f = []
+
+      if (!this.models.length) return f
+
+      this.models.forEach(model => {
+        if (model.version_cars.length) {
+          model.version_cars.forEach(version_car => {
+            // On inclue que si ce n'est pas déjà présent pour éviter les doublons
+            if (!f.includes(version_car.fuel)) {
+              f.push(version_car.fuel)
+            }
+
+          })
+        }
+      })
+
+      return f
+    },
     formData() {
       return this.$store.getters['form/getCreateAnnounceFromData']
-    },
-    formDataFuel() {
-      // return this.$store.getters['form/getCreateAnnounceFromData'].formData.fuel
-      // Equivalent à ce que fait la computed précédente
-      return this.formData.fuel
     },
     formDataModelId() {
       return this.formData.modelId
     },
-      formDataSerialId() {
-          return this.formData.serialId
-      },
-
+    formDataSerialId() {
+      return this.formData.serialId
+    },
     kws() {
       const arr = this.$store.getters['serial/getAllSerials'].map(el => el.power_cv)
       const uniqArr = []
@@ -175,7 +187,6 @@ export default {
      * 
      * @return {Array} Array of years
      */
-
     getYears() {
       const yearsRange = []
       for (let number = new Date().getFullYear(); number >= 1960; number--) {
@@ -204,21 +215,22 @@ export default {
     reset(e) {
       e.preventDefault()
       this.$store.dispatch('form/reset')
+    },
+    dispatchFetchModels(newValue) {
+      if (
+        newValue
+        // this.formData.year && 
+        // this.formData.month && 
+        // this.formData.fuel 
+      ) {
+        this.$store.dispatch('model/fetchModels')
+      }
     }
   },
   watch: {
-    formDataYear (newValue) {
-        console.log('watcher year', newValue)
-      if (newValue) {
-          this.$store.dispatch('model/fetchModels')
-      }
-    },
-    formDataFuel(newValue) {
-      console.log('watcher fuel', newValue)
-      if (newValue) {
-        this.$store.dispatch('model/fetchModels')
-      }
-    },
+    "formData.year"(nV){ this.dispatchFetchModels(nV) },
+    "formData.month"(nV){ this.dispatchFetchModels(nV) },
+    "formData.fuel"(nV){ this.dispatchFetchModels(nV) },
     formDataModelId() {
       console.log('formDataModelId')
       this.$store.dispatch('serial/fetchSerials')
@@ -226,7 +238,9 @@ export default {
     formDataSerialId() {
       this.$store.dispatch('serial/fetchSerials')
     },
-    "formData.brandId"() {
+    "formData.brandId"(nV) {
+      console.log('oo')
+      this.dispatchFetchModels(nV)
       this.$store.dispatch('form/reset', [
         "year",
         "month",
@@ -253,8 +267,8 @@ export default {
         ])
     },
     isModelsFetching(newValue, oldValue) {
-      console.log('isModelsFetching new', newValue)
-      console.log('isModelsFetching old', oldValue)
+      // console.log('isModelsFetching new', newValue)
+      // console.log('isModelsFetching old', oldValue)
       // reset quand fini the fetcher
       if (newValue === false && oldValue === true) {
         //this.$store.dispatch('form/reset',"ddd")
