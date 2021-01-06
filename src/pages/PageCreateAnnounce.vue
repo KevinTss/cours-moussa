@@ -7,7 +7,7 @@
 
 <script>
     import NavMenu from "../components/layouts/NavMenu";
-    import NewAnnouceForm from '../components/annouce/NewAnnouceForm';
+    import NewAnnouceForm from '../components/announce/NewAnnounceForm';
     import BrandMixin from '../mixins/brand';
 
     export default {

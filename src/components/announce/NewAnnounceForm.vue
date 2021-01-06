@@ -1,5 +1,5 @@
 <template>
-  <form @submit="onFormSubmit">
+  <el-form ref="form-create-announce" @submit="onFormSubmit">
     <span style="color: red; font-weight: bold;">isModelsFetching: {{ isModelsFetching }}</span>
     <div class="form-row">
       <div class="form-group col-md-4">
@@ -100,7 +100,7 @@
   <el-button type="submit" v-if="formData.body" >Next Step</el-button>
   <el-button @click="reset">Reset</el-button>
   
-  </form>
+  </el-form>
 </template>
 
 <script>

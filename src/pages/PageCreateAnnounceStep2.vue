@@ -7,7 +7,7 @@
 
 <script>
     import NavMenu from "../components/layouts/NavMenu";
-    import NewAnnounceFormStep2 from "../components/annouce/NewAnnounceFormStep2";
+    import NewAnnounceFormStep2 from "../components/announce/NewAnnounceFormStep2";
 
     export default {
         components: {NavMenu, NewAnnounceFormStep2}
