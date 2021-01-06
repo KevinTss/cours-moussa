@@ -4,25 +4,19 @@
     <div class="form-row">
       <div class="form-group col-md-4">
           <label for="brand">Brand</label>
-          <!-- eslint-disable-next-line vue/valid-v-on -->
-          <select 
-            id="brand" 
-            class="form-control" 
-            name="brandId"
-            @change="onSelectChange"
+          <el-select 
+            :value="formData.brandId" 
+            @change="(newValue) => onSelectChange2(newValue, 'brandId')" 
+            placeholder="Select Brand"
+            filterable
           >
-            <option :selected="formData.brandId === null" :value="null">
-              Choose...
-            </option>
-            <option  
+            <el-option
               v-for="brand in brands"
-              :key="brand.id" 
-              :value="brand.id" 
-              :selected="formData.brandId === brand.id"
-            >
-              {{brand.name}}
-            </option>
-          </select>
+              :key="brand.id"
+              :label="brand.name"
+              :value="brand.id">
+            </el-option>
+          </el-select>
       </div>
 
       <template v-if="formData.brandId">
@@ -103,8 +97,8 @@
       </div>
   </div>
 
-  <button v-if="formData.body" type="submit" class="btn btn-primary">Next Step</button>
-  <button type="button" class="btn btn-primary" @click="reset">Reset</button>
+  <el-button type="submit" v-if="formData.body" >Next Step</el-button>
+  <el-button @click="reset">Reset</el-button>
   
   </form>
 </template>
@@ -205,6 +199,12 @@ export default {
       this.$store.dispatch('form/changeCreateAnnounceField', {
         name: event.target.name, 
         value: event.target.value
+      })
+    },
+    onSelectChange2(newValue, fieldName) {
+      this.$store.dispatch('form/changeCreateAnnounceField', {
+        name: fieldName, 
+        value: newValue
       })
     },
     onFormSubmit(event) {
