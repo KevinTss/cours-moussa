@@ -28,18 +28,26 @@ On peut tester avec brandId=27
 
 *selectionner l'élement option pour utiliser la valeur => TODO: 1
 
-## EDIT Announce 
+## `EDIT Announce` 
 Comment faire? peut on garder le meme component que new announce et selected la data reçu? 
 En metttant un if? ou il faut recommencer (dupliquer le html)
 
 
-Pk entre quote le nom function ?
+## `CREATE ANNOUNCE`
+1) depuis mes vehicules (GET: /users/{user}/owner_vehicles')
+2) depuis zéro => créer mon vehicule (POST: /owner_vehicles)
+et instantanément récupérer le owner_vehicle_id (qui vient d'être créé dans response succes)
+    pour créer une annonce (POST: /announce_cars)
+ 
+    
+#### Required owner_vehicle:
+'owner_vehicle_id', 
+'user_created_by_id', 
+'vehicle_deductible_vat', 
+'cat_product_id' = 1 (cars)
 
- "formData.modelId"() {
-        this.$store.dispatch('form/reset', [
-            "kw",
-            "transmission",
-            "serialId",
-            "body",
-        ])
-    },
+
+#### Required announces: 
+'owner_vehicle_id', 
+'user_created_by_id', 
+'vehicle_deductible_vat'
