@@ -18,7 +18,6 @@
           </el-select>
         </el-form-item>
       </el-col>
-
       <el-col :span="4">
         <el-form-item v-if="formData.brandId" label="Month">
           <el-select
@@ -30,7 +29,6 @@
           </el-select>
         </el-form-item>
       </el-col>
-
       <el-col :span="4">
         <el-form-item v-if="formData.brandId" label="Year">
           <el-select 
@@ -83,7 +81,7 @@
         </el-form-item>
       </el-col>
       <el-col :span="8">
-        <el-form-item v-if="formData.fuel" label="Kw">
+        <el-form-item v-if="formData.modelId" label="Kw">
           <el-select
             :value="formData.kw"
             @change="(newValue) => onSelectChange2(newValue, 'kw')"
@@ -115,6 +113,7 @@
         </el-form-item>
       </el-col>
     </el-row>
+
     <el-row>
       <el-col :span="8">
         <el-form-item v-if="formData.transmission" label="Serial">
@@ -135,11 +134,15 @@
       </el-col>
       <el-col :span="8">
         <el-form-item v-if="isOtherInputVisble" label="Other">
-          <el-input v-model="other" />
+          <el-input
+                  v-model="formData.other"
+                  @change="(newValue) => onSelectChange2(newValue, 'other')"
+                  placeholder="Other"
+          />
         </el-form-item>
       </el-col>
       <el-col :span="8">
-        <el-form-item v-if="formData.transmission" label="Body">
+        <el-form-item v-if="(formData.serialId !== 'other' && formData.serialId !== null) || formData.other" label="Body">
           <el-select
             :value="formData.body"
             @change="(newValue) => onSelectChange2(newValue, 'body')"
@@ -355,7 +358,7 @@ export default {
         ]);
       }
       ,
-    "formData.SerialId"() {
+    "formData.serialId"() {
         this.$store.dispatch('form/reset', [
             "other",
             "body",
