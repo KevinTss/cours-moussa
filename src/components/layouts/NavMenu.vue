@@ -22,17 +22,17 @@
 </template>
 
 <script>
-  import 'bootstrap/dist/css/bootstrap.css'
-  import 'bootstrap-vue/dist/bootstrap-vue.css'
-  import AuthState from '../auth/AuthState'
-  import AuthMixin from '../../mixins/auth'
+  import 'bootstrap/dist/css/bootstrap.css';
+  import 'bootstrap-vue/dist/bootstrap-vue.css';
+  import AuthState from '../auth/AuthState';
+  import AuthMixin from '../../mixins/auth';
 
   export default {
       mixins: [AuthMixin],
       components: {
           AuthState
       },
-  }
+  };
 </script>
 
 <style>

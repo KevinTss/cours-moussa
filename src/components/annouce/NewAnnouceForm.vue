@@ -104,9 +104,9 @@
 </template>
 
 <script>
-import BrandMixin from '../../mixins/brand'
-import ModelMixin from '../../mixins/model'
-import SerialMixin from '../../mixins/serial'
+import BrandMixin from '../../mixins/brand';
+import ModelMixin from '../../mixins/model';
+import SerialMixin from '../../mixins/serial';
 
 export default {
   mixins: [ModelMixin,SerialMixin,BrandMixin],
@@ -117,60 +117,60 @@ export default {
       months: [],
       bodies: ["compact","convertible","coupe","off-road","sedan"],
       selectSerial: false,
-    }
+    };
   },
   computed: {
     fuels() {
-      const f = []
+      const f = [];
 
-      if (!this.models.length) return f
+      if (!this.models.length) return f;
 
       this.models.forEach(model => {
         if (model.version_cars.length) {
           model.version_cars.forEach(version_car => {
             // On inclue que si ce n'est pas déjà présent pour éviter les doublons
             if (!f.includes(version_car.fuel)) {
-              f.push(version_car.fuel)
+              f.push(version_car.fuel);
             }
 
-          })
+          });
         }
-      })
+      });
 
-      return f
+      return f;
     },
     formData() {
-      return this.$store.getters['form/getCreateAnnounceFromData']
+      return this.$store.getters['form/getCreateAnnounceFromData'];
     },
     formDataModelId() {
-      return this.formData.modelId
+      return this.formData.modelId;
     },
     formDataSerialId() {
-      return this.formData.serialId
+      return this.formData.serialId;
     },
     kws() {
-      const arr = this.$store.getters['serial/getAllSerials'].map(el => el.power_cv)
-      const uniqArr = []
+      const arr = this.$store.getters['serial/getAllSerials'].map(el => el.power_cv);
+      const uniqArr = [];
       arr.forEach(el => {
         if (!uniqArr.includes(el)) {
-          uniqArr.push(el)
+          uniqArr.push(el);
         }
-      })
-      return uniqArr
+      });
+      return uniqArr;
     },
 
       //TODO: refactorer function map unique
     gearboxes() {
-      const kw = Number(this.formData.kw)
-      const serials = this.$store.getters['serial/getAllSerials']
-      const concernedSerials = serials.filter(el => el.power_cv === kw)
-      const formatted = concernedSerials.map(el => el.gearbox)
-      const uniq = formatted.reduce((acc, curr) => acc.includes(curr) ? acc : [...acc, curr], [])
+      const kw = Number(this.formData.kw);
+      const serials = this.$store.getters['serial/getAllSerials'];
+      const concernedSerials = serials.filter(el => el.power_cv === kw);
+      const formatted = concernedSerials.map(el => el.gearbox);
+      const uniq = formatted.reduce((acc, curr) => acc.includes(curr) ? acc : [...acc, curr], []);
       
-      return uniq
+      return uniq;
     },
     isOtherInputVisble() {
-      return this.formData.serialId === 'other'
+      return this.formData.serialId === 'other';
     }
   },
   methods: {
@@ -182,39 +182,39 @@ export default {
      * @return {Array} Array of years
      */
     getYears() {
-      const yearsRange = []
+      const yearsRange = [];
       for (let number = new Date().getFullYear(); number >= 1960; number--) {
-        yearsRange.push(number)
+        yearsRange.push(number);
       }
-      return yearsRange
+      return yearsRange;
     },
     getMonth() {
-      const monthRange = []
+      const monthRange = [];
       for (let number = 1; number <= 12; number++) {
-        monthRange.push(number)
+        monthRange.push(number);
       }
-      return monthRange
+      return monthRange;
     },
     onSelectChange(event) {
       this.$store.dispatch('form/changeCreateAnnounceField', {
         name: event.target.name, 
         value: event.target.value
-      })
+      });
     },
     onSelectChange2(newValue, fieldName) {
       this.$store.dispatch('form/changeCreateAnnounceField', {
         name: fieldName, 
         value: newValue
-      })
+      });
     },
     onFormSubmit(event) {
-      event.preventDefault()
+      event.preventDefault();
 
-      console.log('SUBMIT', this.formData)
+      console.log('SUBMIT', this.formData);
     },
     reset(e) {
-      e.preventDefault()
-      this.$store.dispatch('form/reset')
+      e.preventDefault();
+      this.$store.dispatch('form/reset');
     },
     dispatchFetchModels(newValue) {
       if (
@@ -223,37 +223,37 @@ export default {
         // this.formData.month && 
         // this.formData.fuel 
       ) {
-        this.$store.dispatch('model/fetchModels')
+        this.$store.dispatch('model/fetchModels');
       }
     }
   },
   watch: {
 
-    "formData.month"(nV){ this.dispatchFetchModels(nV) },
+    "formData.month"(nV){ this.dispatchFetchModels(nV); },
     formDataModelId() {
-      console.log('formDataModelId')
-      this.$store.dispatch('serial/fetchSerials')
+      console.log('formDataModelId');
+      this.$store.dispatch('serial/fetchSerials');
     },
     formDataSerialId() {
-      this.$store.dispatch('serial/fetchSerials')
+      this.$store.dispatch('serial/fetchSerials');
     },
       "formData.kw"(){
           this.$store.dispatch('form/reset', [
               "transmission",
               "serialId",
               "body",
-          ])
+          ]);
       },
       "formData.transmission"(){
           this.$store.dispatch('form/reset', [
               "serialId",
               "body",
-          ])
+          ]);
       },
 
     "formData.brandId"(nV) {
-      console.log('oo')
-      this.dispatchFetchModels(nV)
+      console.log('oo');
+      this.dispatchFetchModels(nV);
       this.$store.dispatch('form/reset', [
         "year",
         "month",
@@ -263,10 +263,10 @@ export default {
         "transmission",
         "serialId",
         "body",
-      ])
+      ]);
     },
       "formData.year"(nV){
-        this.dispatchFetchModels(nV)
+        this.dispatchFetchModels(nV);
           this.$store.dispatch('form/reset', [
               "fuel",
               "modelId",
@@ -274,7 +274,7 @@ export default {
               "transmission",
               "serialId",
               "body",
-          ])
+          ]);
       },
     "formData.modelId"() {
       this.$store.dispatch('form/reset', [
@@ -283,7 +283,7 @@ export default {
         "serialId",
           "other",
         "body",
-      ])
+      ]);
     },
       "formData.fuel"(nV){
         this.dispatchFetchModels(nV) ,
@@ -293,14 +293,14 @@ export default {
             "transmission",
             "serialId",
             "body",
-        ])
+        ]);
       }
       ,
     "formData.SerialId"() {
         this.$store.dispatch('form/reset', [
             "other",
             "body",
-        ])
+        ]);
     },
     isModelsFetching(newValue, oldValue) {
       // console.log('isModelsFetching new', newValue)
@@ -312,8 +312,8 @@ export default {
     }
   },
   created() {
-    this.years = this.getYears()
-    this.months = this.getMonth()
+    this.years = this.getYears();
+    this.months = this.getMonth();
   }
-}
+};
 </script>

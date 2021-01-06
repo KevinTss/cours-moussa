@@ -6,31 +6,31 @@
 </template>
 
 <script>
-import API from './api'
+import API from './api';
 
 export default {
   name: 'App',
   data() {
     return {
       hasRequestSent: false
-    }
+    };
   },
   created() {
-    const token = window.localStorage.getItem('token')
+    const token = window.localStorage.getItem('token');
     if (token) {
       API.get('user').then(res => {
-        const user = res.data
-        this.$store.commit('auth/setAuthUser', user)
-        this.hasRequestSent = true
+        const user = res.data;
+        this.$store.commit('auth/setAuthUser', user);
+        this.hasRequestSent = true;
       }).catch(error=>{
-        console.log('err', error.message)
-        this.hasRequestSent = true
-      })
+        console.log('err', error.message);
+        this.hasRequestSent = true;
+      });
     } else {
-      this.hasRequestSent = true
+      this.hasRequestSent = true;
     }
   }
-}
+};
 </script>
 
 <style>

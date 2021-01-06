@@ -8,15 +8,15 @@
 </template>
 
 <script>
-import NavMenu from '../components/layouts/NavMenu'
-import RegisterForm from '../components/auth/RegisterForm'
+import NavMenu from '../components/layouts/NavMenu';
+import RegisterForm from '../components/auth/RegisterForm';
 
 export default {
   components: {
     RegisterForm,
     NavMenu,
   },
-}
+};
 </script>
 
 <style>

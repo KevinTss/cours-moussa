@@ -11,7 +11,7 @@
     </div>
 </template>
 <script>
-    import NavMenu from '../components/layouts/NavMenu'
+    import NavMenu from '../components/layouts/NavMenu';
 
     export default {
         components:{
@@ -21,12 +21,12 @@
             return {
                 fields: ['id', 'email', 'country_id',
                     'country_name',{key:'addresses[0].route', label:'Address'},'profile_picture_url'],
-            }
+            };
         },
         mounted() {
             if(this.$store.state.users.length < 1) {
-                this.$store.dispatch('fetchUsers')
+                this.$store.dispatch('fetchUsers');
             }
         }
-    }
+    };
 </script>

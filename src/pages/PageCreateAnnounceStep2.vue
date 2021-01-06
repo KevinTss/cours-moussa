@@ -11,6 +11,6 @@
 
     export default {
         components: {NavMenu, NewAnnounceFormStep2}
-    }
+    };
 
 </script>

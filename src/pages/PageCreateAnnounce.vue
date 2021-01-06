@@ -7,8 +7,8 @@
 
 <script>
     import NavMenu from "../components/layouts/NavMenu";
-    import NewAnnouceForm from '../components/annouce/NewAnnouceForm'
-    import BrandMixin from '../mixins/brand'
+    import NewAnnouceForm from '../components/annouce/NewAnnouceForm';
+    import BrandMixin from '../mixins/brand';
 
     export default {
         name: "page-create-announce",
@@ -16,8 +16,8 @@
         components: {NavMenu, NewAnnouceForm},
         mounted() {
             if(this.brands < 1) {
-                this.$store.dispatch('brand/fetchBrands')
+                this.$store.dispatch('brand/fetchBrands');
             }
         }
-    }
+    };
 </script>

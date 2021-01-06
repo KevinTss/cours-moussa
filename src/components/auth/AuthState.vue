@@ -23,11 +23,11 @@
 </template>
 
 <script>
-import AuthMixin from '../../mixins/auth'
+import AuthMixin from '../../mixins/auth';
 
 export default {
   mixins: [AuthMixin],
-}
+};
 </script>
 
 <style>

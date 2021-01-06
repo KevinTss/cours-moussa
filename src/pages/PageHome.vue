@@ -12,14 +12,14 @@
 </template>
 
 <script>
-import NavMenu from '../components/layouts/NavMenu'
-import AuthMixin from "../mixins/auth"
+import NavMenu from '../components/layouts/NavMenu';
+import AuthMixin from "../mixins/auth";
 export default {
   mixins: [AuthMixin],
   components: {
     NavMenu
   },
-}
+};
 </script>
 
 <style>
