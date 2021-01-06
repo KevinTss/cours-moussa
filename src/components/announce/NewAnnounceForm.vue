@@ -1,9 +1,8 @@
 <template>
-  <el-form ref="form-create-announce" @submit="onFormSubmit">
-    <span style="color: red; font-weight: bold;">isModelsFetching: {{ isModelsFetching }}</span>
-    <div class="form-row">
-      <div class="form-group col-md-4">
-          <label for="brand">Brand</label>
+  <el-form ref="form-create-announce" @submit="onFormSubmit" label-position="top">
+    <el-row>
+      <el-col :span="8">
+        <el-form-item label="Brand">
           <el-select 
             :value="formData.brandId" 
             @change="(newValue) => onSelectChange2(newValue, 'brandId')" 
@@ -17,88 +16,145 @@
               :value="brand.id">
             </el-option>
           </el-select>
-      </div>
+        </el-form-item>
+      </el-col>
 
-      <template v-if="formData.brandId">
-        <div class="form-group col-md-2">
-            <label for="month">Month</label>
-            <select id="month" name="month" class="form-control" @change="(event) => onSelectChange(event, null)">
-                <option :selected="formData.month === null" :value="null">Choose...</option>
-                <option v-for="month in months" 
-                :key="month" 
-                :value="month"
-                :selected="formData.month === month"
-                >{{ month }}</option>
-            </select>
-        </div>
+      <el-col :span="8">
+        <el-form-item v-if="formData.brandId" label="Month">
+          <el-select 
+            :value="formData.month" 
+            @change="(newValue) => onSelectChange2(newValue, 'month')" 
+            placeholder="Select month"
+          >
+            <el-option
+              v-for="month in months"
+              :key="month"
+              :label="month"
+              :value="month">
+            </el-option>
+          </el-select>
+        </el-form-item>
+      </el-col>
 
-        <div class="form-group col-md-2">
-            <label for="year">Year</label>
-            <select id="year" class="form-control" name="year" @change="(event) => onSelectChange(event, null)">
-                <option :selected="formData.year === null" :value="null">Choose...</option>
-              <option v-for="year in years" :key="year" :value="year" :selected="formData.year === year">{{ year }}</option>
-            </select>
-        </div>
-      </template>
+      <el-col :span="8">
+        <el-form-item v-if="formData.brandId" label="Year">
+          <el-select 
+            :value="formData.year" 
+            @change="(newValue) => onSelectChange2(newValue, 'year')" 
+            placeholder="Select year"
+          >
+            <el-option
+              v-for="year in years"
+              :key="year"
+              :label="year"
+              :value="year">
+            </el-option>
+          </el-select>
+        </el-form-item>
+      </el-col>
+    </el-row>
 
-      <div v-if="formData.month && formData.year" class="form-group col-md-4">
-          <label for="fuel">Fuel</label>
-          <select id="fuel" class="form-control" name="fuel" @change="(event) => onSelectChange(event, null)">
-              <option :selected="formData.fuel === null" :value="null">Choose...</option>
-              <option v-for="fuel in fuels" :key="fuel" :value="fuel" :selected="formData.fuel === fuel">{{ fuel }}</option>
-          </select>
-      </div>
+    <el-row>
+      <el-form-item v-if="formData.month && formData.year" label="Fuel">
+        <el-select 
+          :value="formData.fuel" 
+          @change="(newValue) => onSelectChange2(newValue, 'fuel')" 
+          placeholder="Select fuel"
+        >
+          <el-option
+            v-for="fuel in fuels"
+            :key="fuel"
+            :label="fuel"
+            :value="fuel">
+          </el-option>
+        </el-select>
+      </el-form-item>
 
-  </div>
+      <el-form-item v-if="formData.fuel" label="Model">
+        <el-select 
+          :value="formData.model" 
+          @change="(newValue) => onSelectChange2(newValue, 'modelId')" 
+          placeholder="Select model"
+        >
+          <el-option
+            v-for="model in models"
+            :key="model.id"
+            :label="model.model_name"
+            :value="model.id">
+          </el-option>
+        </el-select>
+      </el-form-item>
 
-  <div v-if="formData.fuel" class="form-row">
-      <div class="form-group col-md-4">
-          <label for="model">Model</label>
-          <select id="model" class="form-control" name="modelId" @change="(event) => onSelectChange(event, null)">
-              <option :selected="formData.model === null" :value="null">Choose...</option>
-              <option  v-for="model in models" :key="model.id" :value="model.id" :selected="formData.model === model">{{model.model_name}}</option>
-          </select>
-      </div>
-      <div v-if="formData.modelId" class="form-group col-md-4" >
-          <label for="kw">Kw</label>
-          <select id="kw" class="form-control" name="kw" @change="(event) => onSelectChange(event, null)">
-              <option :selected="formData.kw === null" :value="null">Choose...</option>
-              <option  v-for="kw in kws" :key="kw" :value="kw" :selected="formData.kw === kw">{{kw}}</option>
-          </select>
-      </div>
-      <div v-if="formData.kw" class="form-group col-md-4">
-          <label for="transmission">Transmission</label>
-          <select id="transmission" class="form-control" name="transmission" @change="(event) => onSelectChange(event, null)">
-              <option :selected="formData.transmission === null" :value="null">Choose...</option>
-              <option  v-for="gearbox in gearboxes" :key="gearbox" :value="gearbox">{{gearbox}}</option>
-          </select>
-      </div>
-  </div>
+      <el-form-item v-if="formData.fuel" label="Kw">
+        <el-select 
+          :value="formData.kw" 
+          @change="(newValue) => onSelectChange2(newValue, 'kw')" 
+          placeholder="Select kw"
+        >
+          <el-option
+            v-for="kw in kws"
+            :key="kw"
+            :label="kw"
+            :value="kw">
+          </el-option>
+        </el-select>
+      </el-form-item>
+    </el-row>
 
-  <div v-if="formData.transmission" class="form-row">
-      <div class="form-group col-md-4">
-          <label for="serial">Sérial</label>
-          <select id="serial" class="form-control" name="serialId" @change="(event) => onSelectChange(event, null)">
-              <option :selected="formData.serialId === null" :value="null">Choose...</option>
-              <option  v-for="serial in serials" :key="serial.id" :value="serial.id">{{serial.version_name}}</option>
-              <option value="other">other</option>
-          </select>
-      </div>
-      <div v-if="isOtherInputVisble" class="form-group col-md-4">
-          <label for="other">Other</label>
-          <input type="text" class="form-control" id="other" placeholder="Other" >
-      </div>
-      <div class="form-group col-md-4">
-          <label for="body">Body</label>
-          <select id="body" class="form-control" name="body" @change="(event) => onSelectChange(event, null)">
-              <option :selected="formData.body === null" :value="null">Choose...</option>
-              <option v-for="body in bodies" :key="body" :value="body">{{body}}</option>
-          </select>
-      </div>
-  </div>
+    <el-row>
+      <el-form-item v-if="formData.kw" label="Transmission">
+        <el-select 
+          :value="formData.transmission" 
+          @change="(newValue) => onSelectChange2(newValue, 'transmission')" 
+          placeholder="Select transmission"
+        >
+          <el-option
+            v-for="gearbox in gearboxes"
+            :key="gearbox"
+            :label="gearbox"
+            :value="gearbox">
+          </el-option>
+        </el-select>
+      </el-form-item>
 
-  <el-button type="submit" v-if="formData.body" >Next Step</el-button>
-  <el-button @click="reset">Reset</el-button>
+      <el-form-item v-if="formData.transmission" label="Serial">
+        <el-select 
+          :value="formData.serialId" 
+          @change="(newValue) => onSelectChange2(newValue, 'serialId')" 
+          placeholder="Select serial"
+        >
+          <el-option
+            v-for="serial in serials"
+            :key="serial.id"
+            :label="serial.version_name"
+            :value="serial.id"
+          />
+          <el-option label="Other" value="other" />
+        </el-select>
+      </el-form-item>
+
+      <el-form-item v-if="isOtherInputVisble" label="Other">
+        <el-input v-model="other" />
+      </el-form-item>
+
+      <el-form-item v-if="formData.transmission" label="Body">
+        <el-select 
+          :value="formData.body" 
+          @change="(newValue) => onSelectChange2(newValue, 'body')" 
+          placeholder="Select body"
+        >
+          <el-option
+            v-for="body in bodies"
+            :key="body"
+            :label="body"
+            :value="body"
+          />
+        </el-select>
+      </el-form-item>
+    </el-row>
+
+    <el-button type="submit" v-if="formData.body" >Next Step</el-button>
+    <el-button @click="reset">Reset</el-button>
   
   </el-form>
 </template>
@@ -117,6 +173,7 @@ export default {
       months: [],
       bodies: ["compact","convertible","coupe","off-road","sedan"],
       selectSerial: false,
+      other: ''
     };
   },
   computed: {
@@ -317,3 +374,9 @@ export default {
   }
 };
 </script>
+
+<style>
+.el-select {
+  width: 100%;
+}
+</style>
