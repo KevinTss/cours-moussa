@@ -3,40 +3,35 @@
     <el-row>
       <el-col :span="8">
         <el-form-item label="Brand">
-          <el-select 
-            :value="formData.brandId" 
-            @change="(newValue) => onSelectChange2(newValue, 'brandId')" 
-            placeholder="Select Brand"
-            filterable
+          <el-select
+                  :value="formData.brandId"
+                  @change="(newValue) => onSelectChange2(newValue, 'brandId')"
+                  placeholder="Select Brand"
+                  filterable
           >
             <el-option
-              v-for="brand in brands"
-              :key="brand.id"
-              :label="brand.name"
-              :value="brand.id">
+                    v-for="brand in brands"
+                    :key="brand.id"
+                    :label="brand.name"
+                    :value="brand.id">
             </el-option>
           </el-select>
         </el-form-item>
       </el-col>
 
-      <el-col :span="8">
+      <el-col :span="4">
         <el-form-item v-if="formData.brandId" label="Month">
-          <el-select 
-            :value="formData.month" 
-            @change="(newValue) => onSelectChange2(newValue, 'month')" 
-            placeholder="Select month"
+          <el-select
+                  :value="formData.month"
+                  @change="(newValue) => onSelectChange2(newValue, 'month')"
+                  placeholder="Select month"
           >
-            <el-option
-              v-for="month in months"
-              :key="month"
-              :label="month"
-              :value="month">
-            </el-option>
+            <el-option v-for="month in months" :key="month" :label="month" :value="month"></el-option>
           </el-select>
         </el-form-item>
       </el-col>
 
-      <el-col :span="8">
+      <el-col :span="4">
         <el-form-item v-if="formData.brandId" label="Year">
           <el-select 
             :value="formData.year" 
@@ -52,110 +47,117 @@
           </el-select>
         </el-form-item>
       </el-col>
+      <el-col :span="8">
+        <el-form-item v-if="formData.month && formData.year" label="Fuel">
+          <el-select
+                  :value="formData.fuel"
+                  @change="(newValue) => onSelectChange2(newValue, 'fuel')"
+                  placeholder="Select fuel"
+          >
+            <el-option
+                    v-for="fuel in fuels"
+                    :key="fuel"
+                    :label="fuel"
+                    :value="fuel">
+            </el-option>
+          </el-select>
+        </el-form-item>
+      </el-col>
     </el-row>
 
     <el-row>
-      <el-form-item v-if="formData.month && formData.year" label="Fuel">
-        <el-select 
-          :value="formData.fuel" 
-          @change="(newValue) => onSelectChange2(newValue, 'fuel')" 
-          placeholder="Select fuel"
-        >
-          <el-option
-            v-for="fuel in fuels"
-            :key="fuel"
-            :label="fuel"
-            :value="fuel">
-          </el-option>
-        </el-select>
-      </el-form-item>
-
-      <el-form-item v-if="formData.fuel" label="Model">
-        <el-select 
-          :value="formData.model" 
-          @change="(newValue) => onSelectChange2(newValue, 'modelId')" 
-          placeholder="Select model"
-        >
-          <el-option
-            v-for="model in models"
-            :key="model.id"
-            :label="model.model_name"
-            :value="model.id">
-          </el-option>
-        </el-select>
-      </el-form-item>
-
-      <el-form-item v-if="formData.fuel" label="Kw">
-        <el-select 
-          :value="formData.kw" 
-          @change="(newValue) => onSelectChange2(newValue, 'kw')" 
-          placeholder="Select kw"
-        >
-          <el-option
-            v-for="kw in kws"
-            :key="kw"
-            :label="kw"
-            :value="kw">
-          </el-option>
-        </el-select>
-      </el-form-item>
+      <el-col :span="8">
+        <el-form-item v-if="formData.fuel" label="Model">
+          <el-select
+            :value="formData.modelId"
+            @change="(newValue) => onSelectChange2(newValue, 'modelId')"
+            placeholder="Select model"
+          >
+            <el-option
+              v-for="model in models"
+              :key="model.id"
+              :label="model.model_name"
+              :value="model.id">
+            </el-option>
+          </el-select>
+        </el-form-item>
+      </el-col>
+      <el-col :span="8">
+        <el-form-item v-if="formData.fuel" label="Kw">
+          <el-select
+            :value="formData.kw"
+            @change="(newValue) => onSelectChange2(newValue, 'kw')"
+            placeholder="Select kw"
+          >
+            <el-option
+              v-for="kw in kws"
+              :key="kw"
+              :label="kw"
+              :value="kw">
+            </el-option>
+          </el-select>
+        </el-form-item>
+      </el-col>
+      <el-col :span="8">
+        <el-form-item v-if="formData.kw" label="Transmission">
+          <el-select
+            :value="formData.transmission"
+            @change="(newValue) => onSelectChange2(newValue, 'transmission')"
+            placeholder="Select transmission"
+          >
+            <el-option
+              v-for="gearbox in gearboxes"
+              :key="gearbox"
+              :label="gearbox"
+              :value="gearbox">
+            </el-option>
+          </el-select>
+        </el-form-item>
+      </el-col>
     </el-row>
-
     <el-row>
-      <el-form-item v-if="formData.kw" label="Transmission">
-        <el-select 
-          :value="formData.transmission" 
-          @change="(newValue) => onSelectChange2(newValue, 'transmission')" 
-          placeholder="Select transmission"
-        >
-          <el-option
-            v-for="gearbox in gearboxes"
-            :key="gearbox"
-            :label="gearbox"
-            :value="gearbox">
-          </el-option>
-        </el-select>
-      </el-form-item>
-
-      <el-form-item v-if="formData.transmission" label="Serial">
-        <el-select 
-          :value="formData.serialId" 
-          @change="(newValue) => onSelectChange2(newValue, 'serialId')" 
-          placeholder="Select serial"
-        >
-          <el-option
-            v-for="serial in serials"
-            :key="serial.id"
-            :label="serial.version_name"
-            :value="serial.id"
-          />
-          <el-option label="Other" value="other" />
-        </el-select>
-      </el-form-item>
-
-      <el-form-item v-if="isOtherInputVisble" label="Other">
-        <el-input v-model="other" />
-      </el-form-item>
-
-      <el-form-item v-if="formData.transmission" label="Body">
-        <el-select 
-          :value="formData.body" 
-          @change="(newValue) => onSelectChange2(newValue, 'body')" 
-          placeholder="Select body"
-        >
-          <el-option
-            v-for="body in bodies"
-            :key="body"
-            :label="body"
-            :value="body"
-          />
-        </el-select>
-      </el-form-item>
+      <el-col :span="8">
+        <el-form-item v-if="formData.transmission" label="Serial">
+          <el-select
+            :value="formData.serialId"
+            @change="(newValue) => onSelectChange2(newValue, 'serialId')"
+            placeholder="Select serial"
+          >
+            <el-option
+              v-for="serial in serials"
+              :key="serial.id"
+              :label="serial.version_name"
+              :value="serial.id"
+            />
+            <el-option label="Other" value="other" />
+          </el-select>
+        </el-form-item>
+      </el-col>
+      <el-col :span="8">
+        <el-form-item v-if="isOtherInputVisble" label="Other">
+          <el-input v-model="other" />
+        </el-form-item>
+      </el-col>
+      <el-col :span="8">
+        <el-form-item v-if="formData.transmission" label="Body">
+          <el-select
+            :value="formData.body"
+            @change="(newValue) => onSelectChange2(newValue, 'body')"
+            placeholder="Select body"
+          >
+            <el-option
+              v-for="body in bodies"
+              :key="body"
+              :label="body"
+              :value="body"
+            />
+          </el-select>
+        </el-form-item>
+      </el-col>
     </el-row>
 
     <el-button type="submit" v-if="formData.body" >Next Step</el-button>
     <el-button @click="reset">Reset</el-button>
-  
   </el-form>
 </template>
 
