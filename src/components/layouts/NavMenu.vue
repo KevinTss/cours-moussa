@@ -18,6 +18,7 @@
             </template>
         </b-nav>
     <auth-state/>
+    <lang/>
     </div>
 </template>
 
@@ -26,11 +27,11 @@
   import 'bootstrap-vue/dist/bootstrap-vue.css';
   import AuthState from '../auth/AuthState';
   import AuthMixin from '../../mixins/auth';
-
+  import lang from "./lang";
   export default {
       mixins: [AuthMixin],
       components: {
-          AuthState
+          AuthState, lang
       },
   };
 </script>

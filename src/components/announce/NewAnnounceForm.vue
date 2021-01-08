@@ -142,7 +142,7 @@
         </el-form-item>
       </el-col>
       <el-col :span="8">
-        <el-form-item v-if="(formData.serialId !== 'other' && formData.serialId !== null) || formData.other" label="Body">
+        <el-form-item v-if="(formData.serialId!=='other' && formData.serialId!==null) || formData.other" label="Body">
           <el-select
             :value="formData.body"
             @change="(newValue) => onSelectChange2(newValue, 'body')"

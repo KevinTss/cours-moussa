@@ -5,7 +5,7 @@
       <h2>
         Is connected?
       </h2>
-      <label v-if="authUser">Welcome  {{JSON.stringify(authUser.name)}}</label>
+      <label v-if="authUser">{{ $t('hello') }}  {{JSON.stringify(authUser.name)}}</label>
 
     </div>
   </div>

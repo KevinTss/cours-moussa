@@ -28,9 +28,10 @@ npm run lint
 
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
-Doc: http://ctb2.promaniak.com/api/docs
+- [Documentation Api](http://ctb2.promaniak.com/api/docs)
 
 ### Libraries documentations
 
 - [Query String](https://www.npmjs.com/package/query-string)
 - [Element UI](https://element.eleme.io/#/en-US)
+- [babelEdit](https://www.codeandweb.com/babeledit)
