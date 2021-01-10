@@ -9,8 +9,10 @@
 <script>
     export default {
         name: 'locale-changer',
-        data () {
-            return { langs: ['en', 'fr','nl'] };
+        computed: {
+            langs() {
+                return this.$i18n.availableLocales;
+            }
         }
     };
 </script>

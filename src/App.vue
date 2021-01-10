@@ -21,6 +21,7 @@ export default {
       API.get('user').then(res => {
         const user = res.data;
         this.$store.commit('auth/setAuthUser', user);
+        // this.$i18n.locale = user.language
         this.hasRequestSent = true;
       }).catch(error=>{
         console.log('err', error.message);
