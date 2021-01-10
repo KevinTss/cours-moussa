@@ -7,7 +7,7 @@ import PageUsers from '../pages/PageUsers';
 import PageLogin from '../pages/PageLogin';
 import PageRegister from '../pages/PageRegister';
 import PageCreateAnnounce from '../pages/PageCreateAnnounce';
-import PageCreateAnnounceStep2 from "../pages/PageCreateAnnounceStep2";
+import PageCreateAnnounceStep2 from '../pages/PageCreateAnnounceStep2';
 
 Vue.use(VueRouter);
 

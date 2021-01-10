@@ -1,5 +1,6 @@
 <template>
   <el-form ref="form-create-announce" @submit="onFormSubmit" label-position="top">
+    <form-step/>
     <el-row>
       <el-col :span="8">
         <el-form-item label="Brand">
@@ -159,7 +160,7 @@
       </el-col>
     </el-row>
 
-    <el-button type="submit" v-if="formData.body" >Next Step</el-button>
+    <el-button type="submit" :disabled="!formData.body" @click="goToStep2" >Next Step</el-button>
     <el-button @click="reset">Reset</el-button>
   </el-form>
 </template>
@@ -168,9 +169,13 @@
 import BrandMixin from '../../mixins/brand';
 import ModelMixin from '../../mixins/model';
 import SerialMixin from '../../mixins/serial';
+import FormStep from './stepForm';
 
 export default {
   mixins: [ModelMixin,SerialMixin,BrandMixin],
+  components: {
+    FormStep,
+  },
   data() {
     return {
       step: 0,
@@ -281,6 +286,9 @@ export default {
       ) {
         this.$store.dispatch('model/fetchModels');
       }
+    },
+    goToStep2() {
+      this.$router.push({path: '/announces/new/step2'});
     }
   },
   watch: {
