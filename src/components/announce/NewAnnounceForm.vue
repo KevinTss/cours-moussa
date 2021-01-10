@@ -5,7 +5,7 @@
         <el-form-item label="Brand">
           <el-select
                   :value="formData.brandId"
-                  @change="(newValue) => onSelectChange2(newValue, 'brandId')"
+                  @change="(newValue) => onSelectChange(newValue, 'brandId')"
                   placeholder="Select Brand"
                   filterable
           >
@@ -22,7 +22,7 @@
         <el-form-item v-if="formData.brandId" label="Month">
           <el-select
                   :value="formData.month"
-                  @change="(newValue) => onSelectChange2(newValue, 'month')"
+                  @change="(newValue) => onSelectChange(newValue, 'month')"
                   placeholder="Select month"
           >
             <el-option v-for="month in months" :key="month" :label="month" :value="month"></el-option>
@@ -33,7 +33,7 @@
         <el-form-item v-if="formData.brandId" label="Year">
           <el-select 
             :value="formData.year" 
-            @change="(newValue) => onSelectChange2(newValue, 'year')" 
+            @change="(newValue) => onSelectChange(newValue, 'year')" 
             placeholder="Select year"
           >
             <el-option
@@ -49,7 +49,7 @@
         <el-form-item v-if="formData.month && formData.year" label="Fuel">
           <el-select
                   :value="formData.fuel"
-                  @change="(newValue) => onSelectChange2(newValue, 'fuel')"
+                  @change="(newValue) => onSelectChange(newValue, 'fuel')"
                   placeholder="Select fuel"
           >
             <el-option
@@ -68,7 +68,7 @@
         <el-form-item v-if="formData.fuel" label="Model">
           <el-select
             :value="formData.modelId"
-            @change="(newValue) => onSelectChange2(newValue, 'modelId')"
+            @change="(newValue) => onSelectChange(newValue, 'modelId')"
             placeholder="Select model"
           >
             <el-option
@@ -84,7 +84,7 @@
         <el-form-item v-if="formData.modelId" label="Kw">
           <el-select
             :value="formData.kw"
-            @change="(newValue) => onSelectChange2(newValue, 'kw')"
+            @change="(newValue) => onSelectChange(newValue, 'kw')"
             placeholder="Select kw"
           >
             <el-option
@@ -100,7 +100,7 @@
         <el-form-item v-if="formData.kw" label="Transmission">
           <el-select
             :value="formData.transmission"
-            @change="(newValue) => onSelectChange2(newValue, 'transmission')"
+            @change="(newValue) => onSelectChange(newValue, 'transmission')"
             placeholder="Select transmission"
           >
             <el-option
@@ -119,7 +119,7 @@
         <el-form-item v-if="formData.transmission" label="Serial">
           <el-select
             :value="formData.serialId"
-            @change="(newValue) => onSelectChange2(newValue, 'serialId')"
+            @change="(newValue) => onSelectChange(newValue, 'serialId')"
             placeholder="Select serial"
           >
             <el-option
@@ -136,7 +136,7 @@
         <el-form-item v-if="isOtherInputVisble" label="Other">
           <el-input
                   v-model="formData.other"
-                  @change="(newValue) => onSelectChange2(newValue, 'other')"
+                  @change="(newValue) => onSelectChange(newValue, 'other')"
                   placeholder="Other"
           />
         </el-form-item>
@@ -145,7 +145,7 @@
         <el-form-item v-if="(formData.serialId!=='other' && formData.serialId!==null) || formData.other" label="Body">
           <el-select
             :value="formData.body"
-            @change="(newValue) => onSelectChange2(newValue, 'body')"
+            @change="(newValue) => onSelectChange(newValue, 'body')"
             placeholder="Select body"
           >
             <el-option
@@ -257,13 +257,7 @@ export default {
       }
       return monthRange;
     },
-    onSelectChange(event) {
-      this.$store.dispatch('form/changeCreateAnnounceField', {
-        name: event.target.name, 
-        value: event.target.value
-      });
-    },
-    onSelectChange2(newValue, fieldName) {
+    onSelectChange(newValue, fieldName) {
       this.$store.dispatch('form/changeCreateAnnounceField', {
         name: fieldName, 
         value: newValue
