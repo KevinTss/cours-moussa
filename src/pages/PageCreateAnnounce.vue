@@ -1,8 +1,16 @@
 <template>
-    <div>
-        <nav-menu/>
-        <new-annouce-form/>
-    </div>
+<div class="page-container">
+    <el-header>
+      <nav-menu />
+    </el-header>
+    <el-main>
+        <el-row :gutter="10">
+            <el-col :span="16" :offset="4">
+                <new-annouce-form/>
+            </el-col>
+        </el-row>
+    </el-main>
+</div>
 </template>
 
 <script>
@@ -21,3 +29,9 @@
         }
     };
 </script>
+
+<style lang="css" >
+.page-container {
+  width: 100%;
+}
+</style>

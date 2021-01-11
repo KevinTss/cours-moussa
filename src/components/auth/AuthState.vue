@@ -1,24 +1,20 @@
 <template>
-  <div>
-    <div v-if="authUser">
-      <b-nav>
-        <img id="avatar" v-bind:src="authUser.profile_picture_url"
-             width="60">
-        <b-nav-item>
-          <b-link @click="$store.dispatch('logout')">Logout</b-link>
-        </b-nav-item>
-      </b-nav>
-    </div>
-    <div v-else>
-      <b-nav>
-        <b-nav-item>
-          <b-link to="/login">LOGIN</b-link>
-        </b-nav-item>
-        <b-nav-item>
-          <b-link to="/register">REGISTER</b-link>
-        </b-nav-item>
-      </b-nav>
-    </div>
+  <div class="auth-state">
+
+      <el-dropdown v-if="authUser">
+        <div class="name">
+          <el-avatar size="small" icon="el-icon-user-solid" :src="authUser.profile_picture_url"/>
+          <span class="user-name"> {{ authUser.name }}</span>
+        </div>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item @click="$store.dispatch('logout')">Logout</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+
+     
+      <router-link v-else to="/login">Login</router-link>
+       
+  
   </div>
 </template>
 
@@ -27,11 +23,18 @@ import AuthMixin from '../../mixins/auth';
 
 export default {
   mixins: [AuthMixin],
+  mounted() {
+    // eslint-disable-next-line no-undef
+    console.log('++', this.authUser);
+  }
 };
 </script>
 
-<style>
-  #avatar {
-    border-radius: 50%;
+<style scoped>
+  .auth-state {
+    display: flex;
+  }
+  .user-name {
+    padding: 0 10px;
   }
 </style>

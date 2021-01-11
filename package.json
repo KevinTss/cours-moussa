@@ -10,7 +10,6 @@
   "dependencies": {
     "add": "^2.0.6",
     "axios": "^0.21.1",
-    "bootstrap-vue": "^2.21.2",
     "core-js": "^3.8.1",
     "element-ui": "^2.14.1",
     "i18n": "^0.13.2",

@@ -1,8 +1,8 @@
 <template>
-  <div id="app">
+  <el-container id="app">
     <p v-if="!hasRequestSent">loading...</p>
     <router-view v-else/>
-  </div>
+  </el-container>
 </template>
 
 <script>
@@ -35,11 +35,19 @@ export default {
 </script>
 
 <style>
+* {
+  padding: 0;
+  margin: 0;
+  font-family: sans-serif;
+}
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  height: 100%;
 }
 </style>

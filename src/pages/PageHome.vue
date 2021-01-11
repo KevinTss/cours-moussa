@@ -1,13 +1,11 @@
 <template>
-  <div class="container-home">
-    <nav-menu />
-    <div>
-      <h2>
-        Is connected?
-      </h2>
-      <label v-if="authUser">{{ $t('hello') }}  {{JSON.stringify(authUser.name)}}</label>
-
-    </div>
+  <div class="page-container">
+    <el-header>
+      <nav-menu />
+    </el-header>
+    <el-main>
+      <h1>Welcome</h1>
+    </el-main>
   </div>
 </template>
 
@@ -17,14 +15,14 @@ import AuthMixin from "../mixins/auth";
 export default {
   mixins: [AuthMixin],
   components: {
+    // eslint-disable-next-line vue/no-unused-components
     NavMenu
   },
 };
 </script>
 
 <style>
-.container-home {
-  display: flex;
-  flex-direction: column;
+.page-container {
+  width: 100%;
 }
 </style>

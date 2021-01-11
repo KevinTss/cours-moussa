@@ -1,33 +1,32 @@
 <template>
-    <div class="nav-bar">
-        <span>Logo</span>
-        <b-nav>
-            <b-nav-item>
-                <b-link to="/">HOME</b-link>
-            </b-nav-item>
-            <b-nav-item>
-                <b-link to="/about">ABOUT</b-link>
-            </b-nav-item>
-            <template v-if="authUser">
-                <b-nav-item>
-                    <b-link to="/members">MEMBERS</b-link>
-                </b-nav-item>
-                <b-nav-item>
-                    <b-link to="/announces/new">CREATE ANNOUNCE</b-link>
-                </b-nav-item>
-            </template>
-        </b-nav>
-    <auth-state/>
-    <lang/>
-    </div>
+    <el-row :gutter="10" class="nav-bar">
+        <el-col :span="2">
+            <span class='logo'>Logo</span>
+        </el-col>
+        <el-col :span="22">
+            <el-menu mode="horizontal">
+                <el-menu-item >
+                    <router-link to="/">Home</router-link>
+                </el-menu-item>
+                <el-menu-item >
+                    <router-link to="/announces/new">Create announce</router-link>
+                </el-menu-item>
+                <el-menu-item>
+                    <auth-state/>
+                </el-menu-item>
+                <el-menu-item>
+                    <lang/>
+                </el-menu-item>
+            </el-menu>
+        </el-col>
+    </el-row>
 </template>
 
 <script>
-  import 'bootstrap/dist/css/bootstrap.css';
-  import 'bootstrap-vue/dist/bootstrap-vue.css';
   import AuthState from '../auth/AuthState';
   import AuthMixin from '../../mixins/auth';
   import lang from "./lang";
+
   export default {
       mixins: [AuthMixin],
       components: {
@@ -36,8 +35,18 @@
   };
 </script>
 
-<style>
+<style scoped>
 .nav-bar {
     display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 50px;
+}
+.logo {
+    padding: 0 20px;
+}
+.el-menu {
+    display: flex;
+    justify-content: flex-end;
 }
 </style>
