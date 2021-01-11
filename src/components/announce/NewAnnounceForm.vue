@@ -3,21 +3,14 @@
     <form-step/>
     <el-row>
       <el-col :span="8">
-        <el-form-item label="Brand">
-          <el-select
-                  :value="formData.brandId"
-                  @change="(newValue) => onSelectChange(newValue, 'brandId')"
-                  placeholder="Select Brand"
-                  filterable
-          >
-            <el-option
-                    v-for="brand in brands"
-                    :key="brand.id"
-                    :label="brand.name"
-                    :value="brand.id">
-            </el-option>
-          </el-select>
-        </el-form-item>
+        <select-input 
+          label="Brand"
+          :value="formData.brandId"
+          @change="(newValue) => onSelectChange(newValue, 'brandId')"
+          placeholder="Select Brand"
+          filterable
+          :options="brands"
+        />
       </el-col>
       <el-col :span="4">
         <el-form-item v-if="formData.brandId" label="Month">
@@ -66,20 +59,14 @@
 
     <el-row>
       <el-col :span="8">
-        <el-form-item v-if="formData.fuel" label="Model">
-          <el-select
+          <select-input 
+          v-if="formData.fuel" label="Model"
             :value="formData.modelId"
             @change="(newValue) => onSelectChange(newValue, 'modelId')"
             placeholder="Select model"
-          >
-            <el-option
-              v-for="model in models"
-              :key="model.id"
-              :label="model.model_name"
-              :value="model.id">
-            </el-option>
-          </el-select>
-        </el-form-item>
+            :options="models"
+            labelOption="model_name"
+          />
       </el-col>
       <el-col :span="8">
         <el-form-item v-if="formData.modelId" label="Kw">
@@ -117,21 +104,14 @@
 
     <el-row>
       <el-col :span="8">
-        <el-form-item v-if="formData.transmission" label="Serial">
-          <el-select
+          <select-input 
+          v-if="formData.transmission" label="Serial"
             :value="formData.serialId"
             @change="(newValue) => onSelectChange(newValue, 'serialId')"
-            placeholder="Select serial"
-          >
-            <el-option
-              v-for="serial in serials"
-              :key="serial.id"
-              :label="serial.version_name"
-              :value="serial.id"
-            />
-            <el-option label="Other" value="other" />
-          </el-select>
-        </el-form-item>
+            placeholder="Select seriam"
+            :options="serials"
+            labelOption="verion_name"
+          />
       </el-col>
       <el-col :span="8">
         <el-form-item v-if="isOtherInputVisble" label="Other">
@@ -170,11 +150,13 @@ import BrandMixin from '../../mixins/brand';
 import ModelMixin from '../../mixins/model';
 import SerialMixin from '../../mixins/serial';
 import FormStep from './stepForm';
+import SelectInput from './SelectInput';
 
 export default {
   mixins: [ModelMixin,SerialMixin,BrandMixin],
   components: {
     FormStep,
+    SelectInput
   },
   data() {
     return {
