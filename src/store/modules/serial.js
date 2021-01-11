@@ -34,7 +34,6 @@ const storeModel = {
         'filter[power_cv]': kw,
         'filter[gearbox]': transmission,
       });
-      console.log('serial.js', qs);
 
       API.get(`${endpoint}?${qs}`)
         .then((response) => {

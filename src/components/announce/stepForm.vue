@@ -1,5 +1,5 @@
 <template>
-  <el-steps :active="active" finish-status="success">
+  <el-steps :active="currentStep" finish-status="success" simple>
     <el-step title="Step 1"></el-step>
     <el-step title="Step 2"></el-step>
     <el-step title="Step 3"></el-step>
@@ -8,14 +8,14 @@
 
 <script>
   export default {
-    data() {
-      return {
-        active: 0
-      };
+    props: {
+      currentStep: {
+        type: Number,
+        default: 1
+      },
     },
+    updated() {
+      console.log('step', this.step);
+    }
   };
 </script>
-
-<style lang="scss" scoped>
-
-</style>

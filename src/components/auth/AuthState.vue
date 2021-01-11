@@ -23,10 +23,6 @@ import AuthMixin from '../../mixins/auth';
 
 export default {
   mixins: [AuthMixin],
-  mounted() {
-    // eslint-disable-next-line no-undef
-    console.log('++', this.authUser);
-  }
 };
 </script>
 

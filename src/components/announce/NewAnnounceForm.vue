@@ -1,6 +1,5 @@
 <template>
-  <el-form ref="form-create-announce" @submit="onFormSubmit" label-position="top">
-    <form-step/>
+  <el-form ref="form-create-announce" label-position="top">
     <el-row>
       <el-col :span="8">
         <select-input 
@@ -110,7 +109,7 @@
             @change="(newValue) => onSelectChange(newValue, 'serialId')"
             placeholder="Select seriam"
             :options="serials"
-            labelOption="verion_name"
+            labelOption="version_name"
           />
       </el-col>
       <el-col :span="8">
@@ -140,7 +139,7 @@
       </el-col>
     </el-row>
 
-    <el-button type="submit" :disabled="!formData.body" @click="goToStep2" >Next Step</el-button>
+    <el-button :disabled="!formData.body" @click="goToStep2" >Next Step</el-button>
     <el-button @click="reset">Reset</el-button>
   </el-form>
 </template>
@@ -149,13 +148,11 @@
 import BrandMixin from '../../mixins/brand';
 import ModelMixin from '../../mixins/model';
 import SerialMixin from '../../mixins/serial';
-import FormStep from './stepForm';
 import SelectInput from './SelectInput';
 
 export default {
   mixins: [ModelMixin,SerialMixin,BrandMixin],
   components: {
-    FormStep,
     SelectInput
   },
   data() {
@@ -250,11 +247,6 @@ export default {
         value: newValue
       });
     },
-    onFormSubmit(event) {
-      event.preventDefault();
-
-      console.log('SUBMIT', this.formData);
-    },
     reset(e) {
       e.preventDefault();
       this.$store.dispatch('form/reset');
@@ -270,14 +262,14 @@ export default {
       }
     },
     goToStep2() {
-      this.$router.push({path: '/announces/new/step2'});
+      this.$router.push({name: 'create-announce-page', query: {step: 2}});
+      // this.$emit('changeStep', 2);
     }
   },
   watch: {
 
     "formData.month"(nV){ this.dispatchFetchModels(nV); },
     formDataModelId() {
-      console.log('formDataModelId');
       this.$store.dispatch('serial/fetchSerials');
     },
     formDataSerialId() {
@@ -298,7 +290,6 @@ export default {
       },
 
     "formData.brandId"(nV) {
-      console.log('oo');
       this.dispatchFetchModels(nV);
       this.$store.dispatch('form/reset', [
         "year",
