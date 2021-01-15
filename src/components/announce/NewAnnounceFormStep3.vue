@@ -35,13 +35,22 @@
                 </el-form-item>
             </el-col>
         </el-container>
-        <el-form-item label="Description">
-            <el-input type="textarea" v-model="form.desc"></el-input>
-        </el-form-item>
+        <el-col :span="24">
+            <el-form-item label="Title">
+                <el-input v-model="form.title" placeholder="price all taxes included"  style="width: 100%;"></el-input>
+            </el-form-item>
+        </el-col>
+        <el-col :span="24">
+            <el-form-item label="Description">
+                <el-input :rows="8" type="textarea" v-model="form.desc"></el-input>
+            </el-form-item>
+        </el-col>
+        <el-col >
         <el-form-item>
             <el-button type="primary" @click="onSubmit">Créer</el-button>
             <el-button>Annuler</el-button>
         </el-form-item>
+        </el-col>
     </el-form>
 </template>
 
@@ -53,12 +62,9 @@
                     particular_price_net: '',
                     particular_price_brut:'',
                     vat_rate:'21',
-                    region: '',
-                    date1: '',
-                    date2: '',
                     vat: false,
                     type: [],
-                    resource: '',
+                    title:'',
                     desc: ''
                 }
             };
