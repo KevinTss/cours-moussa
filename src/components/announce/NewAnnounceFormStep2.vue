@@ -1,18 +1,21 @@
 <template>
     <el-form>
-        <el-checkbox-group 
-            v-for='catId in catIds'
-            :key="`${catId}-category`"
-            v-model="checked"
-        >
-            <el-checkbox 
-            v-for="equipment in equipementsByCategories[catId]" 
-            :key="`${equipment.id}-checkbox`"
-                :label="equipment.option_name"
-                :value="equipment.id"
-            />
-        </el-checkbox-group>
-
+        <el-row>
+            <el-checkbox-group
+                v-for='catId in catIds'
+                :key="`${catId}-category`"
+                v-model="checked"
+            >
+                <el-col :span="6">
+                    <el-checkbox
+                            v-for="equipment in equipementsByCategories[catId]"
+                            :key="`${equipment.id}-checkbox`"
+                            :label="equipment.option_name"
+                            :value="equipment.id"
+                    />
+                </el-col>
+            </el-checkbox-group>
+        </el-row>
         <el-button @click="goStep1">Previous step</el-button>
         <el-button :disabled="true" @click="goToStep3" >Next Step</el-button>
     </el-form>
@@ -25,7 +28,7 @@
             };
         },
        created() {
-           if (!this.formData.body) {
+           if (!this.formData.body && !this.formData.body === false) {
                this.goStep1();
            } else {
                 this.$store.dispatch('equipment/fetchEquipments');

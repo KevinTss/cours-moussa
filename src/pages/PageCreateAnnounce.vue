@@ -13,7 +13,7 @@
             <el-col :span="16" :offset="4">
                 <new-announce-form v-if="step === 1"/>
                 <new-announce-form-step-2 v-else-if="step === 2" />
-                <!-- <new-announce-form-step-3 v-else-if="step === 3"/> -->
+                <new-announce-form-step-3 v-else-if="step === 3" />
             </el-col>
         </el-row>
     </el-main>
@@ -24,13 +24,14 @@
     import NavMenu from "../components/layouts/NavMenu";
     import NewAnnounceForm from '../components/announce/NewAnnounceForm';
     import NewAnnounceFormStep2 from '../components/announce/NewAnnounceFormStep2';
+    import NewAnnounceFormStep3 from '../components/announce/NewAnnounceFormStep3';
     import FormStep from '../components/announce/stepForm';
     import BrandMixin from '../mixins/brand';
 
     export default {
         name: "page-create-announce",
         mixins: [BrandMixin],
-        components: {NavMenu, NewAnnounceForm, NewAnnounceFormStep2, FormStep},
+        components: {NavMenu, NewAnnounceForm, NewAnnounceFormStep2, FormStep,NewAnnounceFormStep3},
         data() {
             return {
                 step: 1
