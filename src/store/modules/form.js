@@ -10,7 +10,7 @@ const storeModel = {
       kw: null,
       transmission: null,
       serialId: null,
-      other:null,
+      other: null,
       body: null,
     },
   },

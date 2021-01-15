@@ -6,7 +6,7 @@
     <el-main>
         <el-row :gutter="10">
             <el-col :span="16" :offset="4">
-                <form-step :currentStep="step"/>
+                <form-step :currentStep="Number(step)"/>
             </el-col>
         </el-row>
         <el-row :gutter="10">
@@ -43,7 +43,6 @@
             }
         },
         mounted() {
-            console.log('coucou', this.$route.query);
             if(this.brands < 1) {
                 this.$store.dispatch('brand/fetchBrands');
             }

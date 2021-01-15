@@ -14,8 +14,5 @@
         default: 1
       },
     },
-    updated() {
-      console.log('step', this.step);
-    }
   };
 </script>

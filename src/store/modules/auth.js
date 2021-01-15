@@ -13,7 +13,6 @@ const storeAuth = {
   },
   mutations: {
     setAuthUser: (state, user) => {
-      console.log('okok');
       state.user = user;
     },
     reset(state) {

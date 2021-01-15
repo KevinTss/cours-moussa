@@ -7,6 +7,7 @@ import storeBrand from './modules/brand';
 import storeAuth from './modules/auth';
 import storeForm from './modules/form';
 import storeSerial from './modules/serial';
+import storeEquipment from './modules/equipment';
 
 Vue.use(Vuex);
 
@@ -17,6 +18,7 @@ const store = new Vuex.Store({
     form: storeForm,
     model: moduleModel,
     serial: storeSerial,
+    equipment: storeEquipment,
   },
   state: {
     users: [],

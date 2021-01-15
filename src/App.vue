@@ -50,4 +50,8 @@ html, body {
   color: #2c3e50;
   height: 100%;
 }
+
+.el-select-dropdown__item.hover {
+  background-color: red;;
+}
 </style>
