@@ -158,7 +158,7 @@ export default {
   data() {
     return {
       step: 0,
-      years: [],
+      //years: [],
       months: [],
       bodies: ["compact","convertible","coupe","off-road","sedan"],
       selectSerial: false,

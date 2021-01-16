@@ -35,12 +35,16 @@
                 </el-form-item>
             </el-col>
         </el-container>
-        <el-col :span="24">
+        <el-col :span="11">
             <el-form-item label="Title">
-                <el-input v-model="form.title" placeholder="price all taxes included"  style="width: 100%;"></el-input>
+                <el-input maxlength="65"
+                          show-word-limit="true"
+                          v-model="form.title" placeholder="price all taxes included"
+                          style="width: 100%;"></el-input
+                >
             </el-form-item>
         </el-col>
-        <el-col :span="24">
+        <el-col :span="23">
             <el-form-item label="Description">
                 <el-input :rows="8" type="textarea" v-model="form.desc"></el-input>
             </el-form-item>

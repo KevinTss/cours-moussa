@@ -28,6 +28,7 @@
             };
         },
        created() {
+            //TODO: suppr condition false
            if (!this.formData.body && !this.formData.body === false) {
                this.goStep1();
            } else {
