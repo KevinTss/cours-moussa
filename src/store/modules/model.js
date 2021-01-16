@@ -29,6 +29,7 @@ const storeModel = {
       // const brandId = store.rootGetters["form/getCreateAnnounceFromData"].brandId
       // const year = store.rootGetters["form/getCreateAnnounceFromData"].year
       // const fuel = store.rootGetters["form/getCreateAnnounceFromData"].fuel
+
       const { brandId, year, fuel } = store.rootGetters[
         'form/getCreateAnnounceFromData'
       ];

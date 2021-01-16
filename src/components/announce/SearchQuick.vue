@@ -5,7 +5,8 @@
 
               <select-input
                         label="Brand"
-                        :value="brand"
+                        :value="brandSelect"
+                        @change="(nV) => brandSelected(nV)"
                         placeholder="Select Brand"
                         filterable
                         :options="brands"
@@ -60,6 +61,9 @@
            };
         },
         computed: {
+            formData() {
+                return this.$store.getters['form/getAnnounceFromSearchData'];
+            },
             fuels() {
                 const f = [];
 
@@ -93,10 +97,15 @@
             },
             yearSelected(nV){
                 return this.yearSelect = nV;
+            },
+            brandSelected(nv){
+                return this.brandSelect = nv;
             }
         },
         created() {
             this.years = this.getYears();
+            this.$store.dispatch('brand/fetchBrands');
+            this.$store.dispatch('model/fetchModels');
         }
     };
 </script>

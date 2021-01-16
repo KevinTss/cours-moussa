@@ -13,15 +13,32 @@ const storeModel = {
       other: null,
       body: null,
     },
+    searchQuickAnnounce:{
+      brandId: null,
+      year: null,
+      fuel: null,
+      modelId: null,
+      kw: null,
+      transmission: null,
+      serialId: null,
+      other: null,
+      body: null,
+    }
   },
   getters: {
     getCreateAnnounceFromData(state) {
       return state.createAnnounce;
     },
+    getAnnounceFromSearchData(state) {
+      return state.searchQuickAnnounce;
+    },
   },
   mutations: {
     setAnnounceFormField(state, data) {
       state.createAnnounce[data.name] = data.value;
+    },
+    setSearchFormField(state, data) {
+      state.searchQuickAnnounce[data.name] = data.value;
     },
   },
   actions: {
@@ -31,6 +48,13 @@ const storeModel = {
         store.commit('setAnnounceFormField', singleData);
       });
     },
+    changeSearchQuickAnnounce(store, data) {
+      const array = Array.isArray(data) ? data : [data];
+      array.forEach((singleData) => {
+        store.commit('form/setSearchFormField', singleData);
+      });
+    },
+
     reset(store, fields) {
       if (fields) {
         const fieldsToRemove = fields.map((field) => ({
