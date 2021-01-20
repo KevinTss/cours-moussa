@@ -13,17 +13,10 @@ const storeModel = {
       other: null,
       body: null,
     },
-    searchQuickAnnounce:{
-      brandId: null,
-      year: null,
-      fuel: null,
+    searchQuickAnnounce: {
       modelId: null,
-      kw: null,
-      transmission: null,
-      serialId: null,
-      other: null,
-      body: null,
-    }
+      brandId: null,
+    },
   },
   getters: {
     getCreateAnnounceFromData(state) {
@@ -51,7 +44,7 @@ const storeModel = {
     changeSearchQuickAnnounce(store, data) {
       const array = Array.isArray(data) ? data : [data];
       array.forEach((singleData) => {
-        store.commit('form/setSearchFormField', singleData);
+        store.commit('setSearchFormField', singleData);
       });
     },
 

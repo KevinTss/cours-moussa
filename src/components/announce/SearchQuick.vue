@@ -5,7 +5,7 @@
 
               <select-input
                         label="Brand"
-                        :value="brandSelect"
+                        :value="formData.brandId"
                         @change="(nV) => brandSelected(nV)"
                         placeholder="Select Brand"
                         filterable
@@ -57,7 +57,6 @@
            return  {
                years: [],
                yearSelect:'',
-               brandSelect:'',
            };
         },
         computed: {
@@ -99,13 +98,16 @@
                 return this.yearSelect = nV;
             },
             brandSelected(nv){
-                return this.brandSelect = nv;
-            }
+                this.$store.dispatch('form/changeSearchQuickAnnounce', {
+                    name: 'brandId',
+                    value: nv
+                });
+            },
         },
         created() {
             this.years = this.getYears();
-            this.$store.dispatch('brand/fetchBrands');
             this.$store.dispatch('model/fetchModels');
+            this.$store.dispatch('brand/fetchBrands');
         }
     };
 </script>
