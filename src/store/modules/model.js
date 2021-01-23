@@ -24,15 +24,23 @@ const storeModel = {
     },
   },
   actions: {
-    fetchModels(store) {
+    fetchModels(store, options = {}) {
       store.commit('setIsGetAllFetching', true);
       // const brandId = store.rootGetters["form/getCreateAnnounceFromData"].brandId
       // const year = store.rootGetters["form/getCreateAnnounceFromData"].year
       // const fuel = store.rootGetters["form/getCreateAnnounceFromData"].fuel
 
-      const { brandId, year, fuel } = store.rootGetters[
-        'form/getCreateAnnounceFromData'
-      ];
+      let brandId, year, fuel;
+
+      if (options.useSearchForm) {
+        brandId = store.rootGetters['form/getAnnounceFromSearchData'].brandId;
+        year = store.rootGetters['form/getAnnounceFromSearchData'].year;
+        fuel = store.rootGetters['form/getAnnounceFromSearchData'].fuel;
+      } else {
+        brandId = store.rootGetters['form/getCreateAnnounceFromData'].brandId;
+        year = store.rootGetters['form/getCreateAnnounceFromData'].year;
+        fuel = store.rootGetters['form/getCreateAnnounceFromData'].fuel;
+      }
 
       const qs = queryString.stringify({
         year: year,

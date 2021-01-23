@@ -16,6 +16,7 @@ const storeModel = {
     searchQuickAnnounce: {
       modelId: null,
       brandId: null,
+      year: null,
     },
   },
   getters: {

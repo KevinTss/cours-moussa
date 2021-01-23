@@ -6,7 +6,7 @@
               <select-input
                         label="Brand"
                         :value="formData.brandId"
-                        @change="(nV) => brandSelected(nV)"
+                        @change="(nV) => fieldSelected(nV, 'brandId')"
                         placeholder="Select Brand"
                         filterable
                         :options="brands"
@@ -16,17 +16,19 @@
             <el-col :span="6">
                 <select-input
                         label="Model"
-                        :value="modelId"
+                        :value="formData.modelId"
+                        @change="(nV) => fieldSelected(nV, 'modelId')"
                         placeholder="Select model"
                         :options="models"
                         labelOption="model_name"
                 />
             </el-col>
+
             <el-col :span="4">
                 <el-form-item  label="Year">
                     <el-select
-                        :value="yearSelect"
-                        @change="(nV) => yearSelected(nV)"
+                        :value="formData.year"
+                        @change="(nV) => fieldSelected(nV, 'year')"
                         placeholder="Select year"
                     >
                         <el-option
@@ -37,6 +39,10 @@
                         </el-option>
                     </el-select>
                 </el-form-item>
+            </el-col>
+
+            <el-col :span="2">
+                <el-button @click="search">Search</el-button>
             </el-col>
 
         </el-row>
@@ -97,16 +103,25 @@
             yearSelected(nV){
                 return this.yearSelect = nV;
             },
-            brandSelected(nv){
+            fieldSelected(nv, name){
                 this.$store.dispatch('form/changeSearchQuickAnnounce', {
-                    name: 'brandId',
+                    name: name,
                     value: nv
                 });
             },
+            search() {
+                this.$store.dispatch('announce/search', this.formData);
+            }
+        },
+        watch: {
+            "formData.brandId"(nv) {
+                if (nv) {
+                    this.$store.dispatch('model/fetchModels', {useSearchForm: true});
+                }
+            }
         },
         created() {
             this.years = this.getYears();
-            this.$store.dispatch('model/fetchModels');
             this.$store.dispatch('brand/fetchBrands');
         }
     };
