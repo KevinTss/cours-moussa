@@ -35,6 +35,20 @@ const storeAnnounce = {
           console.log('Error: ', e.message);
         });
     },
+    create: (store, data) => {
+      console.log('data', data, store);
+      API.post(`owner_vehicles`, {
+        gearbox: data.transmission,
+        model_car_id: data.modelId,
+      })
+        .then((response) => {
+          console.log('okok', response);
+          // store.commit('setAnnounces', response.data.data.announces.data);
+        })
+        .catch((e) => {
+          console.log('Error: ', e.message);
+        });
+    },
   },
 };
 

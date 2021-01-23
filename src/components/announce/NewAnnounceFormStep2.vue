@@ -17,7 +17,7 @@
             </el-checkbox-group>
         </el-row>
         <el-button @click="goStep1">Previous step</el-button>
-        <el-button :disabled="true" @click="goToStep3" >Next Step</el-button>
+        <el-button :disabled="!checked.length" @click="goToStep3" >Next Step</el-button>
     </el-form>
 </template>
 <script>
@@ -62,7 +62,7 @@
                this.$router.push({name:'create-announce-page', query: {step: 1}});
            },
            goToStep3() {
-            //    this.$router.push({path:'/announces/new/step3'});
+                this.$router.push({name: 'create-announce-page', query: {step: 3}});
            }
        }
     };

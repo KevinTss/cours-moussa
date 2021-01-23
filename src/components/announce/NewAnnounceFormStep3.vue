@@ -73,9 +73,14 @@
                 }
             };
         },
+        computed: {
+            formData() {
+      return this.$store.getters['form/getCreateAnnounceFromData'];
+    },
+        },
         methods: {
             onSubmit() {
-                console.log('submit!');
+                this.$store.dispatch('announce/create', this.formData);
             }
         }
     };
