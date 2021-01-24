@@ -1,7 +1,7 @@
 export default {
-    computed: {
-        serials() {
-            return this.$store.getters['serial/getAllSerials'];
-        },
+  computed: {
+    serials() {
+      return this.$store.getters["serial/getAllSerials"];
     },
+  },
 };

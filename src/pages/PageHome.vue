@@ -6,16 +6,16 @@
     <el-main>
       <h1>Find the best cars announces</h1>
       <search-quick />
-      <announces-container/>
+      <announces-container />
     </el-main>
   </div>
 </template>
 
 <script>
-import NavMenu from '../components/layouts/NavMenu';
+import NavMenu from "../components/layouts/NavMenu";
 import SearchQuick from "../components/announce/SearchQuick";
 import AuthMixin from "../mixins/auth";
-import AnnouncesContainer from '../components/announce/AnnouncesContainer';
+import AnnouncesContainer from "../components/announce/AnnouncesContainer";
 
 export default {
   mixins: [AuthMixin],

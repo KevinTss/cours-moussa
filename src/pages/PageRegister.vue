@@ -1,4 +1,3 @@
-
 <template>
   <div class="container-register-page">
     <nav-menu />
@@ -8,8 +7,8 @@
 </template>
 
 <script>
-import NavMenu from '../components/layouts/NavMenu';
-import RegisterForm from '../components/auth/RegisterForm';
+import NavMenu from "../components/layouts/NavMenu";
+import RegisterForm from "../components/auth/RegisterForm";
 
 export default {
   components: {

@@ -1,5 +1,5 @@
-import API from '../../api';
-import queryString from 'query-string';
+import API from "../../api";
+import queryString from "query-string";
 
 const storeModel = {
   namespaced: true,
@@ -25,7 +25,7 @@ const storeModel = {
   },
   actions: {
     fetchModels(store, options = {}) {
-      store.commit('setIsGetAllFetching', true);
+      store.commit("setIsGetAllFetching", true);
       // const brandId = store.rootGetters["form/getCreateAnnounceFromData"].brandId
       // const year = store.rootGetters["form/getCreateAnnounceFromData"].year
       // const fuel = store.rootGetters["form/getCreateAnnounceFromData"].fuel
@@ -33,13 +33,13 @@ const storeModel = {
       let brandId, year, fuel;
 
       if (options.useSearchForm) {
-        brandId = store.rootGetters['form/getAnnounceFromSearchData'].brandId;
-        year = store.rootGetters['form/getAnnounceFromSearchData'].year;
-        fuel = store.rootGetters['form/getAnnounceFromSearchData'].fuel;
+        brandId = store.rootGetters["form/getAnnounceFromSearchData"].brandId;
+        year = store.rootGetters["form/getAnnounceFromSearchData"].year;
+        fuel = store.rootGetters["form/getAnnounceFromSearchData"].fuel;
       } else {
-        brandId = store.rootGetters['form/getCreateAnnounceFromData'].brandId;
-        year = store.rootGetters['form/getCreateAnnounceFromData'].year;
-        fuel = store.rootGetters['form/getCreateAnnounceFromData'].fuel;
+        brandId = store.rootGetters["form/getCreateAnnounceFromData"].brandId;
+        year = store.rootGetters["form/getCreateAnnounceFromData"].year;
+        fuel = store.rootGetters["form/getCreateAnnounceFromData"].fuel;
       }
 
       const qs = queryString.stringify({
@@ -55,12 +55,12 @@ const storeModel = {
           if (!Array.isArray(data)) {
             data = Object.values(data);
           }
-          store.commit('setModels', data);
-          store.commit('setIsGetAllFetching', false);
+          store.commit("setModels", data);
+          store.commit("setIsGetAllFetching", false);
         })
         .catch((e) => {
-          store.commit('setIsGetAllFetching', false);
-          console.log('Error: ', e.message);
+          store.commit("setIsGetAllFetching", false);
+          console.log("Error: ", e.message);
         });
     },
   },

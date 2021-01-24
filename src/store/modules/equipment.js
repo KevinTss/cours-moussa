@@ -1,4 +1,4 @@
-import API from '../../api';
+import API from "../../api";
 
 const storeModel = {
   namespaced: true,
@@ -19,9 +19,9 @@ const storeModel = {
     fetchEquipments(store) {
       API.get(`equipment_cars`)
         .then((response) => {
-          store.commit('setEquipments', response.data.data.items);
+          store.commit("setEquipments", response.data.data.items);
         })
-        .catch((e) => console.log('Error: ', e.message));
+        .catch((e) => console.log("Error: ", e.message));
     },
   },
 };

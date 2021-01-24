@@ -6,11 +6,11 @@
 </template>
 
 <script>
-import NavMenu from '../components/layouts/NavMenu';
+import NavMenu from "../components/layouts/NavMenu";
 
 export default {
-  components:{
-    NavMenu
+  components: {
+    NavMenu,
   },
 };
 </script>

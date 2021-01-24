@@ -1,14 +1,14 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+import Vue from "vue";
+import Vuex from "vuex";
 
-import API from '../api';
-import moduleModel from './modules/model';
-import storeAnnounce from './modules/announce';
-import storeAuth from './modules/auth';
-import storeBrand from './modules/brand';
-import storeEquipment from './modules/equipment';
-import storeForm from './modules/form';
-import storeSerial from './modules/serial';
+import API from "../api";
+import moduleModel from "./modules/model";
+import storeAnnounce from "./modules/announce";
+import storeAuth from "./modules/auth";
+import storeBrand from "./modules/brand";
+import storeEquipment from "./modules/equipment";
+import storeForm from "./modules/form";
+import storeSerial from "./modules/serial";
 
 Vue.use(Vuex);
 
@@ -30,7 +30,7 @@ const store = new Vuex.Store({
       state.users = newUsers;
     },
     setInitialState: () => {
-      console.log('setInitialState');
+      console.log("setInitialState");
       // state.authUser = null;
       // state.users = [];
       // state.brands = [];
@@ -39,19 +39,19 @@ const store = new Vuex.Store({
   },
   actions: {
     fetchUsers: (store) => {
-      API.get('users')
+      API.get("users")
         .then((response) => {
-          store.commit('setUsers', response.data.data.data);
+          store.commit("setUsers", response.data.data.data);
         })
-        .catch((e) => console.log('Error: ', e.message));
+        .catch((e) => console.log("Error: ", e.message));
     },
     resetStore(store) {
-      console.log('resetStore', store);
-      store.commit('reset');
+      console.log("resetStore", store);
+      store.commit("reset");
     },
     logout(store) {
       // window.localStorage.removeItem('token');
-      store.dispatch('resetStore');
+      store.dispatch("resetStore");
     },
   },
 });

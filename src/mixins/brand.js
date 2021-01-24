@@ -1,4 +1,4 @@
-const MODULE_NAME = 'brand';
+const MODULE_NAME = "brand";
 
 export default {
   computed: {
