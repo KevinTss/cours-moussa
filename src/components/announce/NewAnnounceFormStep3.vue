@@ -66,7 +66,9 @@
     </el-col>
     <el-col>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">Créer</el-button>
+        <el-button type="primary" @click="onSubmit">{{
+          isCreateLoading ? "loading..." : "Créer"
+        }}</el-button>
         <el-button @click="() => this.$emit('changeStep', 2)"
           >Previous step</el-button
         >
@@ -95,10 +97,27 @@ export default {
     formData() {
       return this.$store.getters["form/getCreateAnnounceFromData"];
     },
+    isCreateLoading() {
+      return this.$store.getters["announce/isCreateLoading"];
+    },
   },
   methods: {
     onSubmit() {
       this.$store.dispatch("announce/create", this.formData);
+    },
+  },
+  watch: {
+    isCreateLoading(nv) {
+      if (!nv) {
+        // si false -> call temriné
+        const hasError = this.$store.getters["announce/isCreateError"];
+        if (hasError) {
+          this.$message({
+            message: hasError,
+            type: "error",
+          });
+        }
+      }
     },
   },
 };
