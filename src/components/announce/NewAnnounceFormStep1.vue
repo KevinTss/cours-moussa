@@ -262,7 +262,8 @@ export default {
       }
     },
     goToStep2() {
-      this.$router.push({name: 'create-announce-page', query: {step: 2}});
+      this.$emit('changeStep', 2);
+      // this.$router.push({ query: {step: 2}});
       // this.$emit('changeStep', 2);
     }
   },

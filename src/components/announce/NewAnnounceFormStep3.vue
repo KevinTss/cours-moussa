@@ -38,7 +38,7 @@
         <el-col :span="11">
             <el-form-item label="Title">
                 <el-input maxlength="65"
-                          show-word-limit="true"
+                          :show-word-limit="true"
                           v-model="form.title" placeholder="price all taxes included"
                           style="width: 100%;"></el-input
                 >
@@ -52,7 +52,8 @@
         <el-col >
         <el-form-item>
             <el-button type="primary" @click="onSubmit">Créer</el-button>
-            <el-button>Annuler</el-button>
+            <el-button @click="() => this.$emit('changeStep', 2)">Previous step</el-button>
+            <el-button @click="showAlertBeforeCancel">Anuuler</el-button>
         </el-form-item>
         </el-col>
     </el-form>
@@ -81,7 +82,7 @@
         methods: {
             onSubmit() {
                 this.$store.dispatch('announce/create', this.formData);
-            }
+            },
         }
     };
 </script>
