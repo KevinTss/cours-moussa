@@ -7,12 +7,12 @@
           icon="el-icon-user-solid"
           :src="authUser.profile_picture_url"
         />
-        <span class="user-name"> {{ authUser.name }}</span>
+        <span class="user-name">{{ authUser.name }}</span>
       </div>
       <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item @click="$store.dispatch('logout')"
-          >Logout</el-dropdown-item
-        >
+        <el-dropdown-item>
+          <el-link @click="$store.dispatch('logout')">Logout</el-link>
+        </el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
 

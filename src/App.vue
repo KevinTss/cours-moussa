@@ -22,7 +22,6 @@ export default {
         .then((res) => {
           const user = res.data;
           this.$store.commit('auth/setAuthUser', user);
-          // this.$i18n.locale = user.language
           this.hasRequestSent = true;
         })
         .catch((error) => {
@@ -52,5 +51,11 @@ body {
   text-align: center;
   color: #2c3e50;
   height: 100%;
+}
+.link {
+  text-decoration: none;
+  color: #409EFF;
+  line-height: 40px;
+  padding: 0 10px;
 }
 </style>

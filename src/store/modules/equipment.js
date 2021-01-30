@@ -14,6 +14,9 @@ const storeModel = {
     setEquipments(state, newEquipments) {
       state.list = newEquipments;
     },
+    reset(state) {
+      state.list = [];
+    },
   },
   actions: {
     fetchEquipments(store) {

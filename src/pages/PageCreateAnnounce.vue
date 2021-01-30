@@ -83,6 +83,9 @@ export default {
     },
   },
   created() {
+    if (!this.$store.getters['auth/getAuthUser']) {
+      this.$router.push({name:'login-page'});
+    }
     if (this.brands < 1) {
       this.$store.dispatch('brand/fetchBrands');
     }

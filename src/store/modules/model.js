@@ -22,6 +22,10 @@ const storeModel = {
     setIsGetAllFetching(state, newValue) {
       state.isGetAllFetching = newValue;
     },
+    reset(state) {
+      state.list = [];
+      state.isGetAllFetching = false;
+    },
   },
   actions: {
     fetchModels(store, options = {}) {

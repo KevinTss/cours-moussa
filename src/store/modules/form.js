@@ -34,6 +34,25 @@ const storeModel = {
     setSearchFormField(state, data) {
       state.searchQuickAnnounce[data.name] = data.value;
     },
+    reset(state) {
+      state.createAnnounce = {
+        brandId: null,
+        year: null,
+        month: null,
+        fuel: null,
+        modelId: null,
+        kw: null,
+        transmission: null,
+        serialId: null,
+        other: null,
+        body: null,
+      };
+      state.searchQuickAnnounce = {
+        modelId: null,
+        brandId: null,
+        year: null,
+      };
+    },
   },
   actions: {
     changeCreateAnnounceField(store, data) {

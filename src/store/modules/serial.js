@@ -15,6 +15,9 @@ const storeModel = {
     setSerials(state, newSerials) {
       state.list = newSerials;
     },
+    reset(state) {
+      state.list = [];
+    },
   },
   actions: {
     fetchSerials(store) {

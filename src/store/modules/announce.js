@@ -63,6 +63,21 @@ const storeAnnounce = {
       state.actions[data.actionName].success = data.success;
       state.actions[data.actionName].error = data.error;
     },
+    reset: (state) => {
+      state.list = [];
+      state.actions = {
+        search: {
+          loading: false,
+          success: false,
+          error: '',
+        },
+        create: {
+          loading: false,
+          success: false,
+          error: '',
+        },
+      };
+    },
   },
   actions: {
     // eslint-disable-next-line no-unused-vars

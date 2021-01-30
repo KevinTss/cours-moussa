@@ -16,7 +16,7 @@ const storeAuth = {
       state.user = user;
     },
     reset(state) {
-      console.log('reset auth', state);
+      state.user = null;
     },
   },
   actions: {

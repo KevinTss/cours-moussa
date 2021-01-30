@@ -1,9 +1,16 @@
 <template>
-  <form @submit="register">
-    <input type="email" name="email" v-model="email" />
-    <input type="password" name="password" v-model="password" />
-    <button type="submit">Register</button>
-  </form>
+  <el-form label-position="top">
+    <el-form-item label="Email">
+      <el-input type="email" name="email" v-model="email" />
+    </el-form-item>
+    <el-form-item label="Email">
+      <el-input type="password" name="password" v-model="password" />
+    </el-form-item>
+    <el-button-group>
+      <el-button @click="register" type="submit">Register</el-button>
+      <router-link to="/login" class="link">or login?</router-link>
+    </el-button-group>
+  </el-form>
 </template>
 
 <script>

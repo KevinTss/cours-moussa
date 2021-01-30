@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import API from '../api';
+import router from '../router';
 import moduleModel from './modules/model';
 import storeAnnounce from './modules/announce';
 import storeAuth from './modules/auth';
@@ -22,37 +22,17 @@ const store = new Vuex.Store({
     model: moduleModel,
     serial: storeSerial,
   },
-  state: {
-    users: [],
-  },
-  mutations: {
-    setUsers: (state, newUsers) => {
-      state.users = newUsers;
-    },
-    setInitialState: () => {
-      console.log('setInitialState');
-      // state.authUser = null;
-      // state.users = [];
-      // state.brands = [];
-      // window.localStorage.removeItem('token');
-    },
-  },
   actions: {
-    fetchUsers: (store) => {
-      API.get('users')
-        .then((response) => {
-          store.commit('setUsers', response.data.data.data);
-        })
-        .catch((e) => console.log('Error: ', e.message));
-    },
-    resetStore(store) {
-      console.log('resetStore', store);
-      store.commit('reset');
-    },
     logout(store) {
-      //window.localStorage.removeItem("token");
-      store.dispatch('resetStore');
-      console.log('ttt', store);
+      window.localStorage.removeItem('token');
+      store.commit('announce/reset');
+      store.commit('auth/reset');
+      store.commit('brand/reset');
+      store.commit('equipment/reset');
+      store.commit('form/reset');
+      store.commit('model/reset');
+      store.commit('serial/reset');
+      router.push({ name: 'login-page' });
     },
   },
 });
