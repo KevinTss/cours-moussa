@@ -2,6 +2,7 @@ const storeModel = {
   namespaced: true,
   state: {
     createAnnounce: {
+      // Step 1
       brandId: null,
       year: null,
       month: null,
@@ -12,6 +13,9 @@ const storeModel = {
       serialId: null,
       other: null,
       body: null,
+      // Step 2
+      equipments: [],
+      // Step 3
     },
     searchQuickAnnounce: {
       modelId: null,

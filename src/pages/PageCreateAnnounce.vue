@@ -36,10 +36,11 @@ import NewAnnounceFormStep2 from '../components/announce/NewAnnounceFormStep2';
 import NewAnnounceFormStep3 from '../components/announce/NewAnnounceFormStep3';
 import FormStep from '../components/announce/stepForm';
 import BrandMixin from '../mixins/brand';
+import AuthMixin from '../mixins/auth';
 
 export default {
   name: 'page-create-announce',
-  mixins: [BrandMixin],
+  mixins: [AuthMixin, BrandMixin],
   components: {
     NavMenu,
     NewAnnounceFormStep1,
@@ -57,11 +58,13 @@ export default {
       const currentStep = route.query.step;
       this.step = Number(currentStep);
       if (!['1', '2', '3'].includes(currentStep)) {
+        console.log('not inclde');
         this.$router.push({ query: { step: 1 } });
       } else if (
-          (route.query.step === '2' || route.query.step === '3') &&
+        (route.query.step === '2' || route.query.step === '3') &&
           !this.$store.getters['form/getCreateAnnounceFromData'].body
         ) {
+          console.log('inclde');
         this.$router.push({ query: { step: 1 } });
       }
     },
@@ -78,7 +81,7 @@ export default {
     },
   },
   created() {
-    if (!this.$store.getters['auth/getAuthUser']) {
+    if (!this.authUser) {
       this.$router.push({name:'login-page'});
     }
     if (this.brands < 1) {

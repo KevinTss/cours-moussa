@@ -1,20 +1,26 @@
 <template>
   <el-form>
     <el-row>
-      <el-checkbox-group
+      <div
         v-for="catId in catIds"
         :key="`${catId}-category`"
-        v-model="checked"
       >
         <el-col :span="6">
-          <el-checkbox
+          <div 
             v-for="equipment in equipementsByCategories[catId]"
             :key="`${equipment.id}-checkbox`"
-            :label="equipment.option_name"
-            :value="equipment.id"
-          />
+            class="checkbox"
+          >
+            <input 
+              type="checkbox" 
+              :id="equipment.id" 
+              name="equipments" 
+              :value="equipment.id"
+            >
+            <label :for="equipment.id">{{ equipment.option_name }}</label>
+          </div>
         </el-col>
-      </el-checkbox-group>
+      </div>
     </el-row>
     <el-button @click="() => this.$emit('changeStep', 1)"
       >Previous step</el-button
@@ -72,3 +78,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.checkbox {
+  border: 1px solid black;
+}
+
+</style>

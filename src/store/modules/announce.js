@@ -41,6 +41,11 @@ const storeAnnounce = {
         success: false,
         error: '',
       },
+      fetchAll: {
+        loading: false,
+        success: false,
+        error: '',
+      },
     },
   },
   getters: {
@@ -113,6 +118,18 @@ const storeAnnounce = {
         })
         .catch((e) => {
           setErrorState(store, 'create', e.message);
+        });
+    },
+    fetchAll: (store) => {
+      const userId = store.rootGetters['auth/getAuthUser'].id;
+      API.get(`users/${userId}/announce_cars`)
+        .then((response) => {
+          console.log('okok', response);
+          // store.commit('setAnnounces', response.data.data.announces.data);
+        })
+        .catch((e) => {
+          // setErrorState(store, 'create', e.message);
+          console.log('err', e.message);
         });
     },
   },

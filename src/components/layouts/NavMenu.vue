@@ -9,6 +9,9 @@
           <router-link to="/">Home</router-link>
         </el-menu-item>
         <el-menu-item v-if="authUser">
+          <router-link to="/announces">My announces</router-link>
+        </el-menu-item>
+        <el-menu-item v-if="authUser">
           <router-link to="/announces/new">Create announce</router-link>
         </el-menu-item>
         <el-menu-item>

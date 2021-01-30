@@ -105,6 +105,9 @@ export default {
     onSubmit() {
       this.$store.dispatch('announce/create', this.formData);
     },
+    showAlertBeforeCancel() {
+      console.log('cancel');
+    }
   },
   watch: {
     isCreateLoading(nv) {
