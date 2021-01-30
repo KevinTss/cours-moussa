@@ -94,7 +94,7 @@ const storeAnnounce = {
       API.get(`announce_cars?${qs}`)
         .then((response) => {
           setSuccessState(store, 'search');
-          store.commit('setAnnounces', response.data.data.announces.data);
+          store.commit('setAnnounces', response.data.data.items);
         })
         .catch((e) => {
           setErrorState(store, 'search', e.message);
