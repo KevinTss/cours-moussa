@@ -5,6 +5,7 @@ class API {
 
   constructor() {
     this.baseUrl = "http://ctb2.promaniak.com/api";
+    //this.baseUrl = "http://ctb_backend1.test/api";
   }
 
   getHeaders() {

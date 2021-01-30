@@ -50,8 +50,9 @@ const store = new Vuex.Store({
       store.commit("reset");
     },
     logout(store) {
-      // window.localStorage.removeItem('token');
+      //window.localStorage.removeItem("token");
       store.dispatch("resetStore");
+      console.log("ttt", store);
     },
   },
 });
