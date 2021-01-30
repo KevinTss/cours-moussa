@@ -159,10 +159,10 @@
 </template>
 
 <script>
-import BrandMixin from "../../mixins/brand";
-import ModelMixin from "../../mixins/model";
-import SerialMixin from "../../mixins/serial";
-import SelectInput from "./SelectInput";
+import BrandMixin from '../../mixins/brand';
+import ModelMixin from '../../mixins/model';
+import SerialMixin from '../../mixins/serial';
+import SelectInput from './SelectInput';
 
 export default {
   mixins: [ModelMixin, SerialMixin, BrandMixin],
@@ -174,9 +174,9 @@ export default {
       step: 0,
       //years: [],
       months: [],
-      bodies: ["compact", "convertible", "coupe", "off-road", "sedan"],
+      bodies: ['compact', 'convertible', 'coupe', 'off-road', 'sedan'],
       selectSerial: false,
-      other: "",
+      other: '',
     };
   },
   computed: {
@@ -199,7 +199,7 @@ export default {
       return f;
     },
     formData() {
-      return this.$store.getters["form/getCreateAnnounceFromData"];
+      return this.$store.getters['form/getCreateAnnounceFromData'];
     },
     formDataModelId() {
       return this.formData.modelId;
@@ -208,7 +208,7 @@ export default {
       return this.formData.serialId;
     },
     kws() {
-      const arr = this.$store.getters["serial/getAllSerials"].map(
+      const arr = this.$store.getters['serial/getAllSerials'].map(
         (el) => el.power_cv
       );
       const uniqArr = [];
@@ -223,7 +223,7 @@ export default {
     //TODO: refactorer function map unique
     gearboxes() {
       const kw = Number(this.formData.kw);
-      const serials = this.$store.getters["serial/getAllSerials"];
+      const serials = this.$store.getters['serial/getAllSerials'];
       const concernedSerials = serials.filter((el) => el.power_cv === kw);
       const formatted = concernedSerials.map((el) => el.gearbox);
       const uniq = formatted.reduce(
@@ -234,7 +234,7 @@ export default {
       return uniq;
     },
     isOtherInputVisble() {
-      return this.formData.serialId === "other";
+      return this.formData.serialId === 'other';
     },
   },
   methods: {
@@ -260,14 +260,14 @@ export default {
       return monthRange;
     },
     onSelectChange(newValue, fieldName) {
-      this.$store.dispatch("form/changeCreateAnnounceField", {
+      this.$store.dispatch('form/changeCreateAnnounceField', {
         name: fieldName,
         value: newValue,
       });
     },
     reset(e) {
       e.preventDefault();
-      this.$store.dispatch("form/reset");
+      this.$store.dispatch('form/reset');
     },
     dispatchFetchModels(newValue) {
       if (
@@ -276,77 +276,77 @@ export default {
         // this.formData.month &&
         // this.formData.fuel
       ) {
-        this.$store.dispatch("model/fetchModels");
+        this.$store.dispatch('model/fetchModels');
       }
     },
     goToStep2() {
-      this.$emit("changeStep", 2);
+      this.$emit('changeStep', 2);
       // this.$router.push({ query: {step: 2}});
       // this.$emit('changeStep', 2);
     },
   },
   watch: {
-    "formData.month"(nV) {
+    'formData.month'(nV) {
       this.dispatchFetchModels(nV);
     },
     formDataModelId() {
-      this.$store.dispatch("serial/fetchSerials");
+      this.$store.dispatch('serial/fetchSerials');
     },
     formDataSerialId() {
-      this.$store.dispatch("serial/fetchSerials");
+      this.$store.dispatch('serial/fetchSerials');
     },
-    "formData.kw"() {
-      this.$store.dispatch("form/reset", ["transmission", "serialId", "body"]);
+    'formData.kw'() {
+      this.$store.dispatch('form/reset', ['transmission', 'serialId', 'body']);
     },
-    "formData.transmission"() {
-      this.$store.dispatch("form/reset", ["serialId", "body"]);
+    'formData.transmission'() {
+      this.$store.dispatch('form/reset', ['serialId', 'body']);
     },
 
-    "formData.brandId"(nV) {
+    'formData.brandId'(nV) {
       this.dispatchFetchModels(nV);
-      this.$store.dispatch("form/reset", [
-        "year",
-        "month",
-        "fuel",
-        "modelId",
-        "kw",
-        "transmission",
-        "serialId",
-        "body",
+      this.$store.dispatch('form/reset', [
+        'year',
+        'month',
+        'fuel',
+        'modelId',
+        'kw',
+        'transmission',
+        'serialId',
+        'body',
       ]);
     },
-    "formData.year"(nV) {
+    'formData.year'(nV) {
       this.dispatchFetchModels(nV);
-      this.$store.dispatch("form/reset", [
-        "fuel",
-        "modelId",
-        "kw",
-        "transmission",
-        "serialId",
-        "body",
+      this.$store.dispatch('form/reset', [
+        'fuel',
+        'modelId',
+        'kw',
+        'transmission',
+        'serialId',
+        'body',
       ]);
     },
-    "formData.modelId"() {
-      this.$store.dispatch("form/reset", [
-        "kw",
-        "transmission",
-        "serialId",
-        "other",
-        "body",
+    'formData.modelId'() {
+      this.$store.dispatch('form/reset', [
+        'kw',
+        'transmission',
+        'serialId',
+        'other',
+        'body',
       ]);
     },
-    "formData.fuel"(nV) {
+    'formData.fuel'(nV) {
       this.dispatchFetchModels(nV),
-        this.$store.dispatch("form/reset", [
-          "modelId",
-          "kw",
-          "transmission",
-          "serialId",
-          "body",
+        this.$store.dispatch('form/reset', [
+          'modelId',
+          'kw',
+          'transmission',
+          'serialId',
+          'body',
         ]);
     },
-    "formData.serialId"() {
-      this.$store.dispatch("form/reset", ["other", "body"]);
+    'formData.serialId'() {
+      this.$store.dispatch('form/reset', ['other', 'body']);
     },
     isModelsFetching(newValue, oldValue) {
       // console.log('isModelsFetching new', newValue)

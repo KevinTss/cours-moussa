@@ -12,10 +12,10 @@
 </template>
 
 <script>
-import NavMenu from "../components/layouts/NavMenu";
-import SearchQuick from "../components/announce/SearchQuick";
-import AuthMixin from "../mixins/auth";
-import AnnouncesContainer from "../components/announce/AnnouncesContainer";
+import NavMenu from '../components/layouts/NavMenu';
+import SearchQuick from '../components/announce/SearchQuick';
+import AuthMixin from '../mixins/auth';
+import AnnouncesContainer from '../components/announce/AnnouncesContainer';
 
 export default {
   mixins: [AuthMixin],

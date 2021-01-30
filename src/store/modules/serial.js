@@ -1,5 +1,5 @@
-import queryString from "query-string";
-import API from "../../api";
+import queryString from 'query-string';
+import API from '../../api';
 
 const storeModel = {
   namespaced: true,
@@ -25,21 +25,21 @@ const storeModel = {
         year,
         kw,
         transmission,
-      } = store.rootGetters["form/getCreateAnnounceFromData"];
+      } = store.rootGetters['form/getCreateAnnounceFromData'];
       let endpoint = `brand_cars/${brandId}/model_cars/${modelId}/version_frances`;
 
       const qs = queryString.stringify({
-        "filter[year]": year,
-        "filter[fuel]": fuel,
-        "filter[power_cv]": kw,
-        "filter[gearbox]": transmission,
+        'filter[year]': year,
+        'filter[fuel]': fuel,
+        'filter[power_cv]': kw,
+        'filter[gearbox]': transmission,
       });
 
       API.get(`${endpoint}?${qs}`)
         .then((response) => {
-          store.commit("setSerials", response.data.data.version_car);
+          store.commit('setSerials', response.data.data.version_car);
         })
-        .catch((e) => console.log("Error: ", e.message));
+        .catch((e) => console.log('Error: ', e.message));
     },
   },
 };

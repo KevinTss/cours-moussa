@@ -49,9 +49,9 @@
 </template>
 
 <script>
-import SelectInput from "./SelectInput";
-import BrandMixin from "../../mixins/brand";
-import ModelMixin from "../../mixins/model";
+import SelectInput from './SelectInput';
+import BrandMixin from '../../mixins/brand';
+import ModelMixin from '../../mixins/model';
 
 export default {
   mixins: [SelectInput, BrandMixin, ModelMixin],
@@ -61,12 +61,12 @@ export default {
   data() {
     return {
       years: [],
-      yearSelect: "",
+      yearSelect: '',
     };
   },
   computed: {
     formData() {
-      return this.$store.getters["form/getAnnounceFromSearchData"];
+      return this.$store.getters['form/getAnnounceFromSearchData'];
     },
     fuels() {
       const f = [];
@@ -86,8 +86,8 @@ export default {
       return f;
     },
     brand() {
-      console.log("eee", this.$store.getters["brand/getAllBrands"]);
-      return this.$store.getters["brand/getAllBrands"];
+      console.log('eee', this.$store.getters['brand/getAllBrands']);
+      return this.$store.getters['brand/getAllBrands'];
     },
   },
   methods: {
@@ -102,25 +102,25 @@ export default {
       return (this.yearSelect = nV);
     },
     fieldSelected(nv, name) {
-      this.$store.dispatch("form/changeSearchQuickAnnounce", {
+      this.$store.dispatch('form/changeSearchQuickAnnounce', {
         name: name,
         value: nv,
       });
     },
     search() {
-      this.$store.dispatch("announce/search", this.formData);
+      this.$store.dispatch('announce/search', this.formData);
     },
   },
   watch: {
-    "formData.brandId"(nv) {
+    'formData.brandId'(nv) {
       if (nv) {
-        this.$store.dispatch("model/fetchModels", { useSearchForm: true });
+        this.$store.dispatch('model/fetchModels', { useSearchForm: true });
       }
     },
   },
   created() {
     this.years = this.getYears();
-    this.$store.dispatch("brand/fetchBrands");
+    this.$store.dispatch('brand/fetchBrands');
   },
 };
 </script>

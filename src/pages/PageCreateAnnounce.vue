@@ -30,15 +30,15 @@
 </template>
 
 <script>
-import NavMenu from "../components/layouts/NavMenu";
-import NewAnnounceFormStep1 from "../components/announce/NewAnnounceFormStep1";
-import NewAnnounceFormStep2 from "../components/announce/NewAnnounceFormStep2";
-import NewAnnounceFormStep3 from "../components/announce/NewAnnounceFormStep3";
-import FormStep from "../components/announce/stepForm";
-import BrandMixin from "../mixins/brand";
+import NavMenu from '../components/layouts/NavMenu';
+import NewAnnounceFormStep1 from '../components/announce/NewAnnounceFormStep1';
+import NewAnnounceFormStep2 from '../components/announce/NewAnnounceFormStep2';
+import NewAnnounceFormStep3 from '../components/announce/NewAnnounceFormStep3';
+import FormStep from '../components/announce/stepForm';
+import BrandMixin from '../mixins/brand';
 
 export default {
-  name: "page-create-announce",
+  name: 'page-create-announce',
   mixins: [BrandMixin],
   components: {
     NavMenu,
@@ -56,17 +56,17 @@ export default {
     checkStep(route) {
       const currentStep = route.query.step;
       this.step = Number(currentStep);
-      if (!["1", "2", "3"].includes(currentStep)) {
+      if (!['1', '2', '3'].includes(currentStep)) {
         this.$router.push({ query: { step: 1 } });
       } else {
         if (
-          (route.query.step === "2" || route.query.step === "3") &&
-          !this.$store.getters["form/getCreateAnnounceFromData"].body
+          (route.query.step === '2' || route.query.step === '3') &&
+          !this.$store.getters['form/getCreateAnnounceFromData'].body
         ) {
-          console.log("redirect");
+          console.log('redirect');
           this.$router.push({ query: { step: 1 } });
         } else {
-          console.log("ok");
+          console.log('ok');
         }
       }
     },
@@ -75,7 +75,7 @@ export default {
     },
   },
   watch: {
-    "$route.query"(newValue) {
+    '$route.query'(newValue) {
       this.step = newValue.step;
     },
     $route(nv) {
@@ -84,7 +84,7 @@ export default {
   },
   created() {
     if (this.brands < 1) {
-      this.$store.dispatch("brand/fetchBrands");
+      this.$store.dispatch('brand/fetchBrands');
     }
     this.checkStep(this.$route);
   },

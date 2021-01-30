@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import NavMenu from "../components/layouts/NavMenu";
-import LoginForm from "../components/auth/LoginForm";
+import NavMenu from '../components/layouts/NavMenu';
+import LoginForm from '../components/auth/LoginForm';
 
 export default {
   components: {

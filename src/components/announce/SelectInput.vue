@@ -42,12 +42,12 @@ export default {
     },
     labelOption: {
       type: String,
-      default: "name",
+      default: 'name',
     },
   },
   methods: {
     onChange(value) {
-      this.$emit("change", value);
+      this.$emit('change', value);
     },
   },
 };

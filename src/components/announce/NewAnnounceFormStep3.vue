@@ -83,38 +83,38 @@ export default {
   data() {
     return {
       form: {
-        particular_price_net: "",
-        particular_price_brut: "",
-        vat_rate: "21",
+        particular_price_net: '',
+        particular_price_brut: '',
+        vat_rate: '21',
         vat: false,
         type: [],
-        title: "",
-        desc: "",
+        title: '',
+        desc: '',
       },
     };
   },
   computed: {
     formData() {
-      return this.$store.getters["form/getCreateAnnounceFromData"];
+      return this.$store.getters['form/getCreateAnnounceFromData'];
     },
     isCreateLoading() {
-      return this.$store.getters["announce/isCreateLoading"];
+      return this.$store.getters['announce/isCreateLoading'];
     },
   },
   methods: {
     onSubmit() {
-      this.$store.dispatch("announce/create", this.formData);
+      this.$store.dispatch('announce/create', this.formData);
     },
   },
   watch: {
     isCreateLoading(nv) {
       if (!nv) {
         // si false -> call temriné
-        const hasError = this.$store.getters["announce/isCreateError"];
+        const hasError = this.$store.getters['announce/isCreateError'];
         if (hasError) {
           this.$message({
             message: hasError,
-            type: "error",
+            type: 'error',
           });
         }
       }

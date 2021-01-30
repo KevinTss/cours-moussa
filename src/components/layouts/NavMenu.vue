@@ -23,9 +23,9 @@
 </template>
 
 <script>
-import AuthState from "../auth/AuthState";
-import AuthMixin from "../../mixins/auth";
-import lang from "./lang";
+import AuthState from '../auth/AuthState';
+import AuthMixin from '../../mixins/auth';
+import lang from './lang';
 
 export default {
   mixins: [AuthMixin],

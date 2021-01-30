@@ -1,4 +1,4 @@
-import API from "../../api";
+import API from '../../api';
 
 const storeBrand = {
   namespaced: true,
@@ -40,15 +40,15 @@ const storeBrand = {
       //   { id: 3, name: 'ccc' },
       //   { id: 4, name: 'ddd' },
       // ]);
-      store.commit("setIsFetching", true);
-      API.get("brand_cars")
+      store.commit('setIsFetching', true);
+      API.get('brand_cars')
         .then((response) => {
-          store.commit("setBrandCars", response.data.data.items);
-          store.commit("setIsFetching", false);
+          store.commit('setBrandCars', response.data.data.items);
+          store.commit('setIsFetching', false);
         })
         .catch((e) => {
-          console.log("Error: ", e.message);
-          store.commit("setIsFetching", false);
+          console.log('Error: ', e.message);
+          store.commit('setIsFetching', false);
         });
     },
   },

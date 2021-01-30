@@ -10,14 +10,14 @@
 </template>
 
 <script>
-import AnnounceCard from "./AnnounceCard.vue";
+import AnnounceCard from './AnnounceCard.vue';
 
 export default {
-  name: "announces-container",
+  name: 'announces-container',
   components: { AnnounceCard },
   computed: {
     data() {
-      return this.$store.getters["announce/getAllAnnounces"];
+      return this.$store.getters['announce/getAllAnnounces'];
     },
   },
 };

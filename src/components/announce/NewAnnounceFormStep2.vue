@@ -38,15 +38,15 @@ export default {
     if (!this.formData.body && !this.formData.body === false) {
       this.goStep1();
     } else {
-      this.$store.dispatch("equipment/fetchEquipments");
+      this.$store.dispatch('equipment/fetchEquipments');
     }
   },
   computed: {
     formData() {
-      return this.$store.getters["form/getCreateAnnounceFromData"];
+      return this.$store.getters['form/getCreateAnnounceFromData'];
     },
     equipments() {
-      return this.$store.getters["equipment/getAllEquipment"];
+      return this.$store.getters['equipment/getAllEquipment'];
     },
     equipementsByCategories() {
       const groups = {};

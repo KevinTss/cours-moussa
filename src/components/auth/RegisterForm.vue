@@ -10,20 +10,20 @@
 export default {
   data() {
     return {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     };
   },
   methods: {
     register(event) {
       event.preventDefault();
 
-      this.$store.dispatch("auth/register", {
+      this.$store.dispatch('auth/register', {
         email: this.email,
         password: this.password,
-        user_type: "particular",
-        country_name: "BE",
-        phone: "470 12 45 78",
+        user_type: 'particular',
+        country_name: 'BE',
+        phone: '470 12 45 78',
       });
     },
   },

@@ -1,24 +1,24 @@
-import queryString from "query-string";
-import API from "../../api";
+import queryString from 'query-string';
+import API from '../../api';
 
 function setLoadingState(store, actionName) {
-  store.commit("setActionStatus", {
+  store.commit('setActionStatus', {
     actionName: actionName,
     loading: true,
     success: false,
-    error: "",
+    error: '',
   });
 }
 function setSuccessState(store, actionName) {
-  store.commit("setActionStatus", {
+  store.commit('setActionStatus', {
     actionName: actionName,
     loading: false,
     success: true,
-    error: "",
+    error: '',
   });
 }
 function setErrorState(store, actionName, message) {
-  store.commit("setActionStatus", {
+  store.commit('setActionStatus', {
     actionName: actionName,
     loading: false,
     success: false,
@@ -34,12 +34,12 @@ const storeAnnounce = {
       search: {
         loading: false,
         success: false,
-        error: "",
+        error: '',
       },
       create: {
         loading: false,
         success: false,
-        error: "",
+        error: '',
       },
     },
   },
@@ -67,7 +67,7 @@ const storeAnnounce = {
   actions: {
     // eslint-disable-next-line no-unused-vars
     search: (store, filters = {}) => {
-      setLoadingState(store, "search");
+      setLoadingState(store, 'search');
       const qs = queryString.stringify({
         // 'filter[vehicle_fuel]': filters.fuel,
         // 'filter[vehicle_first_traffic_year]': filters.year,
@@ -78,26 +78,26 @@ const storeAnnounce = {
 
       API.get(`announce_cars?${qs}`)
         .then((response) => {
-          setSuccessState(store, "search");
-          store.commit("setAnnounces", response.data.data.announces.data);
+          setSuccessState(store, 'search');
+          store.commit('setAnnounces', response.data.data.announces.data);
         })
         .catch((e) => {
-          setErrorState(store, "search", e.message);
+          setErrorState(store, 'search', e.message);
         });
     },
     create: (store, data) => {
-      setLoadingState(store, "create");
-      API.post(`owner_vehicles`, {
+      setLoadingState(store, 'create');
+      API.post('owner_vehicles', {
         gearbox: data.transmission,
         model_car_id: data.modelId,
       })
         .then((response) => {
-          console.log("okok", response);
-          setSuccessState(store, "create");
+          console.log('okok', response);
+          setSuccessState(store, 'create');
           // store.commit('setAnnounces', response.data.data.announces.data);
         })
         .catch((e) => {
-          setErrorState(store, "create", e.message);
+          setErrorState(store, 'create', e.message);
         });
     },
   },

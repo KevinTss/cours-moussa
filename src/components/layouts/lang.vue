@@ -15,7 +15,7 @@
 
 <script>
 export default {
-  name: "locale-changer",
+  name: 'locale-changer',
   computed: {
     langs() {
       return this.$i18n.availableLocales;

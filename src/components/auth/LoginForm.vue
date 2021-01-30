@@ -10,15 +10,15 @@
 export default {
   data() {
     return {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     };
   },
   methods: {
     login(event) {
       event.preventDefault();
 
-      this.$store.dispatch("auth/login", {
+      this.$store.dispatch('auth/login', {
         email: this.email,
         password: this.password,
       });

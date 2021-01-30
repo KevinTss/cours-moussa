@@ -14,9 +14,9 @@
 </template>
 
 <script>
-import moment from "moment";
+import moment from 'moment';
 export default {
-  name: "announce-card",
+  name: 'announce-card',
   props: {
     date: {
       type: String,
@@ -29,7 +29,7 @@ export default {
   },
   computed: {
     displayDate() {
-      return moment(this.date).format("MMMM Do YYYY");
+      return moment(this.date).format('MMMM Do YYYY');
     },
   },
 };
