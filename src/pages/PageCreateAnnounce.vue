@@ -58,16 +58,11 @@ export default {
       this.step = Number(currentStep);
       if (!['1', '2', '3'].includes(currentStep)) {
         this.$router.push({ query: { step: 1 } });
-      } else {
-        if (
+      } else if (
           (route.query.step === '2' || route.query.step === '3') &&
           !this.$store.getters['form/getCreateAnnounceFromData'].body
         ) {
-          console.log('redirect');
-          this.$router.push({ query: { step: 1 } });
-        } else {
-          console.log('ok');
-        }
+        this.$router.push({ query: { step: 1 } });
       }
     },
     changeStep(step) {
