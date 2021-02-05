@@ -1,22 +1,24 @@
 <template>
-  <el-form ref="form" :model="form" label-width="150px">
+  <el-form ref="form" :model="form" label-position="top">
     <el-container>
-      <el-col :span="11">
+      <el-col :span="10">
         <el-form-item label="particular price ttc:">
           <el-input
-            v-model="form.particular_price_net"
             placeholder="price all taxes included"
             style="width: 100%"
+            name="brutPrice"
+            :value="form.price_brut"
+            @change="onPriceBrutChange"
           ></el-input>
         </el-form-item>
       </el-col>
-      <el-col :span="2">
+      <!-- <el-col :span="2">
         <el-form-item></el-form-item>
-      </el-col>
-      <el-col v-if="form.vat" :span="10">
+      </el-col> -->
+      <el-col :span="10" :offset="4">
         <el-form-item label="particular price netto:">
           <el-input
-            v-model="form.particular_price_brut"
+            v-model="form.price_net"
             placeholder="net price"
             style="width: 100%"
           ></el-input>
@@ -24,31 +26,30 @@
       </el-col>
     </el-container>
     <el-container>
-      <el-col :span="4">
+      <el-col :span="8">
         <el-form-item label="vat deduction">
           <el-switch v-model="form.vat"></el-switch>
         </el-form-item>
       </el-col>
-      <el-col v-if="form.vat" :span="7">
+      <el-col :span="8">
         <el-form-item label="vat rate:">
           <el-input
-            :disabled="true"
-            v-model="form.vat_rate"
+            disabled
+            v-model="vatRate"
             placeholder="net price"
             style="width: 100%"
-          ></el-input>
+          >
+            <template slot="append">%</template>
+          </el-input>
         </el-form-item>
       </el-col>
-      <el-col :span="2">
-        <el-form-item></el-form-item>
-      </el-col>
-      <el-col v-if="form.vat" :span="10">
+      <el-col :span="8">
         <el-form-item label="vat amount:">
           <el-input :disabled="true" style="width: 100%"></el-input>
         </el-form-item>
       </el-col>
     </el-container>
-    <el-col :span="11">
+    <el-col :span="24">
       <el-form-item label="Title">
         <el-input
           maxlength="65"
@@ -59,7 +60,7 @@
         ></el-input>
       </el-form-item>
     </el-col>
-    <el-col :span="23">
+    <el-col :span="24">
       <el-form-item label="Description">
         <el-input :rows="8" type="textarea" v-model="form.desc"></el-input>
       </el-form-item>
@@ -79,13 +80,15 @@
 </template>
 
 <script>
+import AuthMixin from '../../mixins/auth';
+
 export default {
+  mixins: [AuthMixin],
   data() {
     return {
       form: {
-        particular_price_net: '',
-        particular_price_brut: '',
-        vat_rate: '21',
+        price_net: '',
+        price_brut: '',
         vat: false,
         type: [],
         title: '',
@@ -94,6 +97,9 @@ export default {
     };
   },
   computed: {
+    vatRate() {
+      return this.authUser.country.vat_rate;
+    },
     formData() {
       return this.$store.getters['form/getCreateAnnounceFromData'];
     },
@@ -107,6 +113,14 @@ export default {
     },
     showAlertBeforeCancel() {
       console.log('cancel');
+    },
+    onPriceBrutChange(a) {
+      console.log('a', a);
+      // const vat = Number(this.vatRate);
+      // console.log('vat', vat);
+      // const netPrice = Math.round(Number(nv) + (Number(nv) / 100) * vat);
+      // console.log('netPrice', netPrice);
+      // this.form.price_net = netPrice;
     }
   },
   watch: {
@@ -122,6 +136,18 @@ export default {
         }
       }
     },
+    // 'form.price_brut'(nv) {
+    //   const vat = Number(this.vatRate);
+    //   console.log('vat', vat);
+    //   const netPrice = Math.round(Number(nv) + (Number(nv) / 100) * vat);
+    //   console.log('netPrice', netPrice);
+    //   this.form.price_net = netPrice;
+    // },
+    'form.price_net'(nv) {
+      const vat = Number(this.vatRate);
+      const brutPrice = Number(nv) - (Number(nv) / 100) * vat;
+      this.form.price_brut = brutPrice;
+    }
   },
 };
 </script>
