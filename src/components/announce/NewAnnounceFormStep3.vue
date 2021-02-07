@@ -7,7 +7,7 @@
             placeholder="price all taxes included"
             style="width: 100%"
             name="brutPrice"
-            :value="form.price_brut"
+            v-model="form.price_brut"
             @change="onPriceBrutChange"
           ></el-input>
         </el-form-item>
@@ -21,6 +21,7 @@
             v-model="form.price_net"
             placeholder="net price"
             style="width: 100%"
+            @change="onPriceNetChange"
           ></el-input>
         </el-form-item>
       </el-col>
@@ -45,7 +46,9 @@
       </el-col>
       <el-col :span="8">
         <el-form-item label="vat amount:">
-          <el-input :disabled="true" style="width: 100%"></el-input>
+          <el-input :disabled="true" style="width: 100%"
+            v-model="form.amount_tax"
+          ></el-input>
         </el-form-item>
       </el-col>
     </el-container>
@@ -80,15 +83,16 @@
 </template>
 
 <script>
-import AuthMixin from '../../mixins/auth';
+  import AuthMixin from '../../mixins/auth';
 
-export default {
+  export default {
   mixins: [AuthMixin],
   data() {
     return {
       form: {
         price_net: '',
         price_brut: '',
+        amount_tax:'',
         vat: false,
         type: [],
         title: '',
@@ -115,12 +119,14 @@ export default {
       console.log('cancel');
     },
     onPriceBrutChange(a) {
-      console.log('a', a);
-      // const vat = Number(this.vatRate);
-      // console.log('vat', vat);
-      // const netPrice = Math.round(Number(nv) + (Number(nv) / 100) * vat);
-      // console.log('netPrice', netPrice);
-      // this.form.price_net = netPrice;
+       const vat = Number(this.vatRate);
+       this.form.price_net = a / Number('1.' + vat);
+       this.form.amount_tax = a - this.form.price_net;
+    },
+    onPriceNetChange(a) {
+      const vat = Number(this.vatRate);
+      this.form.price_brut = a * Number('1.' + vat);
+      this.form.amount_tax = this.form.price_brut - a;
     }
   },
   watch: {
@@ -136,18 +142,6 @@ export default {
         }
       }
     },
-    // 'form.price_brut'(nv) {
-    //   const vat = Number(this.vatRate);
-    //   console.log('vat', vat);
-    //   const netPrice = Math.round(Number(nv) + (Number(nv) / 100) * vat);
-    //   console.log('netPrice', netPrice);
-    //   this.form.price_net = netPrice;
-    // },
-    'form.price_net'(nv) {
-      const vat = Number(this.vatRate);
-      const brutPrice = Number(nv) - (Number(nv) / 100) * vat;
-      this.form.price_brut = brutPrice;
-    }
   },
 };
 </script>
