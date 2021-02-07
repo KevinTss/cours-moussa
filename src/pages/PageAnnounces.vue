@@ -4,7 +4,8 @@
       <nav-menu />
     </el-header>
     <el-main>
-     mes annonces...
+      <h1>Mes annonces</h1>
+      <announces-container storeNode="getMyAnnounces"/>
     </el-main>
   </div>
 </template>
@@ -12,12 +13,14 @@
 <script>
 import NavMenu from '../components/layouts/NavMenu';
 import AuthMixin from '../mixins/auth';
+import AnnouncesContainer from '../components/announce/AnnouncesContainer';
 
 export default {
   name: 'page-announces',
   mixins: [AuthMixin],
   components: {
     NavMenu,
+    AnnouncesContainer
   },
   methods: {
    

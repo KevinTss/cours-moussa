@@ -6,6 +6,17 @@
       :id="announce.id"
       :date="announce.created_at"
     />
+    <div v-if="pagination.totalPage > 1" class="pagination">
+       <el-button icon="el-icon-arrow-left"/>
+       <el-button
+          v-for="page in pagination.totalPage"
+          :key="page"
+          :disabled="pagination.current === index"
+       >
+        {{ page }}
+      </el-button>
+       <el-button icon="el-icon-arrow-right"/>
+    </div>
   </div>
 </template>
 
@@ -15,9 +26,21 @@ import AnnounceCard from './AnnounceCard.vue';
 export default {
   name: 'announces-container',
   components: { AnnounceCard },
+  props: {
+    storeNode: {
+      type: String,
+      default: 'getAnnounces'
+    },
+  },
   computed: {
     data() {
-      return this.$store.getters['announce/getAllAnnounces'];
+      return this.$store.getters[`announce/${this.storeNode}`];
+    },
+    pagination() {
+      // totalPage: 0,
+  // current: null,
+  // perPage: null,
+      return this.$store.getters[`announce/${this.storeNode}Pagination`];
     },
   },
 };

@@ -3,7 +3,7 @@
     <el-card :body-style="{ padding: '0px' }">
       <img :src="`https://picsum.photos/200?id=${id}`" class="image" />
       <div style="padding: 14px">
-        <span>Yummy hamburger</span>
+        <span>{{ id }}</span>
         <div class="bottom clearfix">
           <time class="time">{{ displayDate }}</time>
           <el-button type="text" class="button">Operating</el-button>

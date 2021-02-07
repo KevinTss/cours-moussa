@@ -1,6 +1,17 @@
 import queryString from 'query-string';
 import API from '../../api';
 
+const initialLoadingState = {
+  loading: false,
+  success: false,
+  error: '',
+};
+const initialPaginationState = {
+  totalPage: 0,
+  current: null,
+  perPage: null,
+};
+
 function setLoadingState(store, actionName) {
   store.commit('setActionStatus', {
     actionName: actionName,
@@ -30,27 +41,27 @@ const storeAnnounce = {
   namespaced: true,
   state: {
     list: [],
+    paginationList: { ...initialPaginationState },
+    myList: [],
+    paginationMyList: { ...initialPaginationState },
     actions: {
-      search: {
-        loading: false,
-        success: false,
-        error: '',
-      },
-      create: {
-        loading: false,
-        success: false,
-        error: '',
-      },
-      fetchAll: {
-        loading: false,
-        success: false,
-        error: '',
-      },
+      search: { ...initialLoadingState },
+      create: { ...initialLoadingState },
+      fetchAll: { ...initialLoadingState },
     },
   },
   getters: {
-    getAllAnnounces(state) {
+    getAnnounces(state) {
       return state.list;
+    },
+    getMyAnnounces(state) {
+      return state.myList;
+    },
+    getAnnouncesPagination(state) {
+      return state.paginationList;
+    },
+    getMyAnnouncesPagination(state) {
+      return state.paginationMyList;
     },
     isCreateLoading(state) {
       return state.actions.create.loading;
@@ -63,6 +74,15 @@ const storeAnnounce = {
     setAnnounces: (state, newAnnounces) => {
       state.list = newAnnounces;
     },
+    setAnnouncesPagination: (state, newValue) => {
+      state.paginationList = newValue;
+    },
+    setMyAnnounces: (state, newAnnounces) => {
+      state.myList = newAnnounces;
+    },
+    setMyAnnouncesPagination: (state, newValue) => {
+      state.paginationMyList = newValue;
+    },
     setActionStatus: (state, data) => {
       state.actions[data.actionName].loading = data.loading;
       state.actions[data.actionName].success = data.success;
@@ -70,17 +90,13 @@ const storeAnnounce = {
     },
     reset: (state) => {
       state.list = [];
+      state.myList = [];
+      state.paginationList = { ...initialPaginationState };
+      state.paginationMyList = { ...initialPaginationState };
       state.actions = {
-        search: {
-          loading: false,
-          success: false,
-          error: '',
-        },
-        create: {
-          loading: false,
-          success: false,
-          error: '',
-        },
+        search: { ...initialLoadingState },
+        create: { ...initialLoadingState },
+        fetchAll: { ...initialLoadingState },
       };
     },
   },
@@ -89,6 +105,7 @@ const storeAnnounce = {
     search: (store, filters = {}) => {
       setLoadingState(store, 'search');
       const qs = queryString.stringify({
+        per_page: 10,
         // 'filter[vehicle_fuel]': filters.fuel,
         // 'filter[vehicle_first_traffic_year]': filters.year,
         // 'filter[gearbox]': filters.transmission,
@@ -99,17 +116,38 @@ const storeAnnounce = {
       API.get(`announce_cars?${qs}`)
         .then((response) => {
           setSuccessState(store, 'search');
-          store.commit('setAnnounces', response.data.data.items);
+          const announces = response.data.data.announces.data;
+          console.log(response.data.data);
+          store.commit('setAnnounces', announces);
+          store.commit('setAnnouncesPagination', {
+            totalPage: response.data.data.announces.last_page,
+            current: response.data.data.announces.current_page,
+            perPage: response.data.data.announces.per_page,
+          });
         })
         .catch((e) => {
           setErrorState(store, 'search', e.message);
         });
     },
-    create: (store, data) => {
+    create: (store) => {
       setLoadingState(store, 'create');
+      const formData = store.rootGetters['form/getCreateAnnounceFromData'];
       API.post('owner_vehicles', {
-        gearbox: data.transmission,
-        model_car_id: data.modelId,
+        gearbox: formData.transmission,
+        model_car_id: formData.modelId,
+        vehicle_fuel: formData.fuel,
+        vehicle_body: formData.body,
+        // brandId: null,
+        // year: null,
+        // month: null,
+        // kw: null,
+        // serialId: null,
+        // other: null,
+        // equipments: [],
+        // priceBrut: 0,
+        // vat: null,
+        // title: null,
+        // description: null,
       })
         .then((response) => {
           console.log('okok', response);
@@ -122,10 +160,15 @@ const storeAnnounce = {
     },
     fetchAll: (store) => {
       const userId = store.rootGetters['auth/getAuthUser'].id;
-      API.get(`users/${userId}/announce_cars`)
+      API.get(`users/${userId}/owner_vehicles`)
         .then((response) => {
-          console.log('okok', response);
-          // store.commit('setAnnounces', response.data.data.announces.data);
+          const announces = response.data.data.items;
+          store.commit('setMyAnnounces', announces);
+          store.commit('setMyAnnouncesPagination', {
+            totalPage: response.data.data.announces.last_page,
+            current: response.data.data.announces.current_page,
+            perPage: response.data.data.announces.per_page,
+          });
         })
         .catch((e) => {
           // setErrorState(store, 'create', e.message);

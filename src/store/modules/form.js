@@ -16,6 +16,10 @@ const storeModel = {
       // Step 2
       equipments: [],
       // Step 3
+      priceBrut: 0,
+      vat: null,
+      title: null,
+      description: null,
     },
     searchQuickAnnounce: {
       modelId: null,
@@ -40,6 +44,7 @@ const storeModel = {
     },
     reset(state) {
       state.createAnnounce = {
+        // Step 1
         brandId: null,
         year: null,
         month: null,
@@ -50,6 +55,13 @@ const storeModel = {
         serialId: null,
         other: null,
         body: null,
+        // Step 2
+        equipments: [],
+        // Step 3
+        priceBrut: 0,
+        vat: null,
+        title: null,
+        description: null,
       };
       state.searchQuickAnnounce = {
         modelId: null,

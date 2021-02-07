@@ -8,20 +8,20 @@
             style="width: 100%"
             name="brutPrice"
             v-model="form.price_brut"
-            @change="onPriceBrutChange"
+            @input="(newValue) => {
+              onPriceBrutChange(newValue)
+              onChange(newValue, 'priceBrut')
+            }"
           ></el-input>
         </el-form-item>
       </el-col>
-      <!-- <el-col :span="2">
-        <el-form-item></el-form-item>
-      </el-col> -->
-      <el-col :span="10" :offset="4">
+      <el-col v-if="form.vat" :span="10" :offset="4">
         <el-form-item label="particular price netto:">
           <el-input
             v-model="form.price_net"
             placeholder="net price"
             style="width: 100%"
-            @change="onPriceNetChange"
+            @input="onPriceNetChange"
           ></el-input>
         </el-form-item>
       </el-col>
@@ -29,10 +29,10 @@
     <el-container>
       <el-col :span="8">
         <el-form-item label="vat deduction">
-          <el-switch v-model="form.vat"></el-switch>
+          <el-switch v-model="form.vat" @change="onSwitch"/>
         </el-form-item>
       </el-col>
-      <el-col :span="8">
+      <el-col v-if="form.vat" :span="8">
         <el-form-item label="vat rate:">
           <el-input
             disabled
@@ -44,7 +44,7 @@
           </el-input>
         </el-form-item>
       </el-col>
-      <el-col :span="8">
+      <el-col v-if="form.vat" :span="8">
         <el-form-item label="vat amount:">
           <el-input :disabled="true" style="width: 100%"
             v-model="form.amount_tax"
@@ -57,15 +57,21 @@
         <el-input
           maxlength="65"
           :show-word-limit="true"
-          v-model="form.title"
+          v-model="formData.title"
           placeholder="price all taxes included"
           style="width: 100%"
-        ></el-input>
+          @input="(newValue) => onChange(newValue, 'title')"
+        />
       </el-form-item>
     </el-col>
     <el-col :span="24">
       <el-form-item label="Description">
-        <el-input :rows="8" type="textarea" v-model="form.desc"></el-input>
+        <el-input 
+          :rows="8" 
+          type="textarea" 
+          v-model="formData.description"
+          @input="(newValue) => onChange(newValue, 'description')"
+        />
       </el-form-item>
     </el-col>
     <el-col>
@@ -95,8 +101,6 @@
         amount_tax:'',
         vat: false,
         type: [],
-        title: '',
-        desc: '',
       },
     };
   },
@@ -113,20 +117,32 @@
   },
   methods: {
     onSubmit() {
-      this.$store.dispatch('announce/create', this.formData);
+      this.$store.dispatch('announce/create');
     },
     showAlertBeforeCancel() {
       console.log('cancel');
     },
     onPriceBrutChange(a) {
-       const vat = Number(this.vatRate);
-       this.form.price_net = a / Number('1.' + vat);
-       this.form.amount_tax = a - this.form.price_net;
+      // if (this.vat) {
+        const vat = Number(this.vatRate);
+        this.form.price_net = (a / Number('1.' + vat)).toFixed(2);
+        this.form.amount_tax = (a - this.form.price_net).toFixed(2);
+      // }
     },
     onPriceNetChange(a) {
       const vat = Number(this.vatRate);
-      this.form.price_brut = a * Number('1.' + vat);
-      this.form.amount_tax = this.form.price_brut - a;
+      this.form.price_brut = (a * Number('1.' + vat)).toFixed(2);
+      this.form.amount_tax = (this.form.price_brut - a).toFixed(2);
+      this.onChange(this.form.price_brut, 'priceBrut');
+    },
+    onChange(newValue, fieldName) {
+      this.$store.dispatch('form/changeCreateAnnounceField', {
+        name: fieldName,
+        value: newValue,
+      });
+    },
+    onSwitch(val) {
+      this.onChange(val ? this.vatRate : null, 'vat');
     }
   },
   watch: {
