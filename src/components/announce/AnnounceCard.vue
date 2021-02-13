@@ -1,5 +1,5 @@
 <template>
-  <div class="announce-card">
+  <router-link :to="`/announces/${id}`" class="announce-card">
     <el-card :body-style="{ padding: '0px' }">
       <img :src="`https://picsum.photos/200?id=${id}`" class="image" />
       <div style="padding: 14px">
@@ -10,7 +10,7 @@
         </div>
       </div>
     </el-card>
-  </div>
+  </router-link>
 </template>
 
 <script>

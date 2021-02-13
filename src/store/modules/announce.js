@@ -44,10 +44,12 @@ const storeAnnounce = {
     paginationList: { ...initialPaginationState },
     myList: [],
     paginationMyList: { ...initialPaginationState },
+    current: null,
     actions: {
       search: { ...initialLoadingState },
       create: { ...initialLoadingState },
       fetchAll: { ...initialLoadingState },
+      fetchOne: { ...initialLoadingState },
     },
   },
   getters: {
@@ -69,6 +71,12 @@ const storeAnnounce = {
     isCreateError(state) {
       return state.actions.create.error;
     },
+    getCurrentAnnounce(state) {
+      return state.current;
+    },
+    isCurrentAnnounceLoading(state) {
+      return state.actions.fetchOne.loading;
+    },
   },
   mutations: {
     setAnnounces: (state, newAnnounces) => {
@@ -87,6 +95,9 @@ const storeAnnounce = {
       state.actions[data.actionName].loading = data.loading;
       state.actions[data.actionName].success = data.success;
       state.actions[data.actionName].error = data.error;
+    },
+    setCurrentAnnounce: (state, announce) => {
+      state.current = announce;
     },
     reset: (state) => {
       state.list = [];
@@ -160,15 +171,29 @@ const storeAnnounce = {
     },
     fetchAll: (store) => {
       const userId = store.rootGetters['auth/getAuthUser'].id;
-      API.get(`users/${userId}/owner_vehicles`)
+      API.get(`users/${userId}/announce_cars`)
         .then((response) => {
-          const announces = response.data.data.items;
-          store.commit('setMyAnnounces', announces);
-          store.commit('setMyAnnouncesPagination', {
-            totalPage: response.data.data.announces.last_page,
-            current: response.data.data.announces.current_page,
-            perPage: response.data.data.announces.per_page,
-          });
+          console.log('++++', response);
+          // const announces = response.data.data.items;
+          // console.log('+', response.data);
+          // store.commit('setMyAnnounces', announces);
+          // store.commit('setMyAnnouncesPagination', {
+          //   totalPage: response.data.data.announces.last_page,
+          //   current: response.data.data.announces.current_page,
+          //   perPage: response.data.data.announces.per_page,
+          // });
+        })
+        .catch((e) => {
+          // setErrorState(store, 'create', e.message);
+          console.log('err', e.message);
+        });
+    },
+    fetchOne: (store, announceId) => {
+      API.get(`announce_cars/${announceId}`)
+        .then((response) => {
+          // const announces = response.data.data.items;
+          console.log('+', response);
+          // store.commit('setCurrentAnnounce', announce);
         })
         .catch((e) => {
           // setErrorState(store, 'create', e.message);

@@ -9,7 +9,7 @@
     <div v-if="pagination.totalPage > 1" class="pagination">
        <el-button icon="el-icon-arrow-left"/>
        <el-button
-          v-for="page in pagination.totalPage"
+          v-for="(page, index) in pagination.totalPage"
           :key="page"
           :disabled="pagination.current === index"
        >
