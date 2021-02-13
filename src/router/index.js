@@ -8,6 +8,7 @@ import PageRegister from '../pages/PageRegister';
 import PageCreateAnnounce from '../pages/PageCreateAnnounce';
 import PageAnnounces from '../pages/PageAnnounces';
 import PageAnnounce from '../pages/PageAnnounce';
+import PageChat from '../pages/PageChat';
 
 Vue.use(VueRouter);
 
@@ -31,6 +32,11 @@ const router = new VueRouter({
       path: '/announces/:announceId',
       component: PageAnnounce,
       name: 'announce-page',
+    },
+    {
+      path: '/chat/',
+      component: PageChat,
+      name: 'chat-page',
     },
     { path: '*', redirect: '/' },
   ],

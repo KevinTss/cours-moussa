@@ -14,6 +14,9 @@
         <el-menu-item v-if="authUser">
           <router-link to="/announces/new">Create announce</router-link>
         </el-menu-item>
+        <el-menu-item v-if="authUser">
+          <router-link to="/chat">Messages</router-link>
+        </el-menu-item>
         <el-menu-item>
           <auth-state />
         </el-menu-item>
@@ -44,7 +47,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 50px;
+
 }
 .logo {
   padding: 0 20px;
