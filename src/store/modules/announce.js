@@ -1,41 +1,18 @@
 import queryString from 'query-string';
 import API from '../../api';
+import {
+  initialLoadingState,
+  setLoadingState,
+  setSuccessState,
+  setErrorState,
+  setActionStatus,
+} from '../utils';
 
-const initialLoadingState = {
-  loading: false,
-  success: false,
-  error: '',
-};
 const initialPaginationState = {
   totalPage: 0,
   current: null,
   perPage: null,
 };
-
-function setLoadingState(store, actionName) {
-  store.commit('setActionStatus', {
-    actionName: actionName,
-    loading: true,
-    success: false,
-    error: '',
-  });
-}
-function setSuccessState(store, actionName) {
-  store.commit('setActionStatus', {
-    actionName: actionName,
-    loading: false,
-    success: true,
-    error: '',
-  });
-}
-function setErrorState(store, actionName, message) {
-  store.commit('setActionStatus', {
-    actionName: actionName,
-    loading: false,
-    success: false,
-    error: message,
-  });
-}
 
 const storeAnnounce = {
   namespaced: true,
@@ -79,6 +56,7 @@ const storeAnnounce = {
     },
   },
   mutations: {
+    setActionStatus,
     setAnnounces: (state, newAnnounces) => {
       state.list = newAnnounces;
     },
@@ -90,11 +68,6 @@ const storeAnnounce = {
     },
     setMyAnnouncesPagination: (state, newValue) => {
       state.paginationMyList = newValue;
-    },
-    setActionStatus: (state, data) => {
-      state.actions[data.actionName].loading = data.loading;
-      state.actions[data.actionName].success = data.success;
-      state.actions[data.actionName].error = data.error;
     },
     setCurrentAnnounce: (state, announce) => {
       state.current = announce;

@@ -9,6 +9,7 @@ import storeBrand from './modules/brand';
 import storeEquipment from './modules/equipment';
 import storeForm from './modules/form';
 import storeSerial from './modules/serial';
+import storeConversation from './modules/conversations';
 
 Vue.use(Vuex);
 
@@ -21,6 +22,7 @@ const store = new Vuex.Store({
     form: storeForm,
     model: moduleModel,
     serial: storeSerial,
+    conversation: storeConversation,
   },
   actions: {
     logout(store) {
@@ -32,6 +34,7 @@ const store = new Vuex.Store({
       store.commit('form/reset');
       store.commit('model/reset');
       store.commit('serial/reset');
+      store.commit('conversation/reset');
       router.push({ name: 'login-page' });
     },
   },

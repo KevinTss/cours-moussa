@@ -1,6 +1,7 @@
 <template>
   <router-link :to="`/announces/${id}`" class="announce-card">
     <el-card :body-style="{ padding: '0px' }">
+      <el-button icon="el-icon-message" circle @click="onMessageClicked"/>
       <img :src="`https://picsum.photos/200?id=${id}`" class="image" />
       <div style="padding: 14px">
         <span>{{ id }}</span>
@@ -31,6 +32,12 @@ export default {
     displayDate() {
       return moment(this.date).format('MMMM Do YYYY');
     },
+  },
+  methods: {
+    onMessageClicked(event) {
+      event.preventDefault();
+      this.$store.dispatch('conversation/create', this.id);
+    }
   },
 };
 </script>

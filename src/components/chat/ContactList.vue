@@ -1,11 +1,16 @@
 <template>
   <div class="contact-list">
-    <contact-card 
-      v-for="(contact, index) in contacts"
-      :key="index"
-      :name="contact.name"
-      :lastMessage="contact.lastMessage"
-    />
+    <div v-if="isFetchConversationsLoaded && conversations.length < 1">
+      no conversations...
+    </div>
+    <template v-else>
+      <contact-card 
+        v-for="(conversation, index) in conversations"
+        :key="index"
+        :name="conversation.name"
+        :lastMessage="conversation.lastMessage"
+      />
+    </template>
   </div>
 </template>
 
@@ -13,19 +18,16 @@
   import ContactCard from './ContactCard';
 
   export default {
-    data() {
-      return {
-        contacts: [
-          {
-            name: 'John Doe',
-            lastMessage: 'Hello, I want a car, an AUDI!'
-          },
-          {
-            name: 'Jane Doe',
-            lastMessage: 'Hello, I want a car, an AUDI!'
-          }
-        ]
-      };
+    computed: {
+      conversations() {
+        return this.$store.getters['conversation/getAll']; 
+      },
+      isFetchConversationsLoaded() {
+        return this.$store.getters['conversation/isGetAllSuccess'];
+      },
+      isFetchConversationsError() {
+        return this.$store.getters['conversation/isGetAllError'];
+      }
     },
     components: {
       ContactCard,
