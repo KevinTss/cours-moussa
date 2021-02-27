@@ -29,7 +29,7 @@ export default {
   props: {
     storeNode: {
       type: String,
-      default: 'getAnnounces'
+      default: 'getAnnounces'       //**1
     },
   },
   computed: {
@@ -37,9 +37,9 @@ export default {
       return this.$store.getters[`announce/${this.storeNode}`];
     },
     pagination() {
-      // totalPage: 0,
-  // current: null,
-  // perPage: null,
+        // totalPage: 0,
+        // current: null,
+        // perPage: null,
       return this.$store.getters[`announce/${this.storeNode}Pagination`];
     },
   },

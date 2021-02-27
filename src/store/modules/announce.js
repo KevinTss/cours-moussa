@@ -164,9 +164,10 @@ const storeAnnounce = {
     fetchOne: (store, announceId) => {
       API.get(`announce_cars/${announceId}`)
         .then((response) => {
-          // const announces = response.data.data.items;
-          console.log('+', response);
-          // store.commit('setCurrentAnnounce', announce);
+          const announce = response.data.data.item;
+          console.log('+', announce);
+           store.commit('setCurrentAnnounce', announce);
+
         })
         .catch((e) => {
           // setErrorState(store, 'create', e.message);

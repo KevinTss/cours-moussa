@@ -4,7 +4,7 @@
       <nav-menu />
     </el-header>
     <el-main>
-      <!-- <h1>{{ title }}</h1> -->
+       <h1>{{ getAnnounce.id }}</h1>
     </el-main>
   </div>
 </template>
@@ -19,8 +19,11 @@ export default {
   components: {
     NavMenu,
   },
-  methods: {
-   
+
+  computed: {
+    getAnnounce() {
+      return this.$store.getters['announce/getCurrentAnnounce'];
+    }
   },
   watch: {
    

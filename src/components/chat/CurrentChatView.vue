@@ -4,14 +4,19 @@
 
     </div>
     <form class="form">
-      <input type="text" placeholder="Type your message" class="input">
-      <button type="submit">Envoyer</button>
+      <input  type="text" v-model="message" placeholder="Type your message" class="input">
+      <button @click="sendMessage" type="submit">Envoyer</button>
     </form>
   </div>
 </template>
 
 <script>
   export default {
+    data(){
+      return {
+        message:''
+      };
+    },
     props: {
       name: {
         type: String,
@@ -22,6 +27,14 @@
         default: ''
       },
     },
+    methods: {
+      sendMessage(event) {
+        event.preventDefault();
+        this.$store.dispatch('conversation/create', {
+          announceId:4},{text: this.message}
+        );
+      }
+    }
   };
 </script>
 

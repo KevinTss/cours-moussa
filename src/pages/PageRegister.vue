@@ -14,6 +14,7 @@ import RegisterForm from '../components/auth/RegisterForm';
 import AuthMixin from '../mixins/auth';
 
 export default {
+  //name: "register-page",
   mixins: [AuthMixin],
   components: {
     RegisterForm,

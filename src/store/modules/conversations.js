@@ -14,6 +14,7 @@ const storeModel = {
     actions: {
       fetchAll: { ...initialLoadingState },
       create: { ...initialLoadingState },
+      fetchCurrentChat: {...initialLoadingState},
     },
   },
   getters: {
@@ -32,8 +33,12 @@ const storeModel = {
   },
   mutations: {
     setActionStatus,
+
     setAll(state, newConversations) {
       state.list = newConversations;
+    },
+    setCurrentChat(state,currentConversation) {
+      state.list = currentConversation;
     },
     reset(state) {
       state.list = [];
@@ -54,7 +59,7 @@ const storeModel = {
     create(store, announceId) {
       setLoadingState(store, 'create');
       API.post('chats', {
-        announce_car_id: announceId,
+        announce_car_id: announceId
       })
         .then((response) => {
           console.log('res', response);
@@ -65,6 +70,21 @@ const storeModel = {
           setErrorState(store, 'create', e.message);
         });
     },
+    /*createMessage(store, message) {
+      setLoadingState(store, 'createMessage');
+
+      API.post('chats/${chat}', {
+        message: this.message
+      })
+    }*/
+    fetchCurrentChat(store) {
+      setLoadingState(store, 'fetchCurrentChat');
+      API.get('chats/${chatId}')
+          .then((response) => {
+            console.log('eee', response);
+            //store.commit('setCurrentChat', response);
+          });
+    }
   },
 };
 

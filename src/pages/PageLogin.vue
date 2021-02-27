@@ -14,6 +14,7 @@ import LoginForm from '../components/auth/LoginForm';
 import AuthMixin from '../mixins/auth';
 
 export default {
+  //name:"login-page",
   mixins: [AuthMixin],
   components: {
     LoginForm,
