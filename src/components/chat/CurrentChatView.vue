@@ -1,38 +1,33 @@
 <template>
   <div class="current-chat-view">
-    <div class="conversation">
 
+    <div class="empty-state" v-if="!getCurrentConversation">
+      no conversation selected
     </div>
-    <form class="form">
-      <input  type="text" v-model="message" placeholder="Type your message" class="input">
-      <button @click="sendMessage" type="submit">Envoyer</button>
-    </form>
+    
+    <template v-else>
+      <div class="conversation">
+
+      </div>
+      <form class="form">
+        <input  type="text" v-model="message" placeholder="Type your message" class="input">
+        <button @click="sendMessage" type="submit">Envoyer</button>
+      </form>
+    </template>
   </div>
 </template>
 
 <script>
+import ConversationMixin from '../../mixins/conversation';
+
   export default {
-    data(){
-      return {
-        message:''
-      };
-    },
-    props: {
-      name: {
-        type: String,
-        required: true
-      },
-      lastMessage: {
-        type: String,
-        default: ''
-      },
-    },
+    mixins: [ConversationMixin],//getActiveChat
     methods: {
       sendMessage(event) {
         event.preventDefault();
-        this.$store.dispatch('conversation/create', {
-          announceId:4},{text: this.message}
-        );
+        // this.$store.dispatch('conversation/create', {
+        //   announceId:4},{text: this.message}
+        // );
       }
     }
   };
@@ -42,7 +37,6 @@
 .current-chat-view {
   display: flex;
   flex-direction: column;
-  border: 1px solid red;
   width: 100%;
   height: 100%;
 }
@@ -59,5 +53,12 @@
 }
 .input {
   flex-grow: 1;
+}
+.empty-state {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
 }
 </style>

@@ -7,8 +7,8 @@
       <contact-card 
         v-for="(conversation, index) in conversations"
         :key="index"
-        :name="conversation.name"
-        :lastMessage="conversation.lastMessage"
+        :conversation="conversation"
+        @click="selectConversation"
       />
     </template>
   </div>
@@ -32,6 +32,11 @@
     components: {
       ContactCard,
     },
+    methods: {
+      selectConversation(conversationId) {
+        console.log('conv', conversationId);
+      }
+    }
   };
 </script>
 
@@ -40,6 +45,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100%
+  height: 100%;
+  overflow: hidden;
 }
 </style>

@@ -21,7 +21,7 @@ const storeAnnounce = {
     paginationList: { ...initialPaginationState },
     myList: [],
     paginationMyList: { ...initialPaginationState },
-    current: null,
+    currentId: null,
     actions: {
       search: { ...initialLoadingState },
       create: { ...initialLoadingState },
@@ -49,7 +49,7 @@ const storeAnnounce = {
       return state.actions.create.error;
     },
     getCurrentAnnounce(state) {
-      return state.current;
+      return state.list.find((a) => a.id === state.currentId);
     },
     isCurrentAnnounceLoading(state) {
       return state.actions.fetchOne.loading;
@@ -70,7 +70,10 @@ const storeAnnounce = {
       state.paginationMyList = newValue;
     },
     setCurrentAnnounce: (state, announce) => {
-      state.current = announce;
+      const newList = state.list;
+      newList.push(announce);
+      state.list = newList;
+      state.currentId = announce.id;
     },
     reset: (state) => {
       state.list = [];
@@ -166,8 +169,7 @@ const storeAnnounce = {
         .then((response) => {
           const announce = response.data.data.item;
           console.log('+', announce);
-           store.commit('setCurrentAnnounce', announce);
-
+          store.commit('setCurrentAnnounce', announce);
         })
         .catch((e) => {
           // setErrorState(store, 'create', e.message);

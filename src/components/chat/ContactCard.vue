@@ -1,22 +1,28 @@
 <template>
-  <div class="contact-card">
-    <div>{{ name }}</div>
-    <div>{{ lastMessage }}</div>
+  <div class="contact-card" @click="onClick">
+    <h1>owner vehivle id: {{ getAnnounce(conversation.announce_car_id).owner_vehicle_id }}</h1>
   </div>
 </template>
 
 <script>
+  import AnnounceMixin from '../../mixins/announces';
+
   export default {
+    mixins: [AnnounceMixin],
     props: {
-      name: {
-        type: String,
+      conversation: {
+        type: Object,
         required: true
       },
-      lastMessage: {
-        type: String,
-        default: ''
-      },
     },
+    methods:{
+      onClick() {
+        this.$emit('click', this.conversation.id);
+      }
+    },
+    created(){
+      this.fetchAnnounceIfNotAlreadyDone(this.conversation.announce_car_id);
+    }
   };
 </script>
 
@@ -24,7 +30,11 @@
 .contact-card {
   display: flex;
   flex-direction: column;
-  border: 1px solid red;
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #0005
 }
-
+.contact-card:hover {
+  transform: scale(1.05);
+}
 </style>
