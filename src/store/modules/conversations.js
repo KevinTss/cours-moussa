@@ -14,6 +14,7 @@ const storeModel = {
     currentId: null,
     actions: {
       fetchAll: { ...initialLoadingState },
+      fetchOne: { ...initialLoadingState },
       create: { ...initialLoadingState },
       fetchCurrentChat: { ...initialLoadingState },
     },
@@ -37,9 +38,20 @@ const storeModel = {
   },
   mutations: {
     setActionStatus,
-
     setAll(state, newConversations) {
       state.list = newConversations;
+    },
+    setOne(state, newConversation) {
+      const convIndex = state.list.findIndex(
+        (c) => c.id === newConversation.id
+      );
+      if (convIndex > -1) {
+        const newList = [...state.list];
+        newList[convIndex] = newConversation;
+        state.list = newList;
+      } else {
+        state.list = [...state.list, newConversation];
+      }
     },
     setCurrentChat(state, currentConversation) {
       state.list = currentConversation;
@@ -58,6 +70,23 @@ const storeModel = {
         })
         .catch((e) => {
           setErrorState(store, 'fetchAll', e.message);
+        });
+    },
+    fetchOne(store, params) {
+      setLoadingState(store, 'fetchOne');
+      API.get(`chats?announce_car_id=${params.announceId}`)
+        .then((response) => {
+          const conv = response.data.data.items[0];
+          if (conv) {
+            store.commit('setOne', conv);
+            params.callback(null);
+          } else {
+            params.callback('No conversation');
+          }
+          setSuccessState(store, 'fetchOne');
+        })
+        .catch((e) => {
+          setErrorState(store, 'fetchOne', e.message);
         });
     },
     create(store, announceId) {

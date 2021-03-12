@@ -36,7 +36,11 @@ export default {
   methods: {
     onMessageClicked(event) {
       event.preventDefault();
-      this.$store.dispatch('conversation/create', this.id);
+      this.$store.dispatch('conversation/fetchOne', {
+        announceId: this.id,
+        callback: () => {}
+      });
+      // this.$store.dispatch('conversation/create', this.id);
     }
   },
 };
