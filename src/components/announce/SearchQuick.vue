@@ -42,7 +42,7 @@
       </el-col>
 
       <el-col :span="2">
-        <el-button @click="search">Search</el-button>
+        <el-button @click="search" type="primary">Search</el-button>
       </el-col>
     </el-row>
   </el-form>
