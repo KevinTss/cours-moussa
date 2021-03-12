@@ -1,3 +1,3 @@
 module.exports = {
-  baseUrl: 'cours-moussa/',
+  publicPath: 'cours-moussa/',
 };
