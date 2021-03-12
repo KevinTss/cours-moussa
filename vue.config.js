@@ -1,3 +1,3 @@
 module.exports = {
-  publicPath: 'cours-moussa/',
+  publicPath: '/cours-moussa/',
 };
